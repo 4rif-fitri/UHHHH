@@ -1,4 +1,5 @@
 import { mountKombinasi } from "../components/Kombinasi/index.js";
+import { mountKombinasiTerbalik } from "../components/KombinasiTerbalik/index.js";
 import { mountPadankan } from "../components/Padankan/index.js";
 
 export let widgetRegistry = {
@@ -7,5 +8,8 @@ export let widgetRegistry = {
 	},
 	Padankan:{
 		mount: mountPadankan
+	},
+	KombinasiTerbalik:{
+		mount: mountKombinasiTerbalik
 	}
 }

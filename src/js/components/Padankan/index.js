@@ -64,10 +64,10 @@ export function mountPadankan({ div, data, ui, handleComponentComplete }) {
 		state.isLocked = true;
 		state.attempts++;
 
-		let correctAnswer = Number(question.dataset.answer);
-		let selectedAnswer = Number(answer.dataset.value);
+		let correctAnswer = eval(question.dataset.answer);
+		let selectedAnswer = eval(answer.dataset.value);
 
-		if (correctAnswer === selectedAnswer) {
+		if (correctAnswer == selectedAnswer) {
 			handleCorrect(question, answer);
 		} else {
 			handleWrong(question, answer);

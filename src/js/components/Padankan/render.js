@@ -17,7 +17,8 @@ export function renderPadankan(data) {
 			</div>
 
 			<div class="right-content">
-				${answers.map(item => `
+
+					${answers.map(item => `
 					<button
 						class="boxJawapan soft-box"
 						data-value="${item.answer}"
