@@ -7,6 +7,9 @@ export let json = [
 			{
 				options: [8, 5]
 			},
+			{
+				options: [9, 4]
+			},
 		]
 	}
 ]

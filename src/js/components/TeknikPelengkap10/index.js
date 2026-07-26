@@ -1,15 +1,28 @@
-export function mountTeknikPelengkap10({
-	div,
-	data,
-	ui,
-	handleComponentComplete,
-	registry
-}) {
+export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete, registry }) {
 	let questionIndex = 0;
 	let stepIndex = 0;
 	let steps = [];
 
 	ui.btnContainer.classList.add("grid-2")
+
+	function updateProgress() {
+		const totalSteps =
+			data.content.length * steps.length;
+
+		const currentStep =
+			(questionIndex * steps.length) +
+			stepIndex +
+			1;
+
+		const percentage =
+			(currentStep / totalSteps) * 100;
+
+		ui.textBar.textContent =
+			`${currentStep}/${totalSteps} Slides`;
+
+		ui.barFill.style.width =
+			`${percentage}%`;
+	}
 
 	function generateSteps(question) {
 		const [a, b] =
@@ -98,7 +111,7 @@ export function mountTeknikPelengkap10({
 	}
 
 	function loadQuestion() {
-		steps = generateSteps( data.content[questionIndex]);
+		steps = generateSteps(data.content[questionIndex]);
 		stepIndex = 0;
 
 		renderStep();
@@ -106,24 +119,21 @@ export function mountTeknikPelengkap10({
 
 	function renderStep() {
 		const step = steps[stepIndex];
-
 		const widget = registry[step.type];
 
 		if (!widget?.render) {
 			console.error(
 				`Widget "${step.type}" tak dijumpai`
 			);
-
 			return;
 		}
-		
+
 		div.innerHTML = widget.render(step);
-		
-		ui.dialog.textContent =
-			step.text;
 
-		ui.contentContainer.replaceChildren(div)
+		ui.dialog.textContent = step.text;
+		ui.contentContainer.replaceChildren(div);
 
+		updateProgress();
 		updateButtons();
 	}
 
@@ -145,7 +155,7 @@ export function mountTeknikPelengkap10({
 	}
 
 	function handleNext() {
-		if (stepIndex <steps.length - 1) {
+		if (stepIndex < steps.length - 1) {
 			stepIndex++;
 			renderStep();
 			return;
@@ -185,14 +195,14 @@ export function mountTeknikPelengkap10({
 	ui.btnBack.classList.remove("hidden");
 	ui.btnCheck?.classList.add("hidden");
 
-	ui.btnNext.addEventListener("click",handleNext);
+	ui.btnNext.addEventListener("click", handleNext);
 
-	ui.btnBack.addEventListener("click",handleBack);
+	ui.btnBack.addEventListener("click", handleBack);
 
 	loadQuestion();
 
 	return function cleanup() {
-		ui.btnNext.removeEventListener("click",handleNext);
-		ui.btnBack.removeEventListener("click",handleBack);
+		ui.btnNext.removeEventListener("click", handleNext);
+		ui.btnBack.removeEventListener("click", handleBack);
 	};
 }
