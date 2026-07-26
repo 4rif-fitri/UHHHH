@@ -10,7 +10,7 @@ export function runComponents(data) {
 		footer: document.querySelector("footer"),
 		footerText: document.querySelector("footer .textContainer h2"),
 		footerDes: document.querySelector("footer .textContainer p"),
-
+		btnContainer: document.querySelector(".btnContainer"),
 		btnContinue: document.querySelector(".btnContinue"),
 		btnCheck: document.querySelector(".btnCheck"),
 		btnBack: document.querySelector(".btnBack"),
@@ -72,7 +72,7 @@ export function runComponents(data) {
 		let div = document.createElement("div")
 		div.classList.add("output", "w-100")
 
-		state.cleanup = component?.mount({ div, data: state.currentData, ui, handleComponentComplete })
+		state.cleanup = component?.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry })
 	}
 	main()
 
