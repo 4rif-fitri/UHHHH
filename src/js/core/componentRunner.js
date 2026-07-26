@@ -32,11 +32,14 @@ export function runComponents(data) {
 	function handleComponentComplete() {
 		state.index++;
 
+		
 		if (state.index >= data.length) {
 			console.log("Semua selesai");
 			return;
 		}
-
+		
+		state.cleanup?.();
+		state.cleanup = null;
 		main();
 	}
 

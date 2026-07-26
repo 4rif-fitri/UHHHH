@@ -246,24 +246,17 @@ header>div {
 }
 
 .output .options {
-	width: 100%;
+	width: 75%;
+	gap: 1rem;
 }
-
 .content {
 	font-size: var(--font-size-2xl);
 	margin: 1rem auto;
 }
 
-
-
-.options {
-	width: 100%;
-	height: 50px;
-	gap: 1rem;
-}
-
 .option>* {
 	pointer-events: none;
+	padding: 0.5rem;
 }
 
 .pecah {

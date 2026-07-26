@@ -300,21 +300,24 @@
 }
 
 .boxSoalan.selected,
-.boxJawapan.selected {
+.boxJawapan.selected,
+.btnAns.selected {
 	color: #0b2f68;
 	background-color: #dbeafe;
 	border: 4px solid #3b82f6;
 }
 
 .boxSoalan.wrong,
-.boxJawapan.wrong {
+.boxJawapan.wrong,
+.btnAns.wrong {
 	color: #991b1b;
 	background-color: #fee2e2;
 	border-color: #ef4444;
 }
 
 .boxSoalan.matched,
-.boxJawapan.matched {
+.boxJawapan.matched,
+.btnAns.matched {
 	color: #166534;
 	background-color: #dcfce7;
 	border-color: #22c55e;
