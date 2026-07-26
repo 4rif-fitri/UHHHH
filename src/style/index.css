@@ -1,0 +1,133 @@
+@import url("./root.css");
+
+body {
+	background-image: url("../images/background.png");
+	background-position: center;
+	background-size: cover;
+	font-family: Fredoka;
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.container {
+	width: 95%;
+	max-width: 1000px;
+	height: 65%;
+	background-color: rgba(255, 255, 255, 0.85);
+	border-radius: 28px;
+	border: 3px solid white;
+	display: flex;
+	flex-direction: column;
+}
+
+.container header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 150px;
+}
+
+.container header h1 {
+	font-size: var(--font-size-3xl);
+}
+
+.container header h4 {
+	font-size: var(--font-size-lg);
+}
+
+.container header>* {
+	text-align: center;
+}
+
+.cards {
+	width: 100%;
+	flex: 1;
+	overflow: auto;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(2, 1fr);
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 14px;
+	/* width: 100%; */
+	/* height: 150px; */
+	width: 100%;
+	height: 100%;
+	box-shadow: var(--shadow-sm);
+	border-left: 5px solid var(--forest-sky-top);
+	display: flex;
+	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.card article {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.card>img {
+	width: 35%;
+}
+
+.card article div {
+	flex: 1;
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+}
+
+.card article img {
+	width: 50px !important;
+}
+
+.btnBack {
+	padding: 0.5rem 1rem;
+	border: 2px solid var(--color-blue-light);
+	border-radius: 14px;
+}
+
+.cards-game {
+	width: 100%;
+	flex: 1;
+	overflow: auto;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(5, auto);
+	gap: 1rem;
+	padding: 1rem;
+}
+
+.card-game {
+	background-color: #fff;
+	border-radius: 14px;
+	/* width: 100%; */
+	/* height: 150px; */
+	width: 100%;
+	height: 100%;
+	box-shadow: var(--shadow-sm);
+	border-left: 5px solid var(--forest-sky-top);
+	display: flex;
+	padding: 1rem;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+@media screen and (max-width: 600px) {
+	.cards-game {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

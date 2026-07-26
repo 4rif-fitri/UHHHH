@@ -1,0 +1,549 @@
+@font-face {
+	font-family: Fredoka;
+	src: url("../font/FredokaOne-Regular.ttf");
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-tap-highlight-color: transparent;
+
+}
+
+html {
+	font-size: 16px;
+	user-select: none;
+}
+
+body {
+	min-height: 100vh;
+	font-family: var(--font-body);
+	color: var(--color-text);
+}
+
+button,
+input,
+textarea,
+select {
+	font: inherit;
+}
+
+button {
+	border: none;
+	cursor: pointer;
+}
+
+img {
+	display: block;
+	max-width: 100%;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap");
+
+:root {
+	/* ==================================================
+	   FONT
+	================================================== */
+
+	--font-heading: myFirstFont;
+	--font-body: myFirstFont;
+
+	/* Font Size */
+	--font-size-xs: clamp(0.70rem, 0.75vw, 0.75rem);
+	/* 11-12px */
+	--font-size-sm: clamp(0.80rem, 0.9vw, 0.875rem);
+	/* 13-14px */
+	--font-size-md: clamp(0.90rem, 1vw, 1rem);
+	/* 14-16px */
+	--font-size-lg: clamp(1rem, 1.4vw, 1.25rem);
+	/* 16-20px */
+	--font-size-xl: clamp(1.2rem, 2vw, 1.5rem);
+	/* 19-24px */
+	--font-size-2xl: clamp(1.6rem, 3vw, 2rem);
+	/* 26-32px */
+	--font-size-3xl: clamp(2rem, 4vw, 2.75rem);
+	/* 32-44px */
+
+	/* Number / Score */
+	--font-size-number: clamp(2.5rem, 7vw, 3.5rem);
+	/* 40-56px */
+
+	--font-weight-regular: 400;
+	--font-weight-medium: 500;
+	--font-weight-semibold: 600;
+	--font-weight-bold: 700;
+	--font-weight-extrabold: 800;
+
+	--line-height-tight: 1.15;
+	--line-height-normal: 1.5;
+	--letter-spacing-normal: 0;
+	--letter-spacing-wide: 0.03em;
+
+
+	/* ==================================================
+	   WARNA UTAMA
+	================================================== */
+
+	--color-primary: #55c900;
+	--color-primary-light: #bdf58f;
+	--color-primary-soft: #efffe3;
+	--color-primary-dark: #2f9700;
+	--color-primary-deep: #167200;
+
+	--color-secondary: #7652e8;
+	--color-secondary-light: #c8b8ff;
+	--color-secondary-soft: #f2eeff;
+	--color-secondary-dark: #4f2fbd;
+
+	--color-blue: #2f8df5;
+	--color-blue-light: #80c9ff;
+	--color-blue-soft: #eaf6ff;
+	--color-blue-dark: #1257b7;
+
+	--color-red: #ff566d;
+	--color-red-light: #ffb0bd;
+	--color-red-soft: #fff0f3;
+	--color-red-dark: #d72f47;
+
+	--color-orange: #ff9f1c;
+	--color-orange-light: #ffd184;
+	--color-orange-soft: #fff5df;
+	--color-orange-dark: #d87000;
+
+	--color-yellow: #ffc928;
+	--color-yellow-light: #ffe58f;
+	--color-yellow-soft: #fff9dc;
+	--color-yellow-dark: #e3a300;
+
+
+	/* ==================================================
+	   WARNA STATUS
+	================================================== */
+
+	--color-success: #46c900;
+	--color-success-soft: #ecffe3;
+	--color-success-border: #9be66f;
+	--color-success-text: #187500;
+
+	--color-error: #ff4f61;
+	--color-error-soft: #fff0f2;
+	--color-error-border: #ff9fac;
+	--color-error-text: #b51d32;
+
+	--color-warning: #ffb020;
+	--color-warning-soft: #fff7df;
+	--color-warning-border: #ffd378;
+	--color-warning-text: #9c6100;
+
+	--color-info: #2f8df5;
+	--color-info-soft: #ebf6ff;
+	--color-info-border: #91caff;
+	--color-info-text: #13559e;
+
+
+	/* ==================================================
+	   WARNA NEUTRAL
+	================================================== */
+
+	--color-white: #ffffff;
+	--color-black: #000000;
+
+	--color-text: #132b57;
+	--color-text-dark: #0b1e40;
+	--color-text-soft: #53617a;
+	--color-text-muted: #8b96a8;
+	--color-text-disabled: #aeb6c3;
+
+	--color-background: #f6fbff;
+	--color-surface: #ffffff;
+	--color-surface-soft: #fffdf8;
+	--color-surface-muted: #f4f6f9;
+
+	--color-border: #d8dee8;
+	--color-border-light: #ebeff4;
+	--color-border-dark: #b8c0cc;
+
+	--color-disabled-bg: #e8ebef;
+	--color-disabled-text: #9ba3ae;
+
+
+	/* ==================================================
+	   LATAR BELAKANG HUTAN
+	================================================== */
+
+	--forest-sky-top: #59cfff;
+	--forest-sky-bottom: #dff7ff;
+
+	--forest-leaf-light: #8bd63a;
+	--forest-leaf: #4da724;
+	--forest-leaf-dark: #176c2d;
+
+	--forest-grass-light: #a9e94f;
+	--forest-grass: #57bd2a;
+	--forest-grass-dark: #268817;
+
+	--forest-tree-light: #a66a2b;
+	--forest-tree: #74441f;
+	--forest-tree-dark: #45280f;
+
+	--forest-path-light: #ffd276;
+	--forest-path: #dfa34b;
+	--forest-path-dark: #b8752d;
+
+	--forest-water-light: #7be8ff;
+	--forest-water: #28b8e9;
+	--forest-water-dark: #1484bc;
+
+	--forest-flower-pink: #ff77ad;
+	--forest-flower-purple: #985bea;
+	--forest-flower-yellow: #ffd936;
+	--forest-flower-orange: #ff9538;
+	--forest-flower-white: #fffdf5;
+
+
+	/* ==================================================
+	   GRADIENT
+	================================================== */
+
+	--gradient-primary: linear-gradient(180deg,
+			#69dc00 0%,
+			#45c800 60%,
+			#32ad00 100%);
+
+	--gradient-primary-hover: linear-gradient(180deg,
+			#79e911 0%,
+			#54d500 60%,
+			#3bb900 100%);
+
+	--gradient-secondary: linear-gradient(180deg,
+			#9875ff 0%,
+			#7652e8 60%,
+			#5535c5 100%);
+
+	--gradient-blue-card: linear-gradient(180deg,
+			#f8fcff 0%,
+			#e7f4ff 70%,
+			#cfe8ff 100%);
+
+	--gradient-red-card: linear-gradient(180deg,
+			#fffafa 0%,
+			#fff0f2 70%,
+			#ffdce2 100%);
+
+	--gradient-orange-card: linear-gradient(180deg,
+			#fffdf7 0%,
+			#fff3d6 70%,
+			#ffe0a1 100%);
+
+	--gradient-green-card: linear-gradient(180deg,
+			#fafff6 0%,
+			#efffe4 70%,
+			#d8f6c0 100%);
+
+	--gradient-success-panel: linear-gradient(180deg,
+			#f5ffef 0%,
+			#e4ffd3 100%);
+
+	--gradient-page: linear-gradient(180deg,
+			var(--forest-sky-top) 0%,
+			var(--forest-sky-bottom) 100%);
+
+
+	/* ==================================================
+	   BORDER
+	================================================== */
+
+	--border-width-thin: 1px;
+	--border-width-normal: 2px;
+	--border-width-thick: 3px;
+	--border-width-bold: 4px;
+
+	--border-default: 2px solid var(--color-border);
+	--border-light: 1px solid var(--color-border-light);
+
+	--border-primary: 3px solid var(--color-primary);
+	--border-secondary: 3px solid var(--color-secondary);
+	--border-blue: 3px solid var(--color-blue);
+	--border-red: 3px solid var(--color-red);
+	--border-orange: 3px solid var(--color-orange);
+	--border-success: 3px solid var(--color-success-border);
+
+
+	/* ==================================================
+	   BORDER RADIUS
+	================================================== */
+
+	--radius-xs: 6px;
+	--radius-sm: 10px;
+	--radius-md: 16px;
+	--radius-lg: 24px;
+	--radius-xl: 32px;
+	--radius-2xl: 42px;
+	--radius-pill: 999px;
+	--radius-circle: 50%;
+
+
+	/* ==================================================
+	   SHADOW
+	================================================== */
+
+	--shadow-xs:
+		0 2px 4px rgba(16, 37, 67, 0.1);
+
+	--shadow-sm:
+		0 4px 0 rgba(15, 32, 58, 0.12),
+		0 7px 16px rgba(17, 38, 70, 0.1);
+
+	--shadow-md:
+		0 6px 0 rgba(15, 32, 58, 0.12),
+		0 12px 28px rgba(17, 38, 70, 0.14);
+
+	--shadow-lg:
+		0 10px 0 rgba(15, 32, 58, 0.1),
+		0 18px 40px rgba(17, 38, 70, 0.18);
+
+	--shadow-primary:
+		0 6px 0 #2e9c00,
+		0 10px 18px rgba(63, 191, 0, 0.25);
+
+	--shadow-secondary:
+		0 6px 0 #4d2eaf,
+		0 10px 18px rgba(100, 70, 210, 0.25);
+
+	--shadow-blue:
+		0 6px 0 #77add8,
+		0 10px 18px rgba(47, 141, 245, 0.18);
+
+	--shadow-red:
+		0 6px 0 #db8794,
+		0 10px 18px rgba(255, 86, 109, 0.18);
+
+	--shadow-orange:
+		0 6px 0 #d6a448,
+		0 10px 18px rgba(255, 159, 28, 0.2);
+
+	--shadow-inner:
+		inset 0 2px 4px rgba(14, 32, 60, 0.08);
+
+	--shadow-glow-green:
+		0 0 0 5px rgba(80, 204, 0, 0.15),
+		0 8px 20px rgba(70, 190, 0, 0.28);
+
+	--shadow-glow-yellow:
+		0 0 18px rgba(255, 203, 39, 0.65);
+
+
+	/* ==================================================
+	   SPACING
+	================================================== */
+
+	--space-1: 0.25rem;
+	--space-2: 0.5rem;
+	--space-3: 0.75rem;
+	--space-4: 1rem;
+	--space-5: 1.25rem;
+	--space-6: 1.5rem;
+	--space-8: 2rem;
+	--space-10: 2.5rem;
+	--space-12: 3rem;
+	--space-16: 4rem;
+
+
+	/* ==================================================
+	   SIZE KOMPONEN
+	================================================== */
+
+	--app-max-width: 1000px;
+	--app-min-height: 720px;
+
+	--header-height: 90px;
+	--footer-height: 120px;
+
+	--avatar-size: 108px;
+	--icon-size-sm: 24px;
+	--icon-size-md: 36px;
+	--icon-size-lg: 52px;
+
+	--question-box-size: 120px;
+	--answer-height: 88px;
+	--button-height: 70px;
+
+	--progress-height: 18px;
+
+
+	/* ==================================================
+	   TRANSITION
+	================================================== */
+
+	--transition-fast: 0.15s ease;
+	--transition-normal: 0.25s ease;
+	--transition-slow: 0.4s ease;
+
+	--bounce-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes popIn {
+	0% {
+		opacity: 0;
+		transform: scale(0.7);
+	}
+
+	70% {
+		transform: scale(1.08);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes bounce {
+
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-10px);
+	}
+}
+
+@keyframes shake {
+
+	0%,
+	100% {
+		transform: translateX(0);
+	}
+
+	25% {
+		transform: translateX(-8px);
+	}
+
+	75% {
+		transform: translateX(8px);
+	}
+}
+
+@keyframes glow {
+
+	0%,
+	100% {
+		box-shadow: var(--shadow-glow-yellow);
+	}
+
+	50% {
+		box-shadow:
+			0 0 8px rgba(255, 203, 39, 0.5),
+			0 0 30px rgba(255, 203, 39, 0.85);
+	}
+}
+
+.animate-pop {
+	animation: popIn 0.45s var(--bounce-easing);
+}
+
+.animate-bounce {
+	animation: bounce 1.2s ease-in-out infinite;
+}
+
+.animate-shake {
+	animation: shake 0.35s ease;
+}
+
+.animate-glow {
+	animation: glow 1.5s ease-in-out infinite;
+}
+
+.soft-box {
+	display: grid;
+	place-items: center;
+
+	background: white;
+
+	border: 4px solid #bfc4cb;
+
+	box-shadow:
+		0 6px 0 #c8ccd2,
+		inset 0 1px 0 rgba(255, 255, 255, .8);
+	border-radius: 12px;
+
+	font-family: Arial, sans-serif;
+	font-weight: 700;
+	color: #183153;
+
+	cursor: pointer;
+	transition: .15s;
+}
+
+.soft-box:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #c8ccd2;
+}
+
+.soft-box:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #c8ccd2;
+}
+.grid-1 {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr) !important;
+}
+.grid-2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.grid-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr) !important;
+}
+
+.grid-4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr) !important;
+}
+
+.grid-5 {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr) !important;
+}
+
+.grid-6 {
+	display: grid;
+	grid-template-columns: repeat(6, 1fr) !important;
+}
+
+.grid-7 {
+	display: grid;
+	grid-template-columns: repeat(7, 1fr) !important;
+}
+
+.mt-1 {
+	margin-top: 0.5rem;
+}
+
+.mt-2 {
+	margin-top: 1rem;
+}
+
+.eqn {
+	border-radius: 5px;
+	border: 2px solid black;
+	aspect-ratio: 1 / 1;
+}
+
+.gap-1 {
+	gap: 0.5rem;
+}
+
+.gap-2 {
+	gap: 1rem;
+}
