@@ -13,8 +13,12 @@ import {
 	renderLearnPecah,
 	renderLearnPick,
 	renderLearnSum,
-	renderLearnSummery
+	renderLearnSummery,
 } from "../components/TeknikPelengkap10/render.js";
+
+import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.js";
+import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
+import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -41,12 +45,10 @@ export const widgetRegistry = {
 		mount: mountMemoryGame
 	},
 
-	// Komponen induk
 	TeknikPelengkap10: {
 		mount: mountTeknikPelengkap10
 	},
 
-	// Renderer langkah dalaman
 	LearnPick: {
 		render: renderLearnPick
 	},
@@ -73,5 +75,51 @@ export const widgetRegistry = {
 
 	LearnSummery: {
 		render: renderLearnSummery
+	},
+
+	LatihanPelengkap10: {
+		mount: mountLatihanPelengkap10
+	},
+
+	Pick: {
+		render: renderPick,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Needed: {
+		render: renderNeeded,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Pecah: {
+		render: renderPecah,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Baki: {
+		render: renderBaki,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Gabung: {
+		render: renderGabung,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Sum: {
+		render: renderSum,
+		setup: setupPick,
+		check: defaultCheck
+	},
+
+	Summery: {
+		render: renderSummery,
+		setup: setupPick,
+		check: defaultCheck
 	}
 };

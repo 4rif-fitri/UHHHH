@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../src/style/index.css">
+	<style>
+		.container header {
+			width: 100%;
+			height: 150px;
+			display: flex;
+			justify-content: space-evenly;
+		}
+
+		.btnBack {
+			display: flex;
+			background-color: #fff;
+			padding: 0.5rem rem;
+		}
+
+		.btnContainer {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			height: 100%;
+			width: 100px;
+		}
+
+		.container header article {
+			flex: 1;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+
+		<header>
+			<div class="btnContainer">
+				<a href="../../index.html">
+					<button class="btnBack">
+						<img src="../../../arrow-left.svg" alt="">
+						Back
+					</button>
+				</a>
+			</div>
+
+			<article>
+				<h1>Learning</h1>
+				<h4>Pilih topik untuk mula belajar</h4>
+			</article>
+
+
+		</header>
+
+		<div class="cards-game">
+
+			<a href="./game1.html">
+				<div class="card-game">
+					<article>
+						<h3>Pecahkan Nombor</h3>
+					</article>
+				</div>
+			</a>
+
+			<a href="./game2.html">
+				<div class="card-game">
+					<article>
+						<h3>Friends of 10</h3>
+					</article>
+				</div>
+			</a>
+
+
+			<a href="./game3.html">
+				<div class="card-game">
+					<article>
+						<h3>Teknik Pelengkap 10</h3>
+					</article>
+				</div>
+			</a>
+		</div>
+
+	</div>
+
+</body>
+
+</html>

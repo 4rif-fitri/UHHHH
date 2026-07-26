@@ -485,9 +485,9 @@ header>div {
 }
 
 .salah {
-	background-color: #FF4B4B;
-	border: 4px solid #FF4B4B;
-	box-shadow: 0 6px 0 #FF4B4B, inset 0 1px 0 #FF4B4B;
+	background-color: #FF4B4B !important;
+	border: 4px solid #FF4B4B !important;
+	box-shadow: 0 6px 0 #FF4B4B, inset 0 1px 0 #FF4B4B !important;
 }
 
 .textBetul {
