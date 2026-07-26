@@ -116,4 +116,8 @@ export function mountPadankan({ div, data, ui, handleComponentComplete }) {
 	ui.dialog.innerHTML = data.text
 
 	ui.btnNext.addEventListener("click", handleComponentComplete)
+
+	return function cleanup() {
+		ui.btnNext.removeEventListener("click", handleComponentComplete)
+	}
 }
