@@ -5,22 +5,15 @@ import { mountMemoryGame } from "../components/MemoryGame/index.js";
 import { mountPadankan } from "../components/Padankan/index.js";
 import { mountTeknikPelengkap10 } from "../components/TeknikPelengkap10/index.js";
 import { mountTrueFalse } from "../components/TrueFalse/index.js";
-
-import {
-	renderLearnBaki,
-	renderLearnGabung,
-	renderLearnNeeded,
-	renderLearnPecah,
-	renderLearnPick,
-	renderLearnSum,
-	renderLearnSummery,
+import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,
+		renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery,
 } from "../components/TeknikPelengkap10/render.js";
-
 import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.js";
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
 import { updateContent } from "./helper.js";
 import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
+import { mountMaking10 } from "../components/Making10/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -153,4 +146,7 @@ export const widgetRegistry = {
 	NumpadQuiz: {
 		mount: mountNumpadQuiz
 	},
+	Making10:{
+		mount: mountMaking10
+	}
 };
