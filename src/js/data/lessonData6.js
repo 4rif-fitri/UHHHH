@@ -1,7 +1,7 @@
 export const json = [
 	{
 		text: "Jawab soalan tambah",
-		type: "Making10",
+		type: "ChoiseQuiz",
 		content: {
 			nums: [5, ""],
 			operator: "+"
@@ -11,7 +11,7 @@ export const json = [
 	},
 	{
 		text: "Jawab soalan tambah",
-		type: "Making10",
+		type: "ChoiseQuiz",
 		content: {
 			nums: [5, ""],
 			operator: "+"
@@ -21,7 +21,7 @@ export const json = [
 	},
 	{
 		text: "Jawab soalan tambah",
-		type: "Making10",
+		type: "ChoiseQuiz",
 		content: {
 			nums: [5, ""],
 			operator: "+"

@@ -14,6 +14,7 @@ import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.
 import { updateContent } from "./helper.js";
 import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
 import { mountMaking10 } from "../components/Making10/index.js";
+import { mountChoiseQuiz } from "../components/ChoiseQuiz/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -148,5 +149,8 @@ export const widgetRegistry = {
 	},
 	Making10:{
 		mount: mountMaking10
+	},
+	ChoiseQuiz: {
+		mount: mountChoiseQuiz
 	}
 };
