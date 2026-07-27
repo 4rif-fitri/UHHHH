@@ -52,49 +52,49 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 
 		return [
 			{
-				text: "Pilih nombor paling besar",
+				text: "_ ialah nombor paling besar",
 				type: "Pick",
 				content,
 				options: [besar, kecil],
 				answer: besar
 			},
 			{
-				text: `${besar} perlukan __ untuk jadi 10?`,
+				text: `${besar} perlukan _ untuk jadi 10?`,
 				type: "Needed",
 				content,
 				options: createOptions(pelengkap),
 				answer: pelengkap
 			},
 			{
-				text: `${pelengkap} itu kita ambil dari __`,
+				text: `${pelengkap} itu kita akan ambil dari _`,
 				type: "Pecah",
 				content,
-				options: [besar, kecil],
+				options: createOptions(kecil),
 				answer: kecil
 			},
 			{
-				text: `${kecil} dipecahkan kepada ${pelengkap} dan __`,
+				text: `${kecil} dipecahkan kepada ${pelengkap} dan _`,
 				type: "Baki",
 				content,
 				options: createOptions(baki),
 				answer: baki
 			},
 			{
-				text: `${besar} tambah ${pelengkap} akan dapat __`,
+				text: `${besar} tambah ${pelengkap} akan dapat _`,
 				type: "Gabung",
 				content,
 				options: createOptions(10),
 				answer: 10
 			},
 			{
-				text: `10 tambah ${baki} akan dapat __`,
+				text: `10 tambah ${baki} akan dapat _`,
 				type: "Sum",
 				content,
 				options: createOptions(jumlah),
 				answer: jumlah
 			},
 			{
-				text: `${besar} tambah ${kecil} akan dapat berapa?`,
+				text: `${besar} tambah ${kecil} akan dapat _`,
 				type: "Summery",
 				content,
 				options: createOptions(jumlah),
@@ -161,9 +161,7 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 	}
 
 	function loadQuestion() {
-		steps = generateSteps(
-			data.content[questionIndex]
-		);
+		steps = generateSteps(data.content[questionIndex]);
 
 		stepIndex = 0;
 		renderStep();
@@ -179,29 +177,21 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 
 		isLocked = true;
 
-		const isCorrect = widget.check
-			? widget.check(selectedValue, currentData)
-			: Number(selectedValue) ===
-			Number(currentData.answer);
+		const isCorrect = widget.check ? 
+			widget.check(selectedValue, currentData) 
+			: Number(selectedValue) === Number(currentData.answer);
 
 		if (isCorrect) {
 			showCorrect(ui);
 
-			const answerPlace =
-				div.querySelector(
-					".tempatKosong, .hasil"
-				);
-
+			const answerPlace = div.querySelector(".tempatKosong");
+			console.log(answerPlace);
+			
 			if (answerPlace) {
-				answerPlace.textContent =
-					currentData.answer;
+				answerPlace.textContent = currentData.answer;
 			}
 
-			widget.afterCorrect?.(
-				selectedValue,
-				currentData,
-				selectedElement
-			);
+			widget.afterCorrect?.(selectedValue,currentData,selectedElement);
 		} else {
 			showWrong(ui);
 		}
@@ -244,27 +234,13 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 		handleComponentComplete();
 	}
 
-	ui.btnCheck.addEventListener(
-		"click",
-		handleCheck
-	);
-
-	ui.btnContinue.addEventListener(
-		"click",
-		handleContinue
-	);
+	ui.btnCheck.addEventListener("click",handleCheck);
+	ui.btnContinue.addEventListener("click",handleContinue);
 
 	loadQuestion();
 
 	return function cleanup() {
-		ui.btnCheck.removeEventListener(
-			"click",
-			handleCheck
-		);
-
-		ui.btnContinue.removeEventListener(
-			"click",
-			handleContinue
-		);
+		ui.btnCheck.removeEventListener("click",handleCheck);
+		ui.btnContinue.removeEventListener("click",handleContinue);
 	};
 }

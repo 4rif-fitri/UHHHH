@@ -510,12 +510,12 @@ header>div {
 
 .salah:hover {
 	transform: translateY(1px);
-	box-shadow: 0 5px 0 #FF4B4B;
+	box-shadow: 0 5px 0 #FF4B4B !important;
 }
 
 .salah:active {
 	transform: translateY(5px);
-	box-shadow: 0 1px 0 #FF4B4B;
+	box-shadow: 0 1px 0 #FF4B4B !important;
 }
 
 .betul:hover {

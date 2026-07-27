@@ -53,3 +53,7 @@ export function resetContentFooter(ui) {
 	ui.footerText.classList.remove("textSalah", "textBetul")
 
 }
+
+export function updateContent(element,text){
+	element.textContent = text 
+}
