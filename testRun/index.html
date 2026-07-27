@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Interactive Linking Cubes</title>
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		:root {
+			--blue: #1877e8;
+			--blue-dark: #0b53ad;
+			--green: #009d45;
+			--green-dark: #007934;
+			--correct: #40bf00;
+			--wrong: #ef4444;
+		}
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			background: #dff5ff;
+			font-family: Arial, sans-serif;
+			color: #102a43;
+		}
+
+		.activity {
+			width: min(92vw, 780px);
+			padding: 28px;
+			background: #fff;
+			border-radius: 22px;
+			box-shadow: 0 14px 35px rgba(15, 80, 120, 0.16);
+		}
+
+		.instruction {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin: 0 0 24px;
+			font-size: clamp(1.1rem, 3vw, 1.6rem);
+		}
+
+		.speaker {
+			border: 0;
+			background: transparent;
+			font-size: 1.5rem;
+			cursor: pointer;
+		}
+
+		.work-area {
+			display: grid;
+			gap: 34px;
+		}
+
+		.ten-frame {
+			display: grid;
+			grid-template-columns: repeat(5, 64px);
+			grid-template-rows: repeat(2, 64px);
+			width: max-content;
+			padding: 10px;
+			background: #f8fafc;
+			border: 2px solid #e2e8f0;
+			border-radius: 14px;
+		}
+
+		.slot {
+			width: 64px;
+			height: 64px;
+			position: relative;
+			display: grid;
+			place-items: center;
+			border: 2px dashed #8ac8a0;
+			background: #effcf3;
+		}
+
+		.slot:nth-child(5n + 1) {
+			border-radius: 8px 0 0 8px;
+		}
+
+		.slot:nth-child(5n) {
+			border-radius: 0 8px 8px 0;
+		}
+
+		.slot.filled {
+			border-color: transparent;
+			background: transparent;
+		}
+
+		.cube-tray {
+			min-height: 92px;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			gap: 14px;
+			padding: 14px;
+			background: #f8fafc;
+			border: 2px solid #e2e8f0;
+			border-radius: 14px;
+		}
+
+		.cube {
+			width: 60px;
+			height: 60px;
+			position: relative;
+			flex: 0 0 auto;
+			touch-action: none;
+			user-select: none;
+			cursor: grab;
+			z-index: 2;
+			background: linear-gradient(145deg, #15b85d, var(--green));
+			border: 3px solid var(--green-dark);
+			border-radius: 8px;
+			box-shadow:
+				0 5px 0 #00682d,
+				0 8px 12px rgba(0, 0, 0, 0.2);
+			transition: filter 0.15s, box-shadow 0.15s;
+		}
+
+		.cube::before {
+			content: "";
+			position: absolute;
+			width: 33px;
+			height: 33px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background: #008f3e;
+			border: 2px solid #007733;
+			border-radius: 50%;
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+		}
+
+		.cube::after {
+			content: "";
+			position: absolute;
+			width: 9px;
+			height: 34px;
+			top: 50%;
+			right: -10px;
+			transform: translateY(-50%);
+			background: var(--green);
+			border: 2px solid var(--green-dark);
+			border-left: 0;
+			border-radius: 0 4px 4px 0;
+		}
+
+		.cube.dragging {
+			cursor: grabbing;
+			filter: brightness(1.08);
+			box-shadow:
+				0 9px 0 #00682d,
+				0 16px 22px rgba(0, 0, 0, 0.24);
+			z-index: 100;
+		}
+
+		.slot.drop-active {
+			background: #dcfce7;
+			border-color: var(--correct);
+		}
+
+		.actions {
+			display: flex;
+			gap: 12px;
+			margin-top: 24px;
+		}
+
+		button.action {
+			min-width: 130px;
+			padding: 12px 20px;
+			border: 0;
+			border-radius: 9px;
+			color: white;
+			font-size: 1rem;
+			font-weight: 700;
+			cursor: pointer;
+			box-shadow: 0 5px 0 rgba(0, 0, 0, 0.22);
+		}
+
+		.submit {
+			background: var(--correct);
+		}
+
+		.reset {
+			background: var(--blue);
+		}
+
+		button.action:active {
+			transform: translateY(4px);
+			box-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+		}
+
+		.feedback {
+			min-height: 28px;
+			margin: 18px 0 0;
+			font-size: 1.1rem;
+			font-weight: 700;
+		}
+
+		.feedback.correct {
+			color: #218400;
+		}
+
+		.feedback.wrong {
+			color: var(--wrong);
+		}
+
+		@media (max-width: 520px) {
+			.activity {
+				padding: 20px;
+			}
+
+			.ten-frame {
+				grid-template-columns: repeat(5, 52px);
+				grid-template-rows: repeat(2, 52px);
+			}
+
+			.slot {
+				width: 52px;
+				height: 52px;
+			}
+
+			.cube {
+				width: 48px;
+				height: 48px;
+			}
+
+			.cube::before {
+				width: 26px;
+				height: 26px;
+			}
+
+			.cube::after {
+				height: 28px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<main class="activity">
+		<h1 class="instruction">
+			<button class="speaker" type="button" aria-label="Dengar arahan">🔊</button>
+			<span>Gunakan kubus untuk menunjukkan 7.</span>
+		</h1>
+
+		<div class="work-area">
+			<div class="ten-frame" aria-label="Rangka sepuluh">
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+				<div class="slot"></div>
+			</div>
+
+			<div class="cube-tray" aria-label="Dulang kubus">
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+				<div class="cube" tabindex="0"></div>
+			</div>
+		</div>
+
+		<div class="actions">
+			<button class="action submit" type="button">SUBMIT</button>
+			<button class="action reset" type="button">RESET</button>
+		</div>
+
+		<p class="feedback" role="status"></p>
+	</main>
+
+	<script>
+		const TARGET = 7;
+		const frame = document.querySelector(".ten-frame");
+		const tray = document.querySelector(".cube-tray");
+		const feedback = document.querySelector(".feedback");
+		const speaker = document.querySelector(".speaker");
+		let dragState = null;
+
+		function clearDropHighlight() {
+			document.querySelectorAll(".drop-active").forEach(element => {
+				element.classList.remove("drop-active");
+			});
+		}
+
+		function clearDragStyle(cube) {
+			cube.classList.remove("dragging");
+			cube.style.position = "";
+			cube.style.left = "";
+			cube.style.top = "";
+			cube.style.width = "";
+			cube.style.height = "";
+			cube.style.margin = "";
+			cube.style.pointerEvents = "";
+		}
+
+		function findDropTarget(x, y) {
+			const element = document.elementFromPoint(x, y);
+
+			if (!element) {
+				return null;
+			}
+
+			const slot = element.closest(".slot");
+
+			if (slot && !slot.querySelector(".cube")) {
+				return slot;
+			}
+
+			return element.closest(".cube-tray");
+		}
+
+		function startDrag(event) {
+			const cube = event.target.closest(".cube");
+
+			if (!cube || event.button > 0) {
+				return;
+			}
+
+			event.preventDefault();
+
+			const rect = cube.getBoundingClientRect();
+			const originalParent = cube.parentElement;
+			const originalNextSibling = cube.nextElementSibling;
+
+			if (originalParent.classList.contains("slot")) {
+				originalParent.classList.remove("filled");
+			}
+
+			dragState = {
+				cube,
+				pointerId: event.pointerId,
+				offsetX: event.clientX - rect.left,
+				offsetY: event.clientY - rect.top,
+				originalParent,
+				originalNextSibling,
+				dropTarget: null
+			};
+
+			cube.classList.add("dragging");
+			cube.style.position = "fixed";
+			cube.style.left = `${rect.left}px`;
+			cube.style.top = `${rect.top}px`;
+			cube.style.width = `${rect.width}px`;
+			cube.style.height = `${rect.height}px`;
+			cube.style.margin = "0";
+			cube.style.pointerEvents = "none";
+
+			document.body.appendChild(cube);
+			cube.setPointerCapture?.(event.pointerId);
+		}
+
+		function moveDrag(event) {
+			if (
+				!dragState ||
+				event.pointerId !== dragState.pointerId
+			) {
+				return;
+			}
+
+			const { cube, offsetX, offsetY } = dragState;
+
+			cube.style.left = `${event.clientX - offsetX}px`;
+			cube.style.top = `${event.clientY - offsetY}px`;
+
+			clearDropHighlight();
+
+			const target = findDropTarget(
+				event.clientX,
+				event.clientY
+			);
+
+			dragState.dropTarget = target;
+			target?.classList.add("drop-active");
+		}
+
+		function returnToOriginalPosition() {
+			const {
+				cube,
+				originalParent,
+				originalNextSibling
+			} = dragState;
+
+			if (
+				originalNextSibling &&
+				originalNextSibling.parentElement === originalParent
+			) {
+				originalParent.insertBefore(
+					cube,
+					originalNextSibling
+				);
+			} else {
+				originalParent.appendChild(cube);
+			}
+
+			if (originalParent.classList.contains("slot")) {
+				originalParent.classList.add("filled");
+			}
+		}
+
+		function endDrag(event) {
+			if (
+				!dragState ||
+				event.pointerId !== dragState.pointerId
+			) {
+				return;
+			}
+
+			const { cube, dropTarget } = dragState;
+
+			clearDropHighlight();
+
+			if (dropTarget?.classList.contains("slot")) {
+				dropTarget.appendChild(cube);
+				dropTarget.classList.add("filled");
+			} else if (
+				dropTarget?.classList.contains("cube-tray")
+			) {
+				tray.appendChild(cube);
+			} else {
+				returnToOriginalPosition();
+			}
+
+			clearDragStyle(cube);
+			dragState = null;
+
+			feedback.textContent = "";
+			feedback.className = "feedback";
+		}
+
+		document.addEventListener("pointerdown", startDrag);
+		document.addEventListener("pointermove", moveDrag);
+		document.addEventListener("pointerup", endDrag);
+		document.addEventListener("pointercancel", endDrag);
+
+		document.querySelector(".submit").addEventListener("click", () => {
+			const total = frame.querySelectorAll(".cube").length;
+
+			if (total === TARGET) {
+				feedback.textContent = `Betul! Kamu telah menunjukkan ${TARGET}.`;
+				feedback.className = "feedback correct";
+				return;
+			}
+
+			feedback.textContent =
+				total < TARGET
+					? `Tambah ${TARGET - total} kubus lagi.`
+					: `Keluarkan ${total - TARGET} kubus.`;
+
+			feedback.className = "feedback wrong";
+		});
+
+		document.querySelector(".reset").addEventListener("click", () => {
+			document.querySelectorAll(".slot .cube").forEach(cube => {
+				const slot = cube.closest(".slot");
+				slot.classList.remove("filled");
+				tray.appendChild(cube);
+			});
+
+			feedback.textContent = "";
+			feedback.className = "feedback";
+		});
+
+		speaker.addEventListener("click", () => {
+			speechSynthesis.cancel();
+
+			const speech = new SpeechSynthesisUtterance(
+				"Gunakan kubus untuk menunjukkan tujuh."
+			);
+
+			speech.lang = "ms-MY";
+			speechSynthesis.speak(speech);
+		});
+	</script>
+</body>
+
+</html>

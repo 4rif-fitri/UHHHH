@@ -5,9 +5,7 @@ import { mountMemoryGame } from "../components/MemoryGame/index.js";
 import { mountPadankan } from "../components/Padankan/index.js";
 import { mountTeknikPelengkap10 } from "../components/TeknikPelengkap10/index.js";
 import { mountTrueFalse } from "../components/TrueFalse/index.js";
-import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,
-		renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery,
-} from "../components/TeknikPelengkap10/render.js";
+import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery} from "../components/TeknikPelengkap10/render.js";
 import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.js";
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
