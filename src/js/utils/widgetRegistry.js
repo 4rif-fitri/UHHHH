@@ -20,6 +20,7 @@ import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
 import { updateContent } from "./helper.js";
+import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -148,5 +149,8 @@ export const widgetRegistry = {
 
 		},
 		check: defaultCheck
-	}
+	},
+	NumpadQuiz: {
+		mount: mountNumpadQuiz
+	},
 };

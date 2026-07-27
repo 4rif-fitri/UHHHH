@@ -1,7 +1,7 @@
 @import url("./root.css");
 
 .hidden {
-	display: none;
+	display: none !important;
 }
 
 body {
