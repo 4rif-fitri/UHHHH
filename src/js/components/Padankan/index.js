@@ -113,7 +113,9 @@ export function mountPadankan({ div, data, ui, handleComponentComplete }) {
 
 	div.addEventListener("click", handleClick);
 	ui.btnNext.classList.add("hidden")
+	ui.btnContainer.classList.remove("grid-2") 
 	ui.dialog.innerHTML = data.text
+	ui.btnBack.classList.add("hidden")
 
 	ui.btnNext.addEventListener("click", handleComponentComplete)
 

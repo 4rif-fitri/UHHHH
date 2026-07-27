@@ -4,7 +4,10 @@ export function mountDiagramBox({ div, data, ui, handleComponentComplete }){
 	
 	div.innerHTML = renderDiagramBox(data)
 	ui.contentContainer.replaceChildren(div)
+	
+	ui.btnContainer.classList.add("grid-2") 
 	ui.btnNext.classList.remove("hidden")
+	ui.btnBack.classList.remove("hidden")
 
 	ui.dialog.innerHTML = data.text
 
