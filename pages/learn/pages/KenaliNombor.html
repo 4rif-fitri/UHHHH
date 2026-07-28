@@ -125,6 +125,37 @@
 
 				<div class="contentContainer">
 
+					<div class="output">
+
+						<div class="kecil-besar">
+							<p>Kecil</p>
+							<div class="arrow"></div>
+							<p>Besar</p>
+						</div>
+
+						<div class="container-drop-susun">
+
+							<div class="box-drop-susun"></div>
+							<div class="box-drop-susun"></div>
+							<div class="box-drop-susun"></div>
+							<div class="box-drop-susun"></div>
+							<div class="box-drop-susun"></div>
+
+						</div>
+
+						<h3>Seret kad ke ruang kosong</h3>
+						<div class="container-kad-susun">
+
+							<div class="box-drag-susun" data-value="1">1</div>
+							<div class="box-drag-susun" data-value="3">3</div>
+							<div class="box-drag-susun" data-value="2">2</div>
+							<div class="box-drag-susun" data-value="5">5</div>
+							<div class="box-drag-susun" data-value="4">4</div>
+
+						</div>
+
+					</div>
+
 				</div>
 
 			</section>
@@ -136,7 +167,7 @@
 				</div>
 				<div class="btnContainer">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnCheck soft-box">CHECK</button>
 					<button class="btnBack soft-box hidden">BACK</button>
 					<button class="btnNext soft-box hidden">NEXT</button>
 				</div>
@@ -146,9 +177,245 @@
 
 	<script type="module">
 
-		import { json } from "../../../src/js/data/lessonDataKenaliNombor.js"
-		import { runComponents } from "../../../../src/js/core/componentRunner.js"
-		runComponents(json)
+		// import { json } from "../../../src/js/data/lessonDataKenaliNombor.js"
+		// import { runComponents } from "../../../../src/js/core/componentRunner.js"
+		// runComponents(json)
+
+		const tray = document.querySelector(".container-kad-susun");
+		const btnCheck = document.querySelector(".btnCheck");
+		const dialog = document.querySelector(".dialog p");
+
+		let dragState = null;
+		let isLocked = false;
+
+		function clearHighlight() {
+			document.querySelectorAll(".drop-active")
+				.forEach(element => {
+					element.classList.remove("drop-active");
+				});
+		}
+
+		function findDropTarget(x, y) {
+			const element = document.elementFromPoint(x, y);
+
+			if (!element) return null;
+
+			const slot = element.closest(".box-drop-susun");
+
+			if (
+				slot &&
+				!slot.querySelector(".box-drag-susun")
+			) {
+				return slot;
+			}
+
+			return element.closest(".container-kad-susun");
+		}
+
+		function startDrag(event) {
+			if (isLocked || event.button !== 0) return;
+
+			const card = event.target.closest(".box-drag-susun");
+
+			if (!card) return;
+
+			event.preventDefault();
+
+			const rect = card.getBoundingClientRect();
+
+			dragState = {
+				card,
+				pointerId: event.pointerId,
+				offsetX: event.clientX - rect.left,
+				offsetY: event.clientY - rect.top,
+				originalParent: card.parentElement,
+				originalNextSibling: card.nextElementSibling,
+				dropTarget: null
+			};
+
+			card.classList.add("dragging");
+
+			Object.assign(card.style, {
+				position: "fixed",
+				left: `${rect.left}px`,
+				top: `${rect.top}px`,
+				width: `${rect.width}px`,
+				height: `${rect.height}px`,
+				margin: "0",
+				pointerEvents: "none",
+				zIndex: "9999"
+			});
+
+			document.body.appendChild(card);
+		}
+
+		function moveDrag(event) {
+			if (
+				!dragState ||
+				event.pointerId !== dragState.pointerId
+			) {
+				return;
+			}
+
+			const { card, offsetX, offsetY } = dragState;
+
+			card.style.left =
+				`${event.clientX - offsetX}px`;
+
+			card.style.top =
+				`${event.clientY - offsetY}px`;
+
+			clearHighlight();
+
+			const target = findDropTarget(
+				event.clientX,
+				event.clientY
+			);
+
+			dragState.dropTarget = target;
+			target?.classList.add("drop-active");
+		}
+
+		function returnCard() {
+			const {
+				card,
+				originalParent,
+				originalNextSibling
+			} = dragState;
+
+			if (
+				originalNextSibling &&
+				originalNextSibling.parentElement === originalParent
+			) {
+				originalParent.insertBefore(
+					card,
+					originalNextSibling
+				);
+			} else {
+				originalParent.appendChild(card);
+			}
+		}
+
+		function clearDragStyle(card) {
+			card.classList.remove("dragging");
+
+			card.style.position = "";
+			card.style.left = "";
+			card.style.top = "";
+			card.style.width = "";
+			card.style.height = "";
+			card.style.margin = "";
+			card.style.pointerEvents = "";
+			card.style.zIndex = "";
+		}
+
+		function endDrag(event) {
+			if (
+				!dragState ||
+				event.pointerId !== dragState.pointerId
+			) {
+				return;
+			}
+
+			const { card, dropTarget } = dragState;
+
+			clearHighlight();
+
+			if (
+				dropTarget?.classList.contains(
+					"box-drop-susun"
+				)
+			) {
+				dropTarget.appendChild(card);
+			} else if (
+				dropTarget?.classList.contains(
+					"container-kad-susun"
+				)
+			) {
+				tray.appendChild(card);
+			} else {
+				returnCard();
+			}
+
+			clearDragStyle(card);
+			dragState = null;
+		}
+
+		function checkAnswer() {
+			const slots = [
+				...document.querySelectorAll(
+					".box-drop-susun"
+				)
+			];
+
+			const selectedValues = slots.map(slot => {
+				const card = slot.querySelector(
+					".box-drag-susun"
+				);
+
+				return card
+					? Number(card.dataset.value)
+					: null;
+			});
+
+			if (selectedValues.includes(null)) {
+				dialog.textContent =
+					"Isi semua ruang terlebih dahulu.";
+				return;
+			}
+
+			const correctAnswer = [1, 2, 3, 4, 5];
+
+			const isCorrect = selectedValues.every(
+				(value, index) =>
+					value === correctAnswer[index]
+			);
+
+			if (isCorrect) {
+				isLocked = true;
+
+				dialog.textContent =
+					"Betul! Susunan nombor tepat.";
+
+				dialog.style.color = "#22a000";
+
+				btnCheck.classList.add("hidden");
+
+				document
+					.querySelector(".btnContinue")
+					.classList.remove("hidden");
+			} else {
+				dialog.textContent =
+					"Susunan salah. Cuba lagi!";
+
+				dialog.style.color = "#e53935";
+			}
+		}
+
+		document.addEventListener(
+			"pointerdown",
+			startDrag
+		);
+
+		document.addEventListener(
+			"pointermove",
+			moveDrag
+		);
+
+		document.addEventListener(
+			"pointerup",
+			endDrag
+		);
+
+		document.addEventListener(
+			"pointercancel",
+			endDrag
+		);
+
+		btnCheck.addEventListener(
+			"click",
+			checkAnswer
+		);
 
 	</script>
 
