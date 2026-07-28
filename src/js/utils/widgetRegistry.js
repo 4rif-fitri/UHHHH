@@ -15,6 +15,7 @@ import { mountMaking10 } from "../components/Making10/index.js";
 import { mountChoiseQuiz } from "../components/ChoiseQuiz/index.js";
 import { mountKenaliNombor } from "../components/KenaliNombor/index.js";
 import { mountSusunNombor } from "../components/SusunNombor/index.js";
+import { mountNomborHilang } from "../components/NomborHilang/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -158,5 +159,8 @@ export const widgetRegistry = {
 	},
 	SusunNombor: {
 		mount: mountSusunNombor
+	},
+	NomborHilang: {
+		mount: mountNomborHilang
 	}
 };
