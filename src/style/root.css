@@ -18,7 +18,7 @@ html {
 
 body {
 	min-height: 100vh;
-	font-family: var(--font-body);
+	font-family: Fredoka;
 	color: var(--color-text);
 }
 
@@ -546,4 +546,8 @@ a {
 
 .gap-2 {
 	gap: 1rem;
+}
+
+.row-2{
+	grid-template-rows: repeat(2,1fr) !important;
 }

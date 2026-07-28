@@ -73,7 +73,7 @@
 								<div class="cube" tabindex="0"></div>
 							</div>
 						</div>
-						
+
 						<!-- 
 						<div class="actions">
 							<button class="action reset" type="button">RESET</button>
@@ -93,7 +93,7 @@
 				</div>
 				<div class="btnContainer">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box ">CHECK</button>
+					<button class="btnCheck soft-box">CHECK</button>
 					<button class="btnBack soft-box hidden">BACK</button>
 					<button class="btnNext soft-box hidden">NEXT</button>
 				</div>
@@ -106,10 +106,8 @@
 		// import { runComponents } from "../../src/js/core/componentRunner.js"
 		// runComponents(json)
 
-		let TARGET = 7;
 		let frame = document.querySelector(".ten-frame");
 		let tray = document.querySelector(".cube-tray");
-		let speaker = document.querySelector(".speaker");
 		let dragState = null;
 
 		function clearDropHighlight() {
@@ -132,15 +130,13 @@
 		function findDropTarget(x, y) {
 			let element = document.elementFromPoint(x, y);
 
-			if (!element) {
+			if (!element)
 				return null;
-			}
 
 			let slot = element.closest(".slot");
 
-			if (slot && !slot.querySelector(".cube")) {
+			if (slot && !slot.querySelector(".cube"))
 				return slot;
-			}
 
 			return element.closest(".cube-tray");
 		}
