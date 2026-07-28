@@ -183,4 +183,52 @@ export const json = [
 			{ question: 10, answer: "SEPULUH", key: 5 },
 		]
 	},
+	{
+		id: "susun-nombor-1",
+		text: "Susun nombor daripada kecil kepada besar.",
+		type: "SusunNombor",
+
+		content: {
+			numbers: [1, 3, 2, 5, 4],
+			direction: "ascending"
+		},
+
+		answer: [1, 2, 3, 4, 5]
+	},
+	{
+		id: "susun-nombor-1",
+		text: "Susun nombor daripada kecil kepada besar.",
+		type: "SusunNombor",
+
+		content: {
+			numbers: [9, 8, 10, 6, 7],
+			direction: "ascending"
+		},
+
+		answer: [6, 7, 8, 9, 10]
+	},
+	{
+		id: "susun-nombor-1",
+		text: "Susun nombor daripada kecil kepada besar.",
+		type: "SusunNombor",
+
+		content: {
+			numbers: [1, 3, 2, 5, 4],
+			direction: "descending"
+		},
+
+		answer: [5, 4, 3, 2, 1]
+	},
+	{
+		id: "susun-nombor-1",
+		text: "Susun nombor daripada kecil kepada besar.",
+		type: "SusunNombor",
+
+		content: {
+			numbers: [9, 8, 10, 6, 7],
+			direction: "descending"
+		},
+
+		answer: [10, 9, 8, 7, 6]
+	},
 ];
