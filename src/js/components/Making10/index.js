@@ -1,11 +1,7 @@
-import { renderMaking10 } from "./render.js";
+import { renderAfterCorrect, renderMaking10 } from "./render.js";
 
-export function mountMaking10({
-	div,
-	data,
-	ui,
-	handleComponentComplete
-}) {
+export function mountMaking10({div,data,ui,handleComponentComplete}) {
+	
 	let selectedValue = null;
 	let selectedButton = null;
 	let isLocked = false;
@@ -32,17 +28,13 @@ export function mountMaking10({
 
 		div.querySelectorAll(".btnAns")
 			.forEach(item => {
-				item.classList.remove(
-					"higlight",
-					"wrong"
-				);
+				item.classList.remove("higlight","wrong");
 			});
 
 		button.classList.add("higlight");
 
 		selectedButton = button;
-		selectedValue =
-			Number(button.dataset.value);
+		selectedValue = Number(button.dataset.value);
 
 		ui.btnCheck.disabled = false;
 
@@ -68,13 +60,9 @@ export function mountMaking10({
 	function handleCorrect() {
 		isLocked = true;
 
-		selectedButton.classList.remove(
-			"higlight"
-		);
+		selectedButton.classList.remove("higlight");
 
-		selectedButton.classList.add(
-			"matched"
-		);
+		selectedButton.classList.add("matched");
 
 		div.querySelector(".eqn")
 			.textContent = data.answer;
@@ -84,11 +72,13 @@ export function mountMaking10({
 				box.classList.add("yellow");
 			});
 
-		ui.dialog.textContent =
-			"Betul! Nombor telah dilengkapkan menjadi 10.";
+		ui.dialog.textContent = "Betul!";
 
-		ui.dialog.style.color =
-			"#22a000";
+		ui.dialog.style.color = "#22a000";
+
+		document.querySelector(".making-boxes").innerHTML = renderAfterCorrect(data)
+		
+
 
 		ui.btnCheck.classList.add("hidden");
 		ui.btnNext.classList.remove("hidden");

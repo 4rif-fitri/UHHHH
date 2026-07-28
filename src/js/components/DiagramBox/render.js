@@ -2,14 +2,13 @@ export function renderDiagramBox(data) {
 	return `
 		<div class="content grid-5 gap-1">
 
-			${Array.from({ length: data.content.nombor })
+			${Array.from({ length: data.content.nums[0] })
 			.map(() => `<div class="box"></div>`).join("")}
 			
 			${data.content.showAnswer ?
 			Array.from({ length: data.content.pelengkap })
 				.map(() => `<div class="box yellow"></div>`).join("")
-			: ""
-		}
+			: ""}
 		</div>
 
 		<div class="content grid-5">
