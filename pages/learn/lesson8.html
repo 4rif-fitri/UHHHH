@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../src/style/game.css">
+	<link rel="stylesheet" href="../../src/style/lesson.css">
+	<link rel="stylesheet" href="../../src/style/cube.css">
+	<link rel="stylesheet" href="../../src/style/layoutContent.css">
+	<link rel="stylesheet" href="../../src/style/cube.css">
+</head>
+
+<body>
+
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+					<div class="output">
+
+						<div class="work-area">
+							<div class="ten-frame" aria-label="Rangka sepuluh">
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+								<div class="slot"></div>
+							</div>
+
+							<div class="cube-tray" aria-label="Dulang kubus">
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+								<div class="cube" tabindex="0"></div>
+							</div>
+						</div>
+						
+						<!-- 
+						<div class="actions">
+							<button class="action reset" type="button">RESET</button>
+						</div> 
+						-->
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box ">CHECK</button>
+					<button class="btnBack soft-box hidden">BACK</button>
+					<button class="btnNext soft-box hidden">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		// import { json } from "../../src/js/data/lessonData6.js"
+		// import { runComponents } from "../../src/js/core/componentRunner.js"
+		// runComponents(json)
+
+		let TARGET = 7;
+		let frame = document.querySelector(".ten-frame");
+		let tray = document.querySelector(".cube-tray");
+		let speaker = document.querySelector(".speaker");
+		let dragState = null;
+
+		function clearDropHighlight() {
+			document.querySelectorAll(".drop-active")
+				.forEach(element => element.classList.remove("drop-active")
+				);
+		}
+
+		function clearDragStyle(cube) {
+			cube.classList.remove("dragging");
+			cube.style.position = "";
+			cube.style.left = "";
+			cube.style.top = "";
+			cube.style.width = "";
+			cube.style.height = "";
+			cube.style.margin = "";
+			cube.style.pointerEvents = "";
+		}
+
+		function findDropTarget(x, y) {
+			let element = document.elementFromPoint(x, y);
+
+			if (!element) {
+				return null;
+			}
+
+			let slot = element.closest(".slot");
+
+			if (slot && !slot.querySelector(".cube")) {
+				return slot;
+			}
+
+			return element.closest(".cube-tray");
+		}
+
+		function startDrag(event) {
+			let cube = event.target.closest(".cube");
+
+			if (!cube || event.button > 0) return
+
+			event.preventDefault();
+
+			let rect = cube.getBoundingClientRect();
+			let originalParent = cube.parentElement;
+			let originalNextSibling = cube.nextElementSibling;
+
+			if (originalParent.classList.contains("slot")) {
+				originalParent.classList.remove("filled");
+			}
+
+			dragState = {
+				cube,
+				pointerId: event.pointerId,
+				offsetX: event.clientX - rect.left,
+				offsetY: event.clientY - rect.top,
+				originalParent,
+				originalNextSibling,
+				dropTarget: null
+			};
+
+			cube.classList.add("dragging");
+			cube.style.position = "fixed";
+			cube.style.left = `${rect.left}px`;
+			cube.style.top = `${rect.top}px`;
+			cube.style.width = `${rect.width}px`;
+			cube.style.height = `${rect.height}px`;
+			cube.style.margin = "0";
+			cube.style.pointerEvents = "none";
+
+			document.body.appendChild(cube);
+			cube.setPointerCapture?.(event.pointerId);
+		}
+
+		function moveDrag(event) {
+			if (!dragState || event.pointerId !== dragState.pointerId) return
+
+			let { cube, offsetX, offsetY } = dragState;
+
+			cube.style.left = `${event.clientX - offsetX}px`;
+			cube.style.top = `${event.clientY - offsetY}px`;
+
+			clearDropHighlight();
+
+			let target = findDropTarget(event.clientX, event.clientY);
+
+			dragState.dropTarget = target;
+			target?.classList.add("drop-active");
+		}
+
+		function returnToOriginalPosition() {
+			let { cube, originalParent, originalNextSibling } = dragState;
+
+			if (originalNextSibling && originalNextSibling.parentElement === originalParent) {
+				originalParent.insertBefore(cube, originalNextSibling);
+
+			} else {
+				originalParent.appendChild(cube);
+			}
+
+			if (originalParent.classList.contains("slot")) {
+				originalParent.classList.add("filled");
+			}
+		}
+
+		function endDrag(event) {
+			if (!dragState || event.pointerId !== dragState.pointerId) return
+
+			let { cube, dropTarget } = dragState;
+
+			clearDropHighlight();
+
+			if (dropTarget?.classList.contains("slot")) {
+				dropTarget.appendChild(cube);
+				dropTarget.classList.add("filled");
+
+			} else if (dropTarget?.classList.contains("cube-tray")) {
+				tray.appendChild(cube);
+
+			} else {
+				returnToOriginalPosition();
+			}
+
+			clearDragStyle(cube);
+			dragState = null;
+
+		}
+
+		document.addEventListener("pointerdown", startDrag);
+		document.addEventListener("pointermove", moveDrag);
+		document.addEventListener("pointerup", endDrag);
+		document.addEventListener("pointercancel", endDrag);
+
+		document.querySelector(".reset").addEventListener("click", () => {
+			document.querySelectorAll(".slot .cube").forEach(cube => {
+				let slot = cube.closest(".slot");
+				slot.classList.remove("filled");
+				tray.appendChild(cube);
+			});
+
+		});
+
+	</script>
+
+</body>
+
+</html>
