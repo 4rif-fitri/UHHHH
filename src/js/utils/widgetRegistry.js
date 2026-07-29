@@ -18,6 +18,7 @@ import { mountSusunNombor } from "../components/SusunNombor/index.js";
 import { mountNomborHilang } from "../components/NomborHilang/index.js";
 import { mountGabungKumpulan } from "../components/GabungKumpulan/index.js";
 import { mountTolakKumpulan } from "../components/TolakKumpulan/index.js";
+import { mountTolakPilihLego } from "../components/TolakPilihLego/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -170,5 +171,8 @@ export const widgetRegistry = {
 	},
 	TolakKumpulan: {
 		mount: mountTolakKumpulan
+	},
+	TolakPilihLego: {
+		mount: mountTolakPilihLego
 	}
 };
