@@ -57,6 +57,7 @@ export function runComponents(data) {
 		state.currentData = data[state.index];
 		state.totalSlide = data.length
 
+
 		updateProgress()
 
 		state.cleanup?.();
@@ -68,6 +69,13 @@ export function runComponents(data) {
 		}
 
 		let component = widgetRegistry[state.currentData.type]
+		if (!component?.mount) {
+			console.error(
+				`Component "${state.currentData.type}" tidak dijumpai`
+			);
+
+			return;
+		}
 
 		let div = document.createElement("div")
 		div.classList.add("output", "w-100")
