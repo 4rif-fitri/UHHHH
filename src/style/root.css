@@ -551,3 +551,7 @@ a {
 .row-2{
 	grid-template-rows: repeat(2,1fr) !important;
 }
+
+.square{
+	aspect-ratio: 1 / 1;
+}

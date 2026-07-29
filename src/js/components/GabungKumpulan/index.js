@@ -1,13 +1,6 @@
-import {
-	renderGabungKumpulan
-} from "./render.js";
+import { renderGabungKumpulan } from "./render.js";
 
-export function mountGabungKumpulan({
-	div,
-	data,
-	ui,
-	handleComponentComplete
-}) {
+export function mountGabungKumpulan({ div, data, ui, handleComponentComplete }) {
 	let step = 0;
 	let isBusy = false;
 
@@ -24,40 +17,19 @@ export function mountGabungKumpulan({
 	let equationAnswer;
 
 	function getElements() {
-		group1 =
-			div.querySelector(".group1");
+		group1 = div.querySelector(".group1");
+		group2 = div.querySelector(".group2");
+		group1Container = div.querySelector(".group1-container");
+		group2Container = div.querySelector(".group2-container");
+		mergeGroup = div.querySelector(".merge-group");
+		targetFrame = div.querySelector(".targetFrame");
+		equation = div.querySelector("#equation");
+		equationAnswer = document.querySelector(".equation-answer");
 
-		group2 =
-			div.querySelector(".group2");
-
-		group1Container =
-			div.querySelector(
-				".group1-container"
-			);
-
-		group2Container =
-			div.querySelector(
-				".group2-container"
-			);
-
-		mergeGroup =
-			div.querySelector(".merge-group");
-
-		targetFrame =
-			div.querySelector(".targetFrame");
-
-		equation =
-			div.querySelector("#equation");
-
-		equationAnswer =
-			div.querySelector(
-				".equation-answer"
-			);
 	}
 
 	function renderComponent() {
-		div.innerHTML =
-			renderGabungKumpulan(data);
+		div.innerHTML = renderGabungKumpulan(data);
 
 		ui.contentContainer.replaceChildren(div);
 
@@ -221,11 +193,7 @@ export function mountGabungKumpulan({
 		ui.btnBack.disabled = false;
 	}
 
-	function wait(milliseconds) {
-		return new Promise(resolve => {
-			setTimeout(resolve, milliseconds);
-		});
-	}
+	let delay = milliseconds => new Promise(resolve => setTimeout(resolve, milliseconds))
 
 	async function countCubes() {
 		isBusy = true;
@@ -233,24 +201,16 @@ export function mountGabungKumpulan({
 		ui.btnNext.disabled = true;
 		ui.btnBack.disabled = true;
 
-		const cubes = [
-			...targetFrame.querySelectorAll(".cube")
-		];
+		const cubes = [...targetFrame.querySelectorAll(".cube")];
 
-		for (
-			let index = 0;
-			index < cubes.length;
-			index++
-		) {
+		for (let index = 0;index < cubes.length;index++) {
 			const cube = cubes[index];
 
-			let number =
-				cube.querySelector(".cube-number");
+			let number = cube.querySelector(".cube-number");
 
 			// Cipta span jika HTML asal tak mempunyainya
 			if (!number) {
-				number =
-					document.createElement("span");
+				number = document.createElement("span");
 
 				number.classList.add(
 					"cube-number"
@@ -266,7 +226,7 @@ export function mountGabungKumpulan({
 			ui.dialog.textContent =
 				`Kira Lego: ${index + 1}`;
 
-			await wait(500);
+			await delay(500);
 
 			cube.classList.remove("counting");
 			cube.classList.add("counted");
@@ -282,57 +242,40 @@ export function mountGabungKumpulan({
 	}
 
 	function showEquation() {
-		equationAnswer.textContent =
-			data.answer;
+		equationAnswer.textContent = data.answer;
 
 		equation.classList.add("show");
 
-		ui.dialog.textContent =
-			`${data.content.group1} tambah ${data.content.group2} sama dengan ${data.answer}.`;
+		ui.dialog.textContent = `${data.content.group1} tambah ${data.content.group2} sama dengan ${data.answer}.`;
 
-		ui.btnNext.textContent =
-			"SELESAI";
+		ui.btnNext.textContent = "SELESAI";
 	}
 
 	async function handleNext() {
 		if (isBusy) return;
 
 		if (step === 0) {
-			group1Container.classList.add(
-				"focus-group"
-			);
+			group1Container.classList.add("focus-group");
 
-			ui.dialog.textContent =
-				`Kumpulan 1 mempunyai ${data.content.group1} Lego.`;
+			ui.dialog.textContent = `Kumpulan 1 mempunyai ${data.content.group1} Lego.`;
 
 			step++;
 			return;
 		}
 
 		if (step === 1) {
-			group1Container.classList.remove(
-				"focus-group"
-			);
+			group1Container.classList.remove("focus-group");
+			group2Container.classList.add("focus-group");
 
-			group2Container.classList.add(
-				"focus-group"
-			);
-
-			ui.dialog.textContent =
-				`Kumpulan 2 mempunyai ${data.content.group2} Lego.`;
+			ui.dialog.textContent = `Kumpulan 2 mempunyai ${data.content.group2} Lego.`;
 
 			step++;
 			return;
 		}
 
 		if (step === 2) {
-			group2Container.classList.remove(
-				"focus-group"
-			);
-
-			mergeGroup.classList.add(
-				"focus-group"
-			);
+			group2Container.classList.remove("focus-group");
+			mergeGroup.classList.add("focus-group");
 
 			await mergeCubes();
 
@@ -362,15 +305,11 @@ export function mountGabungKumpulan({
 	function resetActivity() {
 		if (isBusy) return;
 
-		animations.forEach(animation => {
-			animation.cancel();
-		});
+		animations.forEach(animation => animation.cancel());
 
 		animations.length = 0;
 
-		flyingCubes.forEach(cube => {
-			cube.remove();
-		});
+		flyingCubes.forEach(cube => cube.remove());
 
 		flyingCubes.length = 0;
 
@@ -379,34 +318,12 @@ export function mountGabungKumpulan({
 
 		renderComponent();
 
-		ui.dialog.textContent =
-			data.text;
+		ui.dialog.textContent = data.text;
 
-		ui.btnNext.textContent =
-			"NEXT";
+		ui.btnNext.textContent = "NEXT";
 
 		ui.btnNext.disabled = false;
 		ui.btnBack.disabled = true;
-	}
-
-	function cleanup() {
-		animations.forEach(animation => {
-			animation.cancel();
-		});
-
-		flyingCubes.forEach(cube => {
-			cube.remove();
-		});
-
-		ui.btnNext.removeEventListener(
-			"click",
-			handleNext
-		);
-
-		ui.btnBack.removeEventListener(
-			"click",
-			resetActivity
-		);
 	}
 
 	renderComponent();
@@ -423,15 +340,17 @@ export function mountGabungKumpulan({
 
 	ui.btnBack.disabled = true;
 
-	ui.btnNext.addEventListener(
-		"click",
-		handleNext
-	);
+	ui.btnNext.addEventListener("click", handleNext);
+	ui.btnBack.addEventListener("click", resetActivity);
 
-	ui.btnBack.addEventListener(
-		"click",
-		resetActivity
-	);
+	function cleanup() {
+		animations.forEach(animation => animation.cancel());
+
+		flyingCubes.forEach(cube => cube.remove());
+
+		ui.btnNext.removeEventListener("click", handleNext);
+		ui.btnBack.removeEventListener("click", resetActivity);
+	}
 
 	return cleanup;
 }

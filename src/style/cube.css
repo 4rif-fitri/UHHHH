@@ -58,6 +58,7 @@
 .cube-target {
 	width: 60px;
 	height: 60px;
+	border: 2px dashed gainsboro;
 }
 
 .cube {
@@ -171,7 +172,7 @@ button.action:active {
 	}
 
 	.cube-target {
-	
+
 		width: 48px;
 		height: 48px;
 	}
