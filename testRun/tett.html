@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Animasi Ten Frame</title>
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			padding: 2rem;
+			display: grid;
+			place-items: center;
+			font-family: Arial, sans-serif;
+			background: #eef9ff;
+			color: #173b72;
+		}
+
+		.activity {
+			width: min(1050px, 100%);
+			padding: 2rem;
+			background: white;
+			border: 4px solid #58cc02;
+			border-radius: 20px;
+			box-shadow: 0 15px 30px rgb(0 0 0 / 15%);
+		}
+
+		h1,
+		.instruction,
+		.equation {
+			text-align: center;
+		}
+
+		h1 {
+			margin-top: 0;
+		}
+
+		.instruction {
+			min-height: 2rem;
+			font-size: 1.25rem;
+			font-weight: bold;
+		}
+
+		.frames-wrapper {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 2rem;
+			margin: 2rem 0;
+		}
+
+		.frame-section h2 {
+			text-align: center;
+			font-size: 1.1rem;
+		}
+
+		.ten-frame {
+			width: min(360px, 40vw);
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+			border-top: 3px solid #667085;
+			border-left: 3px solid #667085;
+		}
+
+		.frame-cell {
+			aspect-ratio: 1;
+			display: grid;
+			place-items: center;
+			background: #fff;
+			border-right: 3px solid #667085;
+			border-bottom: 3px solid #667085;
+			transition:
+				background-color 0.3s ease,
+				transform 0.3s ease;
+		}
+
+		.source-slot {
+			background: #edf8ff;
+		}
+
+		.target-slot {
+			background: #fff9cc;
+		}
+
+		.target-slot.active {
+			background: #dcfce7;
+			transform: scale(1.05);
+		}
+
+		.counter {
+			width: 74%;
+			aspect-ratio: 1;
+			display: grid;
+			place-items: center;
+			color: white;
+			background: #a85a19;
+			border: 4px solid #75370e;
+			border-radius: 50%;
+			font-size: clamp(1rem, 3vw, 1.8rem);
+			font-weight: bold;
+			box-shadow: 0 5px 0 #d5b29a;
+		}
+
+		.moving-counter {
+			background: #2b9be8;
+			border-color: #156da8;
+			box-shadow: 0 5px 0 #a6d7f5;
+		}
+
+		.arrow {
+			color: #e91e8f;
+			font-size: clamp(2rem, 6vw, 4rem);
+			font-weight: bold;
+		}
+
+		.flying-counter {
+			position: fixed;
+			z-index: 9999;
+			margin: 0;
+			pointer-events: none;
+			will-change: transform;
+		}
+
+		.equation {
+			min-height: 3.5rem;
+			margin: 1rem 0;
+			font-size: clamp(1.8rem, 5vw, 3rem);
+			font-weight: bold;
+			opacity: 0;
+			transform: translateY(15px);
+			transition: 0.45s ease;
+		}
+
+		.equation.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.button-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 1rem;
+		}
+
+		button {
+			min-height: 52px;
+			border: 0;
+			border-radius: 12px;
+			font-size: 1rem;
+			font-weight: bold;
+			cursor: pointer;
+		}
+
+		.btn-move {
+			color: white;
+			background: #58cc02;
+			box-shadow: 0 6px 0 #46a302;
+		}
+
+		.btn-reset {
+			color: #173b72;
+			background: #ffc928;
+			box-shadow: 0 6px 0 #dfa900;
+		}
+
+		button:disabled {
+			opacity: 0.55;
+			cursor: not-allowed;
+		}
+
+		@media (max-width: 700px) {
+			body {
+				padding: 0.7rem;
+			}
+
+			.activity {
+				padding: 1rem;
+			}
+
+			.frames-wrapper {
+				flex-direction: column;
+				gap: 0.7rem;
+			}
+
+			.ten-frame {
+				width: min(420px, 90vw);
+			}
+
+			.arrow {
+				transform: rotate(90deg);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<main class="activity">
+		<h1>Gabungkan Dua Kumpulan</h1>
+
+		<p id="instruction" class="instruction">
+			Klik GERAKKAN untuk menambah 2 kepada 5.
+		</p>
+
+		<div class="frames-wrapper">
+			<section class="frame-section">
+				<h2>Kumpulan Asal</h2>
+
+				<div id="sourceFrame" class="ten-frame">
+					<div class="frame-cell">
+						<div class="counter">1</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">2</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">3</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">4</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">5</div>
+					</div>
+
+					<div class="frame-cell source-slot">
+						<div class="counter moving-counter">6</div>
+					</div>
+					<div class="frame-cell source-slot">
+						<div class="counter moving-counter">7</div>
+					</div>
+					<div class="frame-cell"></div>
+					<div class="frame-cell"></div>
+					<div class="frame-cell"></div>
+				</div>
+			</section>
+
+			<div class="arrow">➜</div>
+
+			<section class="frame-section">
+				<h2>Gabungan</h2>
+
+				<div id="targetFrame" class="ten-frame">
+					<div class="frame-cell">
+						<div class="counter">1</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">2</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">3</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">4</div>
+					</div>
+					<div class="frame-cell">
+						<div class="counter">5</div>
+					</div>
+
+					<div class="frame-cell target-slot"></div>
+					<div class="frame-cell target-slot"></div>
+					<div class="frame-cell"></div>
+					<div class="frame-cell"></div>
+					<div class="frame-cell"></div>
+				</div>
+			</section>
+		</div>
+
+		<div id="equation" class="equation">
+			5 + 2 = 7
+		</div>
+
+		<div class="button-container">
+			<button id="resetButton" class="btn-reset">
+				RESET
+			</button>
+
+			<button id="moveButton" class="btn-move">
+				GERAKKAN
+			</button>
+		</div>
+	</main>
+
+	<script>
+		const sourceFrame =
+			document.querySelector("#sourceFrame");
+
+		const targetFrame =
+			document.querySelector("#targetFrame");
+
+		const moveButton =
+			document.querySelector("#moveButton");
+
+		const resetButton =
+			document.querySelector("#resetButton");
+
+		const instruction =
+			document.querySelector("#instruction");
+
+		const equation =
+			document.querySelector("#equation");
+
+		const originalSourceHTML =
+			sourceFrame.innerHTML;
+
+		const originalTargetHTML =
+			targetFrame.innerHTML;
+
+		function getDistance(source, target) {
+			const sourceRect =
+				source.getBoundingClientRect();
+
+			const targetRect =
+				target.getBoundingClientRect();
+
+			return {
+				sourceRect,
+				x: targetRect.left - sourceRect.left,
+				y: targetRect.top - sourceRect.top
+			};
+		}
+
+		function moveCounter(source, target, delay = 0) {
+			return new Promise(resolve => {
+				const { sourceRect, x, y } =
+					getDistance(source, target);
+
+				const clone =
+					source.cloneNode(true);
+
+				clone.classList.add(
+					"flying-counter"
+				);
+
+				clone.style.left =
+					`${sourceRect.left}px`;
+
+				clone.style.top =
+					`${sourceRect.top}px`;
+
+				clone.style.width =
+					`${sourceRect.width}px`;
+
+				clone.style.height =
+					`${sourceRect.height}px`;
+
+				document.body.appendChild(clone);
+
+				source.style.visibility = "hidden";
+				target.classList.add("active");
+
+				const animation = clone.animate(
+					[
+						{
+							transform:
+								"translate3d(0, 0, 0) scale(1)"
+						},
+						{
+							transform: `
+								translate3d(
+									${x * 0.5}px,
+									${(y * 0.5) - 45}px,
+									0
+								)
+								scale(1.1)
+							`
+						},
+						{
+							transform: `
+								translate3d(
+									${x}px,
+									${y}px,
+									0
+								)
+								scale(1)
+							`
+						}
+					],
+					{
+						duration: 1100,
+						delay,
+						easing:
+							"cubic-bezier(0.22, 1, 0.36, 1)",
+						fill: "forwards"
+					}
+				);
+
+				animation.onfinish = () => {
+					target.classList.remove("active");
+
+					target.appendChild(source);
+					source.style.visibility = "";
+
+					clone.remove();
+					resolve();
+				};
+			});
+		}
+
+		async function moveAllCounters() {
+			const counters = [
+				...sourceFrame.querySelectorAll(
+					".moving-counter"
+				)
+			];
+
+			const targets = [
+				...targetFrame.querySelectorAll(
+					".target-slot"
+				)
+			];
+
+			moveButton.disabled = true;
+			resetButton.disabled = true;
+
+			instruction.textContent =
+				"2 objek sedang digabungkan dengan 5 objek.";
+
+			const animations = counters.map(
+				(counter, index) => {
+					return moveCounter(
+						counter,
+						targets[index],
+						index * 180
+					);
+				}
+			);
+
+			await Promise.all(animations);
+
+			instruction.textContent =
+				"Sekarang semuanya ada 7 objek.";
+
+			equation.classList.add("show");
+			resetButton.disabled = false;
+		}
+
+		function resetActivity() {
+			document.querySelectorAll(".flying-counter").forEach(element => element.remove());
+
+			sourceFrame.innerHTML = originalSourceHTML;
+			targetFrame.innerHTML = originalTargetHTML;
+
+			instruction.textContent = "Klik GERAKKAN untuk menambah 2 kepada 5.";
+
+			equation.classList.remove("show");
+
+			moveButton.disabled = false;
+			resetButton.disabled = false;
+		}
+
+		moveButton.addEventListener("click", moveAllCounters);
+		resetButton.addEventListener("click", resetActivity);
+	</script>
+</body>
+
+</html>
