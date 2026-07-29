@@ -55,6 +55,11 @@
 	width: 100%;
 }
 
+.cube-target {
+	width: 60px;
+	height: 60px;
+}
+
 .cube {
 	width: 60px;
 	height: 60px;
@@ -116,7 +121,7 @@
 }
 
 .actions {
-	width: 100% !important;  
+	width: 100% !important;
 	display: flex;
 	gap: 12px;
 	margin-top: 24px;
@@ -161,6 +166,12 @@ button.action:active {
 	}
 
 	.cube {
+		width: 48px;
+		height: 48px;
+	}
+
+	.cube-target {
+	
 		width: 48px;
 		height: 48px;
 	}

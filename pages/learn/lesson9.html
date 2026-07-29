@@ -9,6 +9,69 @@
 	<link rel="stylesheet" href="../../src/style/lesson.css">
 	<link rel="stylesheet" href="../../src/style/cube.css">
 	<link rel="stylesheet" href="../../src/style/layoutContent.css">
+	<style>
+		.output {}
+
+		.group1-container,
+		.group2-container {
+			width: 100%;
+			padding: 0.5rem;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.group2-container {
+			display: flex;
+			align-items: end !important;
+		}
+
+		.group1-container>div,
+		.group2-container>div {
+			display: flex;
+		}
+
+
+		.merge-group {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.merge {
+			display: flex;
+		}
+
+		.output-wrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.cube-target.active {
+			background: rgba(88, 204, 2, 0.2);
+			border-color: #58cc02;
+			transform: scale(1.08);
+		}
+
+		.flying-counter {
+			position: fixed !important;
+			z-index: 9999;
+
+			margin: 0 !important;
+			pointer-events: none;
+
+			background: #8b5cf6;
+			border: 3px solid #6d28d9;
+			box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+
+			will-change: transform;
+		}
+
+		.cube-target>.cube {
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+		}
+	</style>
 </head>
 
 <body>
@@ -42,8 +105,60 @@
 
 					<div class="output">
 
-						
+						<div class="output-wrapper">
 
+							<section class="group1-container">
+								<h2>Kumpulan 1</h2>
+								<div class="group1 sourceFrame">
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+								</div>
+							</section>
+
+							<section class="group2-container">
+								<h2>Kumpulan 2</h2>
+								<div class="group2 sourceFrame">
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+									<div class="cube-target">
+										<div class="cube"></div>
+									</div>
+								</div>
+							</section>
+							<br>
+							<hr>
+							<section class="merge-group">
+								<h2>Kumpulan Gabung</h2>
+								<div class="merge targetFrame">
+									<div class="cube-target"></div>
+									<div class="cube-target"></div>
+									<div class="cube-target"></div>
+									<div class="cube-target"></div>
+									<div class="cube-target"></div>
+									<div class="cube-target"></div>
+								</div>
+							</section>
+							<br>
+							<hr>
+							<section class="content grid-5" id="equation">
+								<h1 class="text-center blue">5</h1>
+								<h1 class="text-center">+</h1>
+								<h1 class="eqn text-center yellow">5</h1>
+								<h1 class="text-center">=</h1>
+								<h1 class="text-center eqn"></h1>
+							</section>
+						</div>
 					</div>
 
 				</div>
@@ -55,20 +170,161 @@
 					<h2 class="hidden">BETUL</h2>
 					<p class="hidden textFooter"></p>
 				</div>
-				<div class="btnContainer">
+				<div class="btnContainer grid-2">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box ">CHECK</button>
-					<button class="btnBack soft-box hidden">BACK</button>
-					<button class="btnNext soft-box hidden">NEXT</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
 				</div>
 			</footer>
 		</main>
 	</div>
 
 	<script type="module">
-		// import { json } from "../../src/js/data/lessonData6.js"
-		// import { runComponents } from "../../src/js/core/componentRunner.js"
-		// runComponents(json)
+		let group1 = document.querySelector(".group1");
+		let group2 = document.querySelector(".group2");
+		let targetFrame = document.querySelector(".targetFrame");
+
+		let moveButton = document.querySelector(".btnNext");
+		let resetButton = document.querySelector(".btnBack");
+		let instruction = document.querySelector(".dialog p");
+		let equation = document.querySelector("#equation");
+
+		let originalGroup1HTML = group1.innerHTML;
+		let originalGroup2HTML = group2.innerHTML;
+		let originalTargetHTML = targetFrame.innerHTML;
+
+		function getDistance(source, target) {
+			let sourceRect = source.getBoundingClientRect();
+			let targetRect = target.getBoundingClientRect();
+
+			return {
+				sourceRect,
+				x:
+					targetRect.left +
+					targetRect.width / 2 -
+					(
+						sourceRect.left +
+						sourceRect.width / 2
+					),
+				y:
+					targetRect.top +
+					targetRect.height / 2 -
+					(
+						sourceRect.top +
+						sourceRect.height / 2
+					)
+				};
+		}
+
+		function moveCounter(source, target, delay = 0) {
+			return new Promise(resolve => {
+				let { sourceRect, x, y } = getDistance(source, target);
+
+				let clone = source.cloneNode(true);
+
+				clone.classList.add("flying-counter");
+
+				Object.assign(clone.style, {
+					left: `${sourceRect.left}px`,
+					top: `${sourceRect.top}px`,
+					width: `${sourceRect.width}px`,
+					height: `${sourceRect.height}px`
+				});
+
+				document.body.appendChild(clone);
+
+				source.style.visibility = "hidden";
+				target.classList.add("active");
+
+				let animation = clone.animate(
+					[
+						{
+							transform: "translate3d(0, 0, 0) scale(1)"
+						},
+						{
+							transform: `
+							translate3d(${x * 0.5}px,${(y * 0.5) - 50}px,0)
+							scale(1.15)`
+						},
+						{
+							transform: `
+							translate3d(${x}px,${y}px,0)
+							scale(1)`
+						}
+					],
+					{
+						duration: 1000,
+						delay,
+						easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+						fill: "forwards"
+					}
+				);
+
+				animation.onfinish = () => {
+					target.classList.remove("active");
+
+					target.appendChild(source);
+					source.style.visibility = "";
+
+					clone.remove();
+
+					resolve();
+				};
+			});
+		}
+
+		async function moveAllCounters() {
+			let counters = [...document.querySelectorAll(".group1 .cube, .group2 .cube")];
+
+			let targets = [...targetFrame.querySelectorAll(".cube-target")];
+
+			if (counters.length !== targets.length) {
+				console.error("Jumlah cube dan target tidak sama.");
+				return;
+			}
+
+			moveButton.disabled = true;
+			resetButton.disabled = true;
+
+			instruction.textContent = "Semua objek sedang digabungkan.";
+
+			let animations = counters.map(
+				(counter, index) => {
+					return moveCounter(
+						counter,
+						targets[index],
+						index * 150
+					);
+				}
+			);
+
+			await Promise.all(animations);
+
+			instruction.textContent = "3 tambah 3 menghasilkan 6 objek.";
+
+			equation.classList.add("show");
+
+			resetButton.disabled = false;
+		}
+
+		function resetActivity() {
+			document.querySelectorAll(".flying-counter").forEach(element => element.remove());
+
+			group1.innerHTML = originalGroup1HTML;
+			group2.innerHTML = originalGroup2HTML;
+			targetFrame.innerHTML = originalTargetHTML;
+
+			instruction.textContent ="Klik GERAKKAN untuk menggabungkan dua kumpulan.";
+
+			equation.classList.remove("show");
+
+			moveButton.disabled = false;
+			resetButton.disabled = false;
+		}
+
+		moveButton.addEventListener("click",moveAllCounters);
+		resetButton.addEventListener("click",resetActivity);
 	</script>
 
 </body>
