@@ -287,36 +287,19 @@
 	</main>
 
 	<script>
-		const sourceFrame =
-			document.querySelector("#sourceFrame");
-
-		const targetFrame =
-			document.querySelector("#targetFrame");
-
-		const moveButton =
-			document.querySelector("#moveButton");
-
-		const resetButton =
-			document.querySelector("#resetButton");
-
-		const instruction =
-			document.querySelector("#instruction");
-
-		const equation =
-			document.querySelector("#equation");
-
-		const originalSourceHTML =
-			sourceFrame.innerHTML;
-
-		const originalTargetHTML =
-			targetFrame.innerHTML;
+		let sourceFrame = document.querySelector("#sourceFrame");
+		let targetFrame = document.querySelector("#targetFrame");
+		let moveButton = document.querySelector("#moveButton");
+		let resetButton = document.querySelector("#resetButton");
+		let instruction = document.querySelector("#instruction");
+		let equation = document.querySelector("#equation");
+		let originalSourceHTML = sourceFrame.innerHTML;
+		let originalTargetHTML = targetFrame.innerHTML;
 
 		function getDistance(source, target) {
-			const sourceRect =
-				source.getBoundingClientRect();
+			let sourceRect = source.getBoundingClientRect();
 
-			const targetRect =
-				target.getBoundingClientRect();
+			let targetRect = target.getBoundingClientRect();
 
 			return {
 				sourceRect,
@@ -327,34 +310,22 @@
 
 		function moveCounter(source, target, delay = 0) {
 			return new Promise(resolve => {
-				const { sourceRect, x, y } =
-					getDistance(source, target);
+				let { sourceRect, x, y } = getDistance(source, target);
 
-				const clone =
-					source.cloneNode(true);
+				let clone = source.cloneNode(true);
+				clone.classList.add("flying-counter");
 
-				clone.classList.add(
-					"flying-counter"
-				);
-
-				clone.style.left =
-					`${sourceRect.left}px`;
-
-				clone.style.top =
-					`${sourceRect.top}px`;
-
-				clone.style.width =
-					`${sourceRect.width}px`;
-
-				clone.style.height =
-					`${sourceRect.height}px`;
-
+				clone.style.left =`${sourceRect.left}px`;
+				clone.style.top =`${sourceRect.top}px`;
+				clone.style.width =`${sourceRect.width}px`;
+				clone.style.height =`${sourceRect.height}px`;
+				
 				document.body.appendChild(clone);
 
 				source.style.visibility = "hidden";
 				target.classList.add("active");
 
-				const animation = clone.animate(
+				let animation = clone.animate(
 					[
 						{
 							transform:
@@ -403,25 +374,15 @@
 		}
 
 		async function moveAllCounters() {
-			const counters = [
-				...sourceFrame.querySelectorAll(
-					".moving-counter"
-				)
-			];
-
-			const targets = [
-				...targetFrame.querySelectorAll(
-					".target-slot"
-				)
-			];
+			let counters = [...sourceFrame.querySelectorAll(".moving-counter")];
+			let targets = [...targetFrame.querySelectorAll(".target-slot")];
 
 			moveButton.disabled = true;
 			resetButton.disabled = true;
 
-			instruction.textContent =
-				"2 objek sedang digabungkan dengan 5 objek.";
+			instruction.textContent = "2 objek sedang digabungkan dengan 5 objek.";
 
-			const animations = counters.map(
+			let animations = counters.map(
 				(counter, index) => {
 					return moveCounter(
 						counter,
@@ -433,8 +394,7 @@
 
 			await Promise.all(animations);
 
-			instruction.textContent =
-				"Sekarang semuanya ada 7 objek.";
+			instruction.textContent = "Sekarang semuanya ada 7 objek.";
 
 			equation.classList.add("show");
 			resetButton.disabled = false;
