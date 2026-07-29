@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../src/style/game.css">
+	<link rel="stylesheet" href="../../src/style/lesson.css">
+	<link rel="stylesheet" href="../../src/style/cube.css">
+	<link rel="stylesheet" href="../../src/style/layoutContent.css">
+	<style>
+		.group1-container,
+		.group2-container {
+			width: 100%;
+			padding: 0.5rem;
+			display: flex;
+			flex-direction: column;
+		}
+
+		.group2-container {
+			display: flex;
+			align-items: end !important;
+		}
+
+		.group1-container>div,
+		.group2-container>div {
+			display: flex;
+		}
+
+
+		.merge-group {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.merge {
+			display: flex;
+		}
+
+		.output-wrapper {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+		}
+
+		.cube-target.active {
+			background: rgba(88, 204, 2, 0.2);
+			border-color: #58cc02;
+			transform: scale(1.08);
+		}
+
+		.flying-counter {
+			position: fixed !important;
+			z-index: 9999;
+
+			margin: 0 !important;
+			pointer-events: none;
+
+			background: #8b5cf6;
+			border: 3px solid #6d28d9;
+			box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+
+			will-change: transform;
+		}
+
+		.cube-target>.cube {
+			width: 100%;
+			height: 100%;
+			box-sizing: border-box;
+		}
+
+		.focus-group {
+			background: #fff7cc;
+			border: 3px solid #ffc928;
+			border-radius: 14px;
+			transform: scale(1.02);
+		}
+
+		.cube-number {
+			opacity: 0;
+			pointer-events: none;
+		}
+
+		.cube.counting .cube-number,
+		.cube.counted .cube-number {
+			opacity: 1;
+		}
+
+		.cube.counting {
+			z-index: 10;
+			color: white;
+
+			animation: countCube 0.5s ease;
+		}
+
+		.cube.counted {
+			z-index: 1000;
+			color: white;
+			background: #58cc02;
+			border-color: #46a302;
+		}
+
+		.cube.counted {
+			background: linear-gradient(145deg, var(--color-primary), var(--color-primary-dark));
+			border: 3px solid var(--color-primary-dark);
+			box-shadow:
+				0 5px 0 var(--color-primary-dark),
+				0 8px 12px rgba(0, 0, 0, 0.2);
+		}
+
+		.cube.counted::before {
+			background: var(--color-primary-dark);
+			border: 2px solid var(--color-primary-dark);
+			box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.18);
+		}
+
+		.cube.counted::after {
+			background: var(--color-primary-dark);
+			border: 2px solid var(--color-primary-dark);
+		}
+
+		@keyframes countCube {
+			0% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.5);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.equation {
+			opacity: 0;
+			transform: translateY(15px);
+			transition: 0.4s ease;
+		}
+
+		.equation.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+		.delete-container {
+			padding: 0.75rem;
+			border: 3px solid transparent;
+			border-radius: 14px;
+
+			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
+
+			transition: 0.3s ease;
+		}
+
+		.deleteFrame {
+			display: flex;
+			gap: 0.5rem;
+		}
+
+		.delete-target {
+			width: 55px;
+			height: 55px;
+
+			position: relative;
+
+			display: grid;
+			place-items: center;
+
+			background: #fee2e2;
+			border: 3px dashed #ef4444;
+			border-radius: 9px;
+
+			transition: 0.25s ease;
+		}
+
+		.delete-target.active {
+			background: #fecaca;
+			border-color: #dc2626;
+			transform: scale(1.1);
+		}
+
+		.delete-icon {
+			position: absolute;
+
+			color: #ef4444;
+			font-size: 2rem;
+			font-weight: bold;
+
+			opacity: 0.25;
+			pointer-events: none;
+		}
+
+		.delete-target>.cube {
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+		}
+
+		.focus-delete {
+			background: #fee2e2;
+			border-color: #ef4444;
+			transform: scale(1.02);
+		}
+
+		.cube.deleting {
+			animation: deleteCube 0.35s ease forwards;
+		}
+
+		@keyframes deleteCube {
+			0% {
+				opacity: 1;
+				transform: scale(1) rotate(0deg);
+			}
+
+			100% {
+				opacity: 0;
+				transform: scale(0) rotate(180deg);
+			}
+		}
+
+		.cube-number {
+			opacity: 0;
+		}
+
+		.cube.counting .cube-number,
+		.cube.counted .cube-number {
+			opacity: 1;
+		}
+
+		.cube.counting {
+			background: #58cc02;
+			border-color: #46a302;
+
+			animation: countCube 0.5s ease;
+		}
+
+		.cube.counted {
+			color: white;
+			background: #58cc02;
+			border-color: #46a302;
+		}
+
+		@keyframes countCube {
+			0% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.5);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+
+		.equation {
+			opacity: 0;
+			transform: translateY(15px);
+			transition: 0.4s ease;
+		}
+
+		.equation.show {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		import { json } from "../../src/js/data/lessonDataTolakKumpulan.js"
+		import { runComponents } from "../../src/js/core/componentRunner.js"
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>
