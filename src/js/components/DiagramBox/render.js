@@ -1,4 +1,6 @@
 export function renderDiagramBox(data) {
+	console.log(data);
+	
 	return `
 		<div class="content grid-5 gap-1">
 
@@ -12,7 +14,7 @@ export function renderDiagramBox(data) {
 		</div>
 
 		<div class="content grid-5">
-			<h1 class="text-center blue">${data.content.nombor}</h1>
+			<h1 class="text-center blue">${data.content.nums[0]}</h1>
 			<h1 class="text-center">+</h1>
 			<h1 class="eqn text-center yellow">${data.content.showAnswer ? data.content.pelengkap : ""}</h1>
 			<h1 class="text-center">=</h1>
