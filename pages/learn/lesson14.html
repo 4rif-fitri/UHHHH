@@ -442,6 +442,130 @@
 				height: 55px;
 			}
 		}
+
+		.pilih-ayat-tambah {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 4rem;
+		}
+
+		.cube-equation {
+			display: flex;
+			justify-content: center;
+		}
+
+		.cube-row {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.ayat-cube {
+			width: 75px;
+			height: 75px;
+			position: relative;
+
+			display: grid;
+			place-items: center;
+
+			border-radius: 8px;
+			border: 3px solid;
+			box-shadow:
+				inset 0 -7px 0 rgb(0 0 0 / 10%),
+				4px 5px 0 rgb(0 0 0 / 12%);
+		}
+
+		.cube-group-one {
+			background: #d65ae8;
+			border-color: #b93bce;
+		}
+
+		.cube-group-two {
+			background: #00a847;
+			border-color: #008437;
+		}
+
+		.cube-circle {
+			width: 38px;
+			height: 38px;
+
+			border-radius: 50%;
+			background: rgb(0 0 0 / 8%);
+
+			box-shadow:
+				inset 0 4px 4px rgb(0 0 0 / 12%);
+		}
+
+		.options {
+			width: min(650px, 100%);
+			gap: 1.5rem;
+		}
+
+		.btnAns {
+			min-height: 80px;
+			transition:
+				transform 0.2s ease,
+				background-color 0.2s ease;
+		}
+
+		.btnAns.selected {
+			background: #dbeafe;
+			border-color: #2196f3;
+			transform: translateY(-5px);
+		}
+
+		.btnAns.matched {
+			color: white;
+			background: #58cc02;
+			border-color: #46a302;
+		}
+
+		.btnAns.wrong {
+			color: white;
+			background: #ff4b4b;
+			border-color: #d93636;
+			animation: answerShake 0.35s ease;
+		}
+
+		@keyframes answerShake {
+			25% {
+				transform: translateX(-8px);
+			}
+
+			50% {
+				transform: translateX(8px);
+			}
+
+			75% {
+				transform: translateX(-5px);
+			}
+		}
+
+		@media (max-width: 520px) {
+			.pilih-ayat-tambah {
+				gap: 2.5rem;
+			}
+
+			.ayat-cube {
+				width: 55px;
+				height: 55px;
+			}
+
+			.cube-circle {
+				width: 28px;
+				height: 28px;
+			}
+
+			.options {
+				grid-template-columns: 1fr;
+			}
+
+			.btnAns {
+				min-height: 65px;
+			}
+		}
 	</style>
 </head>
 
@@ -495,7 +619,7 @@
 	</div>
 
 	<script type="module">
-		import { json } from "../../src/js/data/lessonDataTolakPilihLego.js"
+		import { json } from "../../src/js/data/lessonDataPilihAyatTambah.js"
 		import { runComponents } from "../../src/js/core/componentRunner.js"
 		runComponents(json)
 	</script>

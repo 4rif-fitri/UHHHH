@@ -21,6 +21,7 @@ import { mountTolakKumpulan } from "../components/TolakKumpulan/index.js";
 import { mountTolakPilihLego } from "../components/TolakPilihLego/index.js";
 import { mountTambahDragLego } from "../components/TambahPilihLego/index.js";
 import { mountPilihJumlahLego } from "../components/PilihJumlahLego/index.js";
+import { mountPilihAyatTambah } from "../components/PilihAyatTambah/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -182,5 +183,8 @@ export const widgetRegistry = {
 	},
 	PilihJumlahLego: {
 		mount: mountPilihJumlahLego
+	},
+	PilihAyatTambah: {
+		mount: mountPilihAyatTambah
 	}
 };
