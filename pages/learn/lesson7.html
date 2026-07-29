@@ -5,10 +5,74 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../src/style/game.css">
 	<link rel="stylesheet" href="../../src/style/lesson.css">
-	<link rel="stylesheet" href="../../src/style/cube.css">
 	<link rel="stylesheet" href="../../src/style/layoutContent.css">
+	<style>
+		.scene {
+			margin: 3rem 0;
+			width: 150px;
+			height: 150px;
+			perspective: 1000px;
+		}
+
+		.cubee {
+			width: 150px;
+			height: 150px;
+			position: relative;
+			transform-style: preserve-3d;
+			animation: rotateCube 10s linear infinite;
+		}
+
+		.face {
+			position: absolute;
+			width: 150px;
+			height: 150px;
+			border: 3px solid black;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.frontt {
+			background-color: var(--color-primary-light);
+			transform: translateZ(75px);
+		}
+
+		.backk {
+			background-color: var(--color-secondary-light);
+			transform: rotateY(180deg) translateZ(75px);
+		}
+
+		.leftt {
+			background-color: var(--color-blue-light);
+			transform: rotateY(-90deg) translateZ(75px);
+		}
+
+		.rightt {
+			background-color: var(--color-red-light);
+			transform: rotateY(90deg) translateZ(75px);
+		}
+
+		.topp {
+			background-color: var(--color-orange-light);
+			transform: rotateX(90deg) translateZ(75px);
+		}
+
+		.bottomm {
+			background-color: var(--color-yellow-light);
+			transform: rotateX(-90deg) translateZ(75px);
+		}
+
+		@keyframes rotateCube {
+			0% {
+				transform: rotateX(0deg) rotateY(0deg);
+			}
+
+			100% {
+				transform: rotateX(360deg) rotateY(360deg);
+			}
+		}
+	</style>
 </head>
 
 <body>
@@ -56,24 +120,26 @@
 
 							<h1 class="text-center eqn"></h1>
 						</div>
-						<div class="cube">
-							<div class="face frontt">
-								<h1>10</h1>
-							</div>
-							<div class="face backk">
-								<h1>9</h1>
-							</div>
-							<div class="face leftt">
-								<h1>8</h1>
-							</div>
-							<div class="face rightt">
-								<h1>7</h1>
-							</div>
-							<div class="face topp">
-								<h1>6</h1>
-							</div>
-							<div class="face bottomm">
-								<h1>5</h1>
+						<div class="scene">
+							<div class="cubee">
+								<div class="face frontt">
+									<h1>1</h1>
+								</div>
+								<div class="face backk">
+									<h1>2</h1>
+								</div>
+								<div class="face leftt">
+									<h1>3</h1>
+								</div>
+								<div class="face rightt">
+									<h1>4</h1>
+								</div>
+								<div class="face topp">
+									<h1>5</h1>
+								</div>
+								<div class="face bottomm">
+									<h1>6</h1>
+								</div>
 							</div>
 						</div>
 
