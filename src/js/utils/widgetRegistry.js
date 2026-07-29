@@ -24,6 +24,7 @@ import { mountPilihJumlahLego } from "../components/PilihJumlahLego/index.js";
 import { mountPilihAyatTambah } from "../components/PilihAyatTambah/index.js";
 import { mountPartPartWholeVisual } from "../components/PartPartWholeVisual/index.js";
 import { mountGabungPartWhole } from "../components/GabungPartWhole/index.js";
+import { mountPecahWholeKepadaPart } from "../components/PecahWholeKepadaPart/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
@@ -194,5 +195,8 @@ export const widgetRegistry = {
 	},
 	GabungPartWhole: {
 		mount: mountGabungPartWhole
+	},
+	PecahWholeKepadaPart: {
+		mount: mountPecahWholeKepadaPart
 	}
 };
