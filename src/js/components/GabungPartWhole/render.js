@@ -66,9 +66,11 @@ export function renderGabungPartWhole(data) {
 
 			</div>
 
-			<div class="gpw-arrows hidden"></div>
+			<div class="hidden"></div>
 
-			<section class="gpw-whole hidden">
+			<br><br><br>
+			
+			<section class="gpw-whole hidden gpw-arrows">
 				<div class="gpw-box whole-box">
 					<div class="gpw-cube-row">
 						${createCubes(part1)}

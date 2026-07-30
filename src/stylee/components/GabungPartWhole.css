@@ -1,0 +1,212 @@
+.gpw-wrapper {
+	--green: #249b48;
+
+	width: min(750px, 100%);
+	min-height: 430px;
+	margin: auto;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Dua bahagian di atas */
+.gpw-parts {
+	width: 100%;
+
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 4rem;
+}
+
+.gpw-part {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	text-align: center;
+}
+
+.gpw-part h2,
+.gpw-whole h2 {
+	margin: 0 0 0.75rem;
+	color: #0876cb;
+}
+
+.part-count {
+	margin: 0.5rem 0 0;
+
+	color: #0876cb;
+	font-size: 1.3rem;
+	font-weight: bold;
+}
+
+/* Kotak biru */
+.gpw-box {
+	width: 100%;
+	min-height: 125px;
+	padding: 1.25rem;
+
+	display: grid;
+	place-items: center;
+
+	background: #a8d8f7;
+	border: 3px solid var(--green);
+	border-radius: 4px;
+}
+
+/* Susunan Lego */
+.gpw-cube-row {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* Lego asal daripada cube.css */
+.gpw-cube-row .cube {
+	flex-shrink: 0;
+
+	rotate: -90deg;
+	scale: 0.85;
+
+	margin-inline: -6px;
+}
+
+/* Kumpulan pertama */
+.gpw-cube-row .cube-blue,
+.gpw-cube-row .cube-blue::before,
+.gpw-cube-row .cube-blue::after {
+	background-color: #4ca8f0 !important;
+	border-color: #0876cb !important;
+}
+
+/* Kumpulan kedua */
+.gpw-cube-row .cube-red,
+.gpw-cube-row .cube-red::before,
+.gpw-cube-row .cube-red::after {
+	background-color: #ffaaaa !important;
+	border-color: #ff3030 !important;
+}
+
+/* Kawasan anak panah */
+.gpw-arrows {
+	position: relative;
+}
+
+/* Anak panah daripada kiri */
+.gpw-arrows::before {
+	content: "";
+	position: absolute;
+	width: 150px !important;
+	height: 150px !important;
+	rotate: 45deg;
+	left: 47% !important;
+	transform: translateX(-50%);
+	top: -65% !important;
+	border-bottom: 7px solid black;
+	border-right: 7px solid black;
+}
+
+/* Whole di bawah */
+.gpw-whole {
+	width: min(500px, 85%);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	text-align: center;
+}
+
+.gpw-whole .whole-box {
+	width: 100%;
+}
+
+.gpw-whole h2 {
+	margin-top: 0.75rem;
+}
+
+/* Rumusan */
+.gpw-summary {
+	margin-top: 1rem;
+	padding: 0.75rem 2rem;
+
+	text-align: center;
+
+	background: #dcfce7;
+	border: 3px solid #58cc02;
+	border-radius: 12px;
+}
+
+.gpw-summary h2 {
+	margin: 0;
+	color: #249b48;
+}
+
+.gpw-summary p {
+	margin: 0.4rem 0 0;
+	font-weight: bold;
+}
+
+.gpw-part,
+.gpw-arrows,
+.gpw-whole,
+.gpw-summary {
+	animation: gpwShow 0.4s ease;
+}
+
+@keyframes gpwShow {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (max-width: 520px) {
+	.gpw-wrapper {
+		min-height: 380px;
+	}
+
+	.gpw-parts {
+		gap: 1rem;
+	}
+
+	.gpw-box {
+		min-height: 90px;
+		padding: 0.75rem;
+	}
+
+	.gpw-cube-row .cube {
+		scale: 0.6;
+		margin-inline: -14px;
+	}
+
+	.gpw-arrows {
+		width: 300px;
+		height: 90px;
+	}
+
+	.gpw-arrows::before,
+	.gpw-arrows::after {
+		width: 135px;
+		top: 30px;
+	}
+
+	.gpw-arrows::before {
+		left: 15px;
+	}
+
+	.gpw-arrows::after {
+		right: 15px;
+	}
+
+	.gpw-summary {
+		padding: 0.6rem 1rem;
+	}
+}
