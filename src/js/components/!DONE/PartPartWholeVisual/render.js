@@ -18,7 +18,10 @@ export function renderPartPartWholeVisual(data) {
 
 			<section class="ppw-whole">
 				<h2>Whole</h2>
-
+				<p class="whole-total hidden">
+					Jumlah keseluruhan ialah
+					<strong>${whole}</strong>
+				</p>
 				<div class="ppw-box whole-box">
 					<div class="cube-row">
 						${createCubes(
@@ -33,10 +36,7 @@ export function renderPartPartWholeVisual(data) {
 					</div>
 				</div>
 
-				<p class="whole-total hidden">
-					Jumlah keseluruhan ialah
-					<strong>${whole}</strong>
-				</p>
+
 			</section>
 
 			<div class="ppw-arrows hidden"></div>
