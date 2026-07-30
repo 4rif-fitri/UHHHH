@@ -44,7 +44,7 @@ function createOptions(options) {
 		return `
 			<button
 				type="button"
-				class="option soft-box btnAns"
+				class="option soft-box btnAns p-2"
 				data-value="${option}"
 			>
 				<h2>${option}</h2>
@@ -100,7 +100,7 @@ export function renderTambahDragLego(data) {
 
 			<div class="answer-section hidden">
 				<h3>Pilih jumlah semua Lego</h3>
-
+				<br>
 				<div class="options">
 					${createOptions(data.options)}
 				</div>

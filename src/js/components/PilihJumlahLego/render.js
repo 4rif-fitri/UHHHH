@@ -4,6 +4,7 @@ function createCubes(total, group) {
 		(_, index) => `
 			<div
 				class="pilih-cube"
+				style="padding: 2rem"
 				data-group="${group}"
 				data-index="${index}"
 			></div>
