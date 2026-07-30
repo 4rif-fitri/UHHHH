@@ -555,3 +555,7 @@ a {
 .square{
 	aspect-ratio: 1 / 1;
 }
+.col-5{
+	display: grid;
+	grid-template-columns: repeat(5,1fr) !important;
+}
