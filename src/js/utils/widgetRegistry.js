@@ -11,7 +11,7 @@ import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, render
 import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
 import { updateContent } from "./helper.js";
 import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
-import { mountMaking10 } from "../components/Making10/index.js";
+import { mountMaking10 } from "../components/!DONE/Making10/index.js";
 import { mountChoiseQuiz } from "../components/ChoiseQuiz/index.js";
 import { mountKenaliNombor } from "../components/!DONE/KenaliNombor/index.js";
 import { mountSusunNombor } from "../components/!DONE/SusunNombor/index.js";
