@@ -11,11 +11,11 @@ export function renderKombinasiTerbalik(data) {
 		<br>
 
 		<div class="content grid-5">
-			<h1 class="text-center bulat secondary">${data.content.part[0]}</h1>
-			<h1 class="text-center">+</h1>
-			<h1 class="text-center bulat yellow">${data.content.part[1]}</h1>
-			<h1 class="text-center">=</h1>
-			<h1 class="text-center eqn primary target">${data.content.whole}</h1>
+			<h1 class="text-center bulat secondary aspect-square">${data.content.part[0]}</h1>
+			<h1 class="text-center aspect-square">+</h1>
+			<h1 class="text-center bulat yellow aspect-square">${data.content.part[1]}</h1>
+			<h1 class="text-center aspect-square">=</h1>
+			<h1 class="text-center eqn primary target aspect-square">${data.content.whole}</h1>
 		</div>
 		<br>
 	`
