@@ -492,3 +492,13 @@ a {
 	transform: translateY(5px);
 	box-shadow: 0 1px 0 #c8ccd2;
 }
+
+.output {
+	width: 100%;
+	height: 100%;
+}
+
+.w-100 {
+	width: 100% !important;
+	height: 100% !important;
+}
