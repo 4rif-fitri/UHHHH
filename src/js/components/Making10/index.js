@@ -1,35 +1,61 @@
-import { renderAfterCorrect, renderMaking10 } from "./render.js";
+import {
+	renderMaking10
+} from "./render.js";
 
-export function mountMaking10({div,data,ui,handleComponentComplete}) {
-	
+import {
+	showCorrect,
+	showWrong,
+	resetContentFooter
+} from "../../utils/helper.js";
+
+export function mountMaking10({
+	div,
+	data,
+	ui,
+	handleComponentComplete
+}) {
 	let selectedValue = null;
 	let selectedButton = null;
 	let isLocked = false;
-	let wrongTimeout = null;
+	let isCorrect = null;
 
 	div.innerHTML = renderMaking10(data);
 
 	ui.contentContainer.replaceChildren(div);
 	ui.dialog.textContent = data.text;
+	ui.dialog.style.color = "";
 
 	ui.btnContainer?.classList.remove("grid-2");
 
 	ui.btnCheck.classList.remove("hidden");
-	ui.btnNext.classList.add("hidden");
+	ui.btnContinue.classList.add("hidden");
+	ui.btnNext?.classList.add("hidden");
+	ui.btnBack?.classList.add("hidden");
+
 	ui.btnCheck.disabled = true;
+
+	function resetSelection() {
+		div.querySelectorAll(".btnAns")
+			.forEach(button => 
+				button.classList.remove("higlight","wrong","matched"));
+
+		selectedValue = null;
+		selectedButton = null;
+		isCorrect = null;
+
+		ui.btnCheck.disabled = true;
+	}
 
 	function handleOptionClick(event) {
 		if (isLocked) return;
 
-		const button =
-			event.target.closest(".btnAns");
+		const button = event.target.closest(".btnAns");
 
-		if (!button) return;
+		if (!button || !div.contains(button)) return
 
 		div.querySelectorAll(".btnAns")
-			.forEach(item => {
-				item.classList.remove("higlight","wrong");
-			});
+			.forEach(item => 
+				item.classList.remove("higlight","wrong"));
 
 		button.classList.add("higlight");
 
@@ -43,124 +69,52 @@ export function mountMaking10({div,data,ui,handleComponentComplete}) {
 	}
 
 	function handleCheck() {
-		if (isLocked) return;
-		if (selectedValue === null) return;
+		if (isLocked || selectedValue === null) return
 
-		const isCorrect =
-			selectedValue === Number(data.answer);
+		isCorrect = selectedValue === Number(data.answer);
 
-		if (isCorrect) {
-			handleCorrect();
-			return;
-		}
-
-		handleWrong();
-	}
-
-	function handleCorrect() {
 		isLocked = true;
 
-		selectedButton.classList.remove("higlight");
-
-		selectedButton.classList.add("matched");
-
-		div.querySelector(".eqn")
-			.textContent = data.answer;
-
-		div.querySelectorAll(".empty-box")
-			.forEach(box => {
-				box.classList.add("yellow");
-			});
-
-		ui.dialog.textContent = "Betul!";
-
-		ui.dialog.style.color = "#22a000";
-
-		document.querySelector(".making-boxes").innerHTML = renderAfterCorrect(data)
-		
-
-
-		ui.btnCheck.classList.add("hidden");
-		ui.btnNext.classList.remove("hidden");
-	}
-
-	function handleWrong() {
-		isLocked = true;
-
-		const wrongButton =
-			selectedButton;
-
-		wrongButton.classList.remove(
+		selectedButton.classList.remove(
 			"higlight"
 		);
 
-		wrongButton.classList.add(
-			"wrong"
-		);
+		if (!isCorrect) {
+			selectedButton.classList.add("wrong");
 
-		ui.dialog.textContent =
-			"Salah. Cuba kira kotak yang masih kosong.";
+			showWrong(ui);
+			return;
+		}
 
-		ui.dialog.style.color =
-			"#e53935";
+		selectedButton.classList.add("matched");
 
-		ui.btnCheck.disabled = true;
-
-		wrongTimeout = setTimeout(() => {
-			wrongButton.classList.remove(
-				"wrong"
-			);
-
-			selectedValue = null;
-			selectedButton = null;
-			isLocked = false;
-
-			ui.dialog.textContent =
-				data.text;
-
-			ui.dialog.style.color = "";
-		}, 500);
+		showCorrect(ui);
 	}
 
-	function handleNext() {
-		if (!isLocked) return;
+	function handleContinue() {
+		if (isCorrect) {
+			handleComponentComplete();
+			return;
+		}
 
+		resetContentFooter(ui);
+
+		isLocked = false;
+
+		resetSelection();
+
+		ui.dialog.textContent = data.text;
 		ui.dialog.style.color = "";
-
-		handleComponentComplete();
 	}
 
-	div.addEventListener(
-		"click",
-		handleOptionClick
-	);
-
-	ui.btnCheck.addEventListener(
-		"click",
-		handleCheck
-	);
-
-	ui.btnNext.addEventListener(
-		"click",
-		handleNext
-	);
-
+	div.addEventListener("click",handleOptionClick);
+	ui.btnCheck.addEventListener("click",handleCheck);
+	ui.btnContinue.addEventListener("click",handleContinue);
+	
 	return function cleanup() {
-		clearTimeout(wrongTimeout);
-
-		div.removeEventListener(
-			"click",
-			handleOptionClick
-		);
-
-		ui.btnCheck.removeEventListener(
-			"click",
-			handleCheck
-		);
-
-		ui.btnNext.removeEventListener(
-			"click",
-			handleNext
-		);
+		div.removeEventListener("click",handleOptionClick);
+		ui.btnCheck.removeEventListener("click",handleCheck);
+		ui.btnContinue.removeEventListener("click",handleContinue);
+		ui.dialog.style.color = "";
 	};
 }
