@@ -1,16 +1,15 @@
+import { resetContentFooter, showCorrect, showWrong } from "../../utils/helper.js";
 import { renderTrueFalse } from "./render.js";
 
-export function mountTrueFalse({div,data,ui,handleComponentComplete}) {
+export function mountTrueFalse({ div, data, ui, handleComponentComplete }) {
 	let choice = null;
 	let selectedButton = null;
 	let isLock = false;
-	let timeoutId = null;
 
 	function handleClick(event) {
 		if (isLock) return;
 
-		const button =
-			event.target.closest(".btnAns");
+		const button = event.target.closest(".btnAns");
 
 		if (!button) return;
 
@@ -27,38 +26,32 @@ export function mountTrueFalse({div,data,ui,handleComponentComplete}) {
 
 	function handleCheck() {
 		if (choice === null || isLock) return;
-
 		isLock = true;
 
 		selectedButton.classList.remove("selected");
 
 		if (choice === data.answer) {
 			selectedButton.classList.add("matched");
-
-			ui.dialog.textContent = "Betul!";
-			ui.btnCheck.classList.add("hidden");
-			ui.btnNext.classList.remove("hidden");
-
+			showCorrect(ui)
 			return;
 		}
 
-		const wrongButton = selectedButton;
-
-		wrongButton.classList.add("wrong");
-		ui.dialog.textContent = "Salah, cuba lagi!";
-
-		choice = null;
-		selectedButton = null;
-
-		timeoutId = setTimeout(() => {
-			wrongButton.classList.remove("wrong");
-			isLock = false;
-		}, 400);
+		selectedButton.classList.add("wrong");
+		showWrong(ui)
 	}
 
-	function handleNext() {
-		handleComponentComplete();
+	function handleContinue() {
+		if (choice === data.answer) {
+			handleComponentComplete();
+
+		} else {
+			isLock = false
+			selectedButton.classList.remove("wrong");
+		}
+
+		resetContentFooter(ui)
 	}
+
 
 	div.innerHTML = renderTrueFalse(data);
 
@@ -70,24 +63,11 @@ export function mountTrueFalse({div,data,ui,handleComponentComplete}) {
 
 	div.addEventListener("click", handleClick);
 	ui.btnCheck.addEventListener("click", handleCheck);
-	ui.btnNext.addEventListener("click", handleNext);
+	ui.btnContinue.addEventListener("click", handleContinue)
 
 	return function cleanup() {
-		clearTimeout(timeoutId);
-
-		div.removeEventListener(
-			"click",
-			handleClick
-		);
-
-		ui.btnCheck.removeEventListener(
-			"click",
-			handleCheck
-		);
-
-		ui.btnNext.removeEventListener(
-			"click",
-			handleNext
-		);
+		div.removeEventListener("click", handleClick);
+		ui.btnCheck.removeEventListener("click", handleCheck);
+		ui.btnContinue.removeEventListener("click", handleContinue)
 	};
 }
