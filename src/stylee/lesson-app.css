@@ -1,0 +1,13 @@
+/* Variable mesti dimuat dahulu */
+@import url("./root.css");
+
+/* Kemudian style asas */
+@import url("./core/reset.css");
+@import url("./core/utilities.css");
+@import url("./core/lesson-shell.css");
+
+/* Style yang digunakan bersama */
+@import url("./shared/buttons.css");
+@import url("./shared/feedback.css");
+@import url("./shared/options.css");
+@import url("./shared/cube.css");
