@@ -502,3 +502,8 @@ a {
 	width: 100% !important;
 	height: 100% !important;
 }
+.eqn {
+	border-radius: 5px;
+	border: 2px solid black;
+	aspect-ratio: 1 / 1;
+}

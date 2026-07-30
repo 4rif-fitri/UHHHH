@@ -86,9 +86,9 @@ export function renderPecah(data) {
 export function renderPick(data) {
 	return `
 		<div class="content grid-3">
-			<h1 class="eqn text-center">${data.content.nums[0]}</h1>
-			<h1 class="text-center">+</h1>
-			<h1 class="eqn text-center">${data.content.nums[1]}</h1>
+			<h1 class="eqn text-center aspect-square">${data.content.nums[0]}</h1>
+			<h1 class="text-center aspect-square">+</h1>
+			<h1 class="eqn text-center aspect-square">${data.content.nums[1]}</h1>
 		</div>
 	`
 }
