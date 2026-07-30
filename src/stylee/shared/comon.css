@@ -140,3 +140,40 @@
 	transform: translateY(5px);
 	box-shadow: 0 1px 0 #58CC02;
 }
+
+.pop {
+	visibility: 0;
+	background-color: rgb(255, 211, 130);
+	border: 2px solid orange;
+}
+
+
+.primary {
+	background-color: var(--color-primary-light);
+}
+
+.secondary {
+	background-color: var(--color-secondary-light);
+}
+
+
+.blue {
+	background-color: var(--color-blue-light);
+}
+
+.red {
+	background-color: var(--color-red-light);
+}
+
+.orange {
+	background-color: var(--color-orange-light);
+}
+
+.yellow {
+	background-color: var(--color-yellow-light);
+}
+
+.bulat {
+	border-radius: 50%;
+	border: 2px solid black;
+}

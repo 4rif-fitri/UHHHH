@@ -6,7 +6,7 @@ import {
 	showCorrect,
 	showWrong,
 	resetContentFooter
-} from "../../utils/helper.js";
+} from "../../../utils/helper.js";
 
 export function mountTolakPilihLego({
 	div,
