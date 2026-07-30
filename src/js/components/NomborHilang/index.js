@@ -2,9 +2,21 @@ import {
 	renderNomborHilang
 } from "./render.js";
 
-export function mountNomborHilang({div,data,ui,handleComponentComplete}){
+import {
+	showCorrect,
+	showWrong,
+	resetContentFooter
+} from "../../utils/helper.js";
+
+export function mountNomborHilang({
+	div,
+	data,
+	ui,
+	handleComponentComplete
+}) {
 	let dragState = null;
 	let isLocked = false;
+	let isCorrect = null;
 
 	div.innerHTML = renderNomborHilang(data);
 
@@ -12,16 +24,16 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 	ui.dialog.textContent = data.text;
 	ui.dialog.style.color = "";
 
-	let txt1 = document.querySelector(".text1")
-	let txt2 = document.querySelector(".text2")
-	if (data.content.direction == "ascending") {
-		txt1.textContent = "Kecil"
-		txt2.textContent = "Besar"
-	} else {
-		txt1.textContent = "Besar"
-		txt2.textContent = "Kecil"
-	}
+	const txt1 = div.querySelector(".text1");
+	const txt2 = div.querySelector(".text2");
 
+	if (data.content.direction === "ascending") {
+		txt1.textContent = "Kecil";
+		txt2.textContent = "Besar";
+	} else {
+		txt1.textContent = "Besar";
+		txt2.textContent = "Kecil";
+	}
 
 	const tray = div.querySelector(
 		".container-kad-susun"
@@ -51,7 +63,10 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 			".box-drop-susun"
 		);
 
-		if (slot && div.contains(slot)) {
+		if (
+			slot &&
+			div.contains(slot)
+		) {
 			return slot;
 		}
 
@@ -70,7 +85,10 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 	}
 
 	function startDrag(event) {
-		if (isLocked || event.button !== 0) {
+		if (
+			isLocked ||
+			event.button !== 0
+		) {
 			return;
 		}
 
@@ -78,16 +96,22 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 			".box-drag-susun"
 		);
 
-		if (!card) return;
+		if (
+			!card ||
+			!div.contains(card)
+		) {
+			return;
+		}
 
-		// Nombor dalam susunan tidak boleh diseret
+		// Kad nombor dalam barisan tidak boleh diseret
 		if (card.classList.contains("fixed-card")) {
 			return;
 		}
 
 		event.preventDefault();
 
-		const rect = card.getBoundingClientRect();
+		const rect =
+			card.getBoundingClientRect();
 
 		dragState = {
 			card,
@@ -99,7 +123,9 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 			offsetY:
 				event.clientY - rect.top,
 
-			originalParent: card.parentElement,
+			originalParent:
+				card.parentElement,
+
 			originalNextSibling:
 				card.nextElementSibling,
 
@@ -203,22 +229,29 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 
 		clearHighlight();
 
-		if (
-			dropTarget === dropSlot
-		) {
-			// Jika slot sudah ada kad, pulangkan kad lama
-			const previousCard = dropSlot.querySelector(
-				".box-drag-susun"
-			);
+		if (dropTarget === dropSlot) {
+			/*
+				Jika slot sudah mempunyai kad,
+				pulangkan kad lama ke tray.
+			*/
+			const previousCard =
+				dropSlot.querySelector(
+					".box-drag-susun"
+				);
 
-			if (previousCard) {
+			if (
+				previousCard &&
+				previousCard !== card
+			) {
+				previousCard.classList.remove(
+					"wrong"
+				);
+
 				tray.appendChild(previousCard);
 			}
 
 			dropSlot.appendChild(card);
-		} else if (
-			dropTarget === tray
-		) {
+		} else if (dropTarget === tray) {
 			tray.appendChild(card);
 		} else {
 			returnOriginalCard();
@@ -234,9 +267,10 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 	function handleCheck() {
 		if (isLocked) return;
 
-		const selectedCard = dropSlot.querySelector(
-			".box-drag-susun"
-		);
+		const selectedCard =
+			dropSlot.querySelector(
+				".box-drag-susun"
+			);
 
 		if (!selectedCard) {
 			ui.dialog.textContent =
@@ -250,41 +284,66 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 			selectedCard.dataset.value
 		);
 
-		const isCorrect =
+		isCorrect =
 			selectedValue === Number(data.answer);
 
+		// Selepas CHECK, drag dikunci
+		isLocked = true;
+
 		if (!isCorrect) {
-			ui.dialog.textContent =
-				"Salah. Cuba nombor lain!";
-
-			ui.dialog.style.color = "#e53935";
-
 			selectedCard.classList.add("wrong");
 
-			setTimeout(() => {
-				selectedCard.classList.remove("wrong");
-			}, 400);
-
+			showWrong(ui);
 			return;
 		}
 
-		isLocked = true;
-
-		ui.dialog.textContent =
-			"Betul! Susunan nombor telah lengkap.";
-
-		ui.dialog.style.color = "#22a000";
-
 		dropSlot.classList.add("matched");
 
-		ui.btnCheck.classList.add("hidden");
-		ui.btnContinue.classList.remove("hidden");
+		showCorrect(ui);
 	}
 
 	function handleContinue() {
-		if (!isLocked) return;
+		/*
+			Jawapan betul:
+			pergi ke component seterusnya.
+		*/
+		if (isCorrect) {
+			handleComponentComplete();
+			return;
+		}
 
-		handleComponentComplete();
+		/*
+			Jawapan salah:
+			butang CONTINUE bertindak sebagai RETRY.
+		*/
+		const selectedCard =
+			dropSlot.querySelector(
+				".box-drag-susun"
+			);
+
+		// Pulangkan kad salah ke tray
+		if (selectedCard) {
+			selectedCard.classList.remove(
+				"wrong",
+				"matched"
+			);
+
+			tray.appendChild(selectedCard);
+		}
+
+		dropSlot.classList.remove(
+			"matched",
+			"wrong",
+			"drop-active"
+		);
+
+		resetContentFooter(ui);
+
+		isLocked = false;
+		isCorrect = null;
+
+		ui.dialog.textContent = data.text;
+		ui.dialog.style.color = "";
 	}
 
 	document.addEventListener(
@@ -348,10 +407,13 @@ export function mountNomborHilang({div,data,ui,handleComponentComplete}){
 			handleContinue
 		);
 
+		clearHighlight();
+
 		// Elakkan kad tertinggal dalam body
 		if (dragState?.card) {
 			clearDragStyle(dragState.card);
 			tray.appendChild(dragState.card);
+			dragState = null;
 		}
 
 		ui.dialog.style.color = "";
