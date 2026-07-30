@@ -24,7 +24,7 @@ import { mountPilihJumlahLego } from "../components/!DONE/PilihJumlahLego/index.
 import { mountPilihAyatTambah } from "../components/!DONE/PilihAyatTambah/index.js";
 import { mountPartPartWholeVisual } from "../components/!DONE/PartPartWholeVisual/index.js";
 import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
-import { mountPecahWholeKepadaPart } from "../components/PecahWholeKepadaPart/index.js";
+import { mountPecahWholeKepadaPart } from "../components/!DONE/PecahWholeKepadaPart/index.js";
 
 export const widgetRegistry = {
 	Kombinasi: {
