@@ -5,7 +5,7 @@ import { mountMemoryGame } from "../components/!DONE/MemoryGame/index.js";
 import { mountPadankan } from "../components/!DONE/Padankan/index.js";
 import { mountTeknikPelengkap10 } from "../components/TeknikPelengkap10/index.js";
 import { mountTrueFalse } from "../components/!DONE/TrueFalse/index.js";
-import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery} from "../components/TeknikPelengkap10/render.js";
+import { renderLearnBaki,renderLearnGabung,renderLearnInit,renderLearnNeeded,renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery} from "../components/TeknikPelengkap10/render.js";
 import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.js";
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
@@ -53,6 +53,10 @@ export const widgetRegistry = {
 
 	TeknikPelengkap10: {
 		mount: mountTeknikPelengkap10
+	},
+
+	LearnInit:{
+		render: renderLearnInit
 	},
 
 	LearnPick: {

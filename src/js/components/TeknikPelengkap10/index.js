@@ -25,24 +25,12 @@ export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete,
 	}
 
 	function generateSteps(question) {
-		const [a, b] =
-			question.options;
-
-		const besar =
-			Math.max(a, b);
-
-		const kecil =
-			Math.min(a, b);
-
-		const pelengkap =
-			10 - besar;
-
-		const baki =
-			kecil - pelengkap;
-
-		const jumlah =
-			besar + kecil;
-
+		const [a, b] = question.options;
+		const besar = Math.max(a, b);
+		const kecil = Math.min(a, b);
+		const pelengkap = 10 - besar;
+		const baki = kecil - pelengkap;
+		const jumlah = besar + kecil;
 		const content = {
 			nums: [besar, kecil],
 			pelengkap,
@@ -52,58 +40,42 @@ export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete,
 
 		return [
 			{
-				text:
-					"Mari belajar teknik pelengkap 10 step by step",
-
-				type: "LearnSummery",
+				text: "Mari belajar teknik pelengkap 10 step by step",
+				type: "LearnInit",
 				content
 			},
 			{
-				text:
-					"Pilih nombor paling besar",
-
+				text: "Pilih nombor paling besar",
 				type: "LearnPick",
 				content
 			},
 			{
-				text:
-					`${besar} perlukan ${pelengkap} untuk jadi 10`,
-
+				text: `${besar} perlukan ${pelengkap} untuk jadi 10`,
 				type: "LearnNeeded",
 				content
 			},
 			{
-				text:
-					`${pelengkap} itu kita akan ambil dari ${kecil}`,
-
+				text: `${pelengkap} itu kita akan ambil dari ${kecil}`,
 				type: "LearnPecah",
 				content
 			},
 			{
-				text:
-					`${kecil} dipecahkan kepada ${pelengkap} dan ${baki}`,
-
+				text: `${kecil} dipecahkan kepada ${pelengkap} dan ${baki}`,
 				type: "LearnBaki",
 				content
 			},
 			{
-				text:
-					`${besar} tambah ${pelengkap} akan dapat 10`,
-
+				text: `${besar} tambah ${pelengkap} akan dapat 10`,
 				type: "LearnGabung",
 				content
 			},
 			{
-				text:
-					`10 tambah ${baki} akan dapat ${jumlah}`,
-
+				text: `10 tambah ${baki} akan dapat ${jumlah}`,
 				type: "LearnSum",
 				content
 			},
 			{
-				text:
-					`${besar} tambah ${kecil} akan dapat ${jumlah}`,
-
+				text: `${besar} tambah ${kecil} akan dapat ${jumlah}`,
 				type: "LearnSummery",
 				content
 			}

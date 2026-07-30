@@ -1,0 +1,273 @@
+.option>* {
+	pointer-events: none;
+	padding: 0.5rem;
+}
+
+.pecah {
+	margin: 3rem 0;
+	border-radius: 50%;
+	aspect-ratio: 1 /1;
+	border: 2px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.line-svg-qwe {
+	position: absolute;
+	top: 124px;
+	left: 40px;
+	width: 100%;
+	height: 100px;
+}
+
+.line-svg-qwe line {
+	stroke: #000;
+	stroke-width: 4;
+}
+
+.garisPecah1,
+.garisPecah2,
+.garisPecah2Terbalik {
+	position: relative;
+}
+
+.garisPecah1::before {
+	content: "";
+	position: absolute;
+	top: 125%;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+
+	width: 75px;
+	height: 75px;
+	border-left: 5px solid black;
+	font-size: var(--font-size-md);
+}
+
+.garisPecah2::after {
+	content: "";
+	position: absolute;
+	top: 125%;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+
+	width: 75px;
+	height: 75px;
+	border-top: 5px solid black;
+	border-left: 5px solid black;
+}
+
+.garisPecah2Terbalik::after {
+	content: "";
+	position: absolute;
+	top: -130%;
+	left: 50%;
+	transform: translateX(-50%) rotate(225deg);
+
+	width: 75px;
+	height: 75px;
+	border-top: 5px solid black;
+	border-left: 5px solid black;
+}
+
+.right {
+	top: 300px;
+	left: 350px;
+}
+
+.redLine {
+	position: relative;
+}
+
+.redLine::before {
+	content: "";
+	position: absolute;
+	top: 80%;
+	left: -70%;
+	rotate: 60deg;
+	width: 230px;
+	height: 75px;
+	border: 2px solid var(--forest-flower-pink);
+	border-radius: 14px;
+}
+
+.arraowDorn {
+	position: relative;
+}
+
+.arraowDorn::after {
+	content: "\2193";
+	position: absolute;
+	top: -10%;
+	left: -225%;
+	width: 230px;
+	height: 75px;
+}
+
+.arraowDownRight {
+	position: relative;
+}
+
+.arraowDownRight::after {
+	content: "\2193";
+	position: absolute;
+	top: 50%;
+	left: -110%;
+	width: 230px;
+	height: 75px;
+}
+
+.col-span-2 {
+	grid-column: span 2;
+}
+
+.box {
+	height: 50px;
+	aspect-ratio: 1 / 1;
+	border: 2px solid blue;
+	background-color: lightskyblue;
+	border-radius: 4px;
+}
+
+.pop {
+	visibility: 0;
+	background-color: rgb(255, 211, 130);
+	border: 2px solid orange;
+}
+
+
+.primary {
+	background-color: var(--color-primary-light);
+}
+
+.secondary {
+	background-color: var(--color-secondary-light);
+}
+
+
+.blue {
+	background-color: var(--color-blue-light);
+}
+
+.red {
+	background-color: var(--color-red-light);
+}
+
+.orange {
+	background-color: var(--color-orange-light);
+}
+
+.yellow {
+	background-color: var(--color-yellow-light);
+}
+
+.bulat {
+	border-radius: 50%;
+	border: 2px solid black;
+}
+
+.containerPopUp {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.2);
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.cardPopUp {
+	background-color: #fff;
+	padding: 1rem;
+	border-radius: 4px;
+}
+
+.cardPopUp>h2 {
+	text-align: center;
+	margin: 0.5rem 0;
+}
+
+.btnExit:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #58CC02;
+}
+
+.btnExit:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #58CC02;
+}
+
+
+.btnExit {
+	color: #fff;
+
+	width: 250px;
+	padding: 0.5rem;
+	display: grid;
+	place-items: center;
+
+	background: #58CC02;
+
+	border: 4px solid #58A700;
+
+	box-shadow: 0 6px 0 #58A700, inset 0 1px 0 #58A700;
+	border-radius: 12px;
+
+	font-family: Arial, sans-serif;
+	font-weight: 700;
+
+	cursor: pointer;
+	transition: .15s;
+}
+
+
+.betul {
+	background-color: #58CC02;
+	border: 4px solid #58CC02;
+	box-shadow: 0 6px 0 #58CC02, inset 0 1px 0 #58CC02;
+}
+
+.salah {
+	background-color: #FF4B4B !important;
+	border: 4px solid #FF4B4B !important;
+	box-shadow: 0 6px 0 #FF4B4B, inset 0 1px 0 #FF4B4B !important;
+}
+
+.textBetul {
+	color: #58CC02;
+}
+
+.textSalah {
+	color: #FF4B4B;
+}
+
+.soft-salah {
+	background-color: rgba(255, 152, 152, 0.396);
+}
+
+.soft-betul {
+	background-color: #befa91;
+}
+
+
+
+.salah:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #FF4B4B !important;
+}
+
+.salah:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #FF4B4B !important;
+}
+
+.betul:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #58CC02;
+}
+
+.betul:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #58CC02;
+}
