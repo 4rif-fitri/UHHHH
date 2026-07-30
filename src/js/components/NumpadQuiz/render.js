@@ -38,7 +38,7 @@ export function renderEquation(data) {
 
 	return `
 		<section>
-			<div class="lineEqn" style="grid-template-columns: repeat(${totalColumns}, 1fr) ">
+			<div class="lineEqn" style="grid-template-columns: repeat(${totalColumns}, 1fr);">
 				${equation}
 				<h1>=</h1>
 				<h1 class="eqn">?</h1>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../src/stylee/lesson-app.css">
+	<link rel="stylesheet" href="../../src/stylee/components/NumpadQuiz.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+		</main>
+	</div>
+
+	<script type="module">
+
+		export const json = [
+			{
+				text: "Berapakah 5 tambah 5?",
+				type: "NumpadQuiz",
+
+				content: {
+					nums: [5, 5],
+					operator: "+"
+				},
+
+				answer: 10,
+				maxDigits: 2
+			},
+			{
+				text: "Berapakah 7 tambah 6?",
+				type: "NumpadQuiz",
+
+				content: {
+					nums: [7, 6],
+					operator: "+"
+				},
+
+				answer: 13,
+				maxDigits: 2
+			},
+			{
+				text: "Berapakah 5 tambah 5 tambah 3?",
+				type: "NumpadQuiz",
+
+				content: {
+					nums: [5, 5, 3],
+					operator: "+"
+				},
+
+				answer: 13,
+				maxDigits: 2
+			}
+		];
+		import { runComponents } from "../../../../src/js/core/componentRunner.js"
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>
