@@ -559,3 +559,8 @@ a {
 	display: grid;
 	grid-template-columns: repeat(5,1fr) !important;
 }
+
+.flex{
+	display: flex !important;
+	flex-wrap: wrap;
+}
