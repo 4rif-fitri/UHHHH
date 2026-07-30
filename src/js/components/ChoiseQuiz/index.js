@@ -1,4 +1,12 @@
-import { renderChoiseQuiz } from "./render.js";
+import {
+	renderChoiseQuiz
+} from "./render.js";
+
+import {
+	showCorrect,
+	showWrong,
+	resetContentFooter
+} from "../../utils/helper.js";
 
 export function mountChoiseQuiz({
 	div,
@@ -9,18 +17,39 @@ export function mountChoiseQuiz({
 	let selectedValue = null;
 	let selectedButton = null;
 	let isLocked = false;
-	let wrongTimeout = null;
+	let isCorrect = null;
 
 	div.innerHTML = renderChoiseQuiz(data);
 
 	ui.contentContainer.replaceChildren(div);
 	ui.dialog.textContent = data.text;
+	ui.dialog.style.color = "";
 
 	ui.btnContainer?.classList.remove("grid-2");
 
 	ui.btnCheck.classList.remove("hidden");
-	ui.btnNext.classList.add("hidden");
+	ui.btnContinue.classList.add("hidden");
+	ui.btnNext?.classList.add("hidden");
+	ui.btnBack?.classList.add("hidden");
+
 	ui.btnCheck.disabled = true;
+
+	function resetSelection() {
+		div.querySelectorAll(".btnAns")
+			.forEach(button => {
+				button.classList.remove(
+					"higlight",
+					"wrong",
+					"matched"
+				);
+			});
+
+		selectedValue = null;
+		selectedButton = null;
+		isCorrect = null;
+
+		ui.btnCheck.disabled = true;
+	}
 
 	function handleOptionClick(event) {
 		if (isLocked) return;
@@ -28,7 +57,12 @@ export function mountChoiseQuiz({
 		const button =
 			event.target.closest(".btnAns");
 
-		if (!button) return;
+		if (
+			!button ||
+			!div.contains(button)
+		) {
+			return;
+		}
 
 		div.querySelectorAll(".btnAns")
 			.forEach(item => {
@@ -41,8 +75,10 @@ export function mountChoiseQuiz({
 		button.classList.add("higlight");
 
 		selectedButton = button;
-		selectedValue =
-			Number(button.dataset.value);
+
+		selectedValue = Number(
+			button.dataset.value
+		);
 
 		ui.btnCheck.disabled = false;
 
@@ -51,33 +87,45 @@ export function mountChoiseQuiz({
 	}
 
 	function handleCheck() {
-		if (isLocked) return;
-		if (selectedValue === null) return;
-
-		const isCorrect =
-			selectedValue === Number(data.answer);
-
-		if (isCorrect) {
-			handleCorrect();
+		if (
+			isLocked ||
+			selectedValue === null
+		) {
 			return;
 		}
 
-		handleWrong();
-	}
+		isCorrect =
+			selectedValue === Number(data.answer);
 
-	function handleCorrect() {
+		// Lock selepas tekan CHECK
 		isLocked = true;
 
 		selectedButton.classList.remove(
 			"higlight"
 		);
 
-		selectedButton.classList.add(
-			"matched"
-		);
+		if (!isCorrect) {
+			selectedButton.classList.add("wrong");
 
-		div.querySelector(".eqn")
-			.textContent = data.answer;
+			ui.dialog.textContent =
+				"Salah. Cuba kira kotak yang masih kosong.";
+
+			showWrong(ui);
+			return;
+		}
+
+		handleCorrect();
+	}
+
+	function handleCorrect() {
+		selectedButton.classList.add("matched");
+
+		const answerBox =
+			div.querySelector(".eqn");
+
+		if (answerBox) {
+			answerBox.textContent = data.answer;
+		}
 
 		div.querySelectorAll(".empty-box")
 			.forEach(box => {
@@ -87,57 +135,27 @@ export function mountChoiseQuiz({
 		ui.dialog.textContent =
 			"Betul! Nombor telah dilengkapkan menjadi 10.";
 
-		ui.dialog.style.color =
-			"#22a000";
-
-		ui.btnCheck.classList.add("hidden");
-		ui.btnNext.classList.remove("hidden");
+		showCorrect(ui);
 	}
 
-	function handleWrong() {
-		isLocked = true;
-
-		const wrongButton =
-			selectedButton;
-
-		wrongButton.classList.remove(
-			"higlight"
-		);
-
-		wrongButton.classList.add(
-			"wrong"
-		);
-
-		ui.dialog.textContent =
-			"Salah. Cuba kira kotak yang masih kosong.";
-
-		ui.dialog.style.color =
-			"#e53935";
-
-		ui.btnCheck.disabled = true;
-
-		wrongTimeout = setTimeout(() => {
-			wrongButton.classList.remove(
-				"wrong"
-			);
-
-			selectedValue = null;
-			selectedButton = null;
-			isLocked = false;
-
-			ui.dialog.textContent =
-				data.text;
-
+	function handleContinue() {
+		// Betul: pergi component seterusnya
+		if (isCorrect) {
 			ui.dialog.style.color = "";
-		}, 500);
-	}
 
-	function handleNext() {
-		if (!isLocked) return;
+			handleComponentComplete();
+			return;
+		}
 
+		// Salah: RETRY
+		resetContentFooter(ui);
+
+		isLocked = false;
+
+		resetSelection();
+
+		ui.dialog.textContent = data.text;
 		ui.dialog.style.color = "";
-
-		handleComponentComplete();
 	}
 
 	div.addEventListener(
@@ -150,14 +168,12 @@ export function mountChoiseQuiz({
 		handleCheck
 	);
 
-	ui.btnNext.addEventListener(
+	ui.btnContinue.addEventListener(
 		"click",
-		handleNext
+		handleContinue
 	);
 
 	return function cleanup() {
-		clearTimeout(wrongTimeout);
-
 		div.removeEventListener(
 			"click",
 			handleOptionClick
@@ -168,9 +184,11 @@ export function mountChoiseQuiz({
 			handleCheck
 		);
 
-		ui.btnNext.removeEventListener(
+		ui.btnContinue.removeEventListener(
 			"click",
-			handleNext
+			handleContinue
 		);
+
+		ui.dialog.style.color = "";
 	};
 }
