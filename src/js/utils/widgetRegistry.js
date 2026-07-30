@@ -1,4 +1,4 @@
-import { mountDiagramBox } from "../components/DiagramBox/index.js";
+import { mountDiagramBox } from "../components/!DONE/DiagramBox/index.js";
 import { mountKombinasi } from "../components/!DONE/Kombinasi/index.js";
 import { mountKombinasiTerbalik } from "../components/!DONE/KombinasiTerbalik/index.js";
 import { mountMemoryGame } from "../components/!DONE/MemoryGame/index.js";
@@ -10,13 +10,13 @@ import { mountLatihanPelengkap10 } from "../components/!DONE/LatihanPelengkap10/
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/!DONE/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/!DONE/LatihanPelengkap10/logic.js";
 import { updateContent } from "./helper.js";
-import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
+import { mountNumpadQuiz } from "../components/!DONE/NumpadQuiz/index.js";
 import { mountMaking10 } from "../components/!DONE/Making10/index.js";
-import { mountChoiseQuiz } from "../components/ChoiseQuiz/index.js";
+import { mountChoiseQuiz } from "../components/!DONE/ChoiseQuiz/index.js";
 import { mountKenaliNombor } from "../components/!DONE/KenaliNombor/index.js";
 import { mountSusunNombor } from "../components/!DONE/SusunNombor/index.js";
 import { mountNomborHilang } from "../components/!DONE/NomborHilang/index.js";
-import { mountGabungKumpulan } from "../components/GabungKumpulan/index.js";
+import { mountGabungKumpulan } from "../components/!DONE/GabungKumpulan/index.js";
 import { mountTolakKumpulan } from "../components/TolakKumpulan/index.js";
 import { mountTolakPilihLego } from "../components/TolakPilihLego/index.js";
 import { mountTambahDragLego } from "../components/TambahPilihLego/index.js";
