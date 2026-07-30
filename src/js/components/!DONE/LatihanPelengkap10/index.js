@@ -2,7 +2,7 @@ import {
 	showWrong,
 	showCorrect,
 	resetContentFooter
-} from "../../utils/helper.js";
+} from "../../../utils/helper.js";
 
 export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete, registry }) {
 	let questionIndex = 0;
