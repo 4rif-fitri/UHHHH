@@ -23,7 +23,7 @@ import { mountTambahDragLego } from "../components/!DONE/TambahPilihLego/index.j
 import { mountPilihJumlahLego } from "../components/!DONE/PilihJumlahLego/index.js";
 import { mountPilihAyatTambah } from "../components/!DONE/PilihAyatTambah/index.js";
 import { mountPartPartWholeVisual } from "../components/PartPartWholeVisual/index.js";
-import { mountGabungPartWhole } from "../components/GabungPartWhole/index.js";
+import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
 import { mountPecahWholeKepadaPart } from "../components/PecahWholeKepadaPart/index.js";
 
 export const widgetRegistry = {
