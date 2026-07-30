@@ -1,4 +1,4 @@
-import { resetContentFooter, showCorrect, showWrong } from "../../utils/helper.js";
+import { resetContentFooter, showCorrect, showWrong } from "../../../utils/helper.js";
 import { renderTrueFalse } from "./render.js";
 
 export function mountTrueFalse({ div, data, ui, handleComponentComplete }) {
