@@ -22,7 +22,7 @@ import { mountTolakPilihLego } from "../components/!DONE/TolakPilihLego/index.js
 import { mountTambahDragLego } from "../components/!DONE/TambahPilihLego/index.js";
 import { mountPilihJumlahLego } from "../components/!DONE/PilihJumlahLego/index.js";
 import { mountPilihAyatTambah } from "../components/!DONE/PilihAyatTambah/index.js";
-import { mountPartPartWholeVisual } from "../components/PartPartWholeVisual/index.js";
+import { mountPartPartWholeVisual } from "../components/!DONE/PartPartWholeVisual/index.js";
 import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
 import { mountPecahWholeKepadaPart } from "../components/PecahWholeKepadaPart/index.js";
 
