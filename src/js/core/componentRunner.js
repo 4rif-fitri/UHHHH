@@ -42,6 +42,17 @@ export function runComponents(data) {
 		main();
 	}
 
+	function handleComponentBack() {
+		if (state.index <= 0) return;
+
+		state.index--;
+
+		state.cleanup?.();
+		state.cleanup = null;
+
+		main();
+	}
+
 	function updateProgress() {
 		let current = state.index + 1
 		let total = state.totalSlide
@@ -79,7 +90,7 @@ export function runComponents(data) {
 		let div = document.createElement("div")
 		div.classList.add("output", "w-100")
 
-		state.cleanup = component?.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry })
+		state.cleanup = component?.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry, handleComponentBack })
 	}
 	main()
 
