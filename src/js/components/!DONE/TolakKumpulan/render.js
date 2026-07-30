@@ -65,22 +65,22 @@ export function renderTolakKumpulan(data) {
 				class="content grid-5 equation"
 				id="equation"
 			>
-				<h1 class="text-center blue">
+				<h1 class="text-center aspect-square blue">
 					${total}
 				</h1>
 
-				<h1 class="text-center">
+				<h1 class="text-center aspect-square">
 					${operator}
 				</h1>
 
-				<h1 class="text-center yellow">
+				<h1 class="text-center yellow aspect-square">
 					${remove}
 				</h1>
 
-				<h1 class="text-center">=</h1>
+				<h1 class="text-center aspect-square">=</h1>
 
 				<h1
-					class="text-center equation-answer"
+					class="text-center equation-answer aspect-square"
 				>
 					?
 				</h1>
