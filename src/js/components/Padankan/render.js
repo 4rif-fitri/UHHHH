@@ -1,43 +1,116 @@
+function shuffle(data) {
+	const result = [...data];
+
+	for (
+		let index = result.length - 1;
+		index > 0;
+		index--
+	) {
+		const randomIndex =
+			Math.floor(
+				Math.random() * (index + 1)
+			);
+
+		[
+			result[index],
+			result[randomIndex]
+		] = [
+				result[randomIndex],
+				result[index]
+			];
+	}
+
+	return result;
+}
+
+function renderCubes(total) {
+	return Array.from(
+		{ length: Number(total) },
+		(_, index) => `
+			<div
+				class="cube"
+				data-index="${index + 1}"
+			></div>
+		`
+	).join("");
+}
+
+function renderQuestion(item) {
+	const display =
+		item.questionDisplay ??
+		(
+			item.type === "object"
+				? "cubes"
+				: "text"
+		);
+
+	if (display === "cubes") {
+		return `
+			<button
+				type="button"
+				class="padankan-cube-container boxSoalan soft-box flex-wrap"
+				data-match-id="${item.matchId}"
+			>
+				${renderCubes(item.question)}
+			</button>
+		`;
+	}
+
+	return `
+		<button
+			type="button"
+			class="boxSoalan soft-box"
+			data-match-id="${item.matchId}"
+		>
+			<h1>${item.question}</h1>
+		</button>
+	`;
+}
+
+function renderAnswer(item) {
+	const display =
+		item.answerDisplay ?? "text";
+
+	if (display === "cubes") {
+		return `
+			<button
+				type="button"
+				class="padankan-cube-container boxJawapan soft-box flex-wrap"
+				data-match-id="${item.matchId}"
+			>
+				${renderCubes(item.answer)}
+			</button>
+		`;
+	}
+
+	return `
+		<button
+			type="button"
+			class="boxJawapan soft-box"
+			data-match-id="${item.matchId}"
+		>
+			<h1>${item.answer}</h1>
+		</button>
+	`;
+}
+
 export function renderPadankan(data) {
-	const answers = [...data.content]
-		.sort(() => Math.random() - 0.5);
+	const answers =
+		shuffle(data.content);
 
 	return `
 		<div class="grid-2 w-100 p-2 gap-3 padankan">
 
 			<div class="left-content">
-				${data.content.map(item =>  {
-					console.log(item);
-					
-					if (item.type === "object")
-						return `
-						<div class="padankan-cube-container boxSoalan soft-box" data-key="${item.key}">
-							${Array.from({ length: item.question }, (_, index) => `
-								<div class="cube" data-index="${index + 1}"></div>
-							`).join("")}
-						</div>
-						`
-					else
-						return `<button class="boxSoalan soft-box"
-								data-answer="${item.answer}"
-								data-key="${item.key}">
-								<h1>${item.question}</h1> 
-							</button>`
-				}
-			).join("")}
+				${data.content
+			.map(renderQuestion)
+			.join("")}
 			</div>
 
 			<div class="right-content">
-
-					${answers.map(item => `
-					<button
-						class="boxJawapan soft-box"
-						data-value="${item.answer}"
-						data-key="${item.key}"
-					>
-						<h1>${item.answer}</h1>
-					</button>
-				`).join("")}
+				${answers
+			.map(renderAnswer)
+			.join("")}
 			</div>
 
 		</div>
