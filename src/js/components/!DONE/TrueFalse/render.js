@@ -11,7 +11,7 @@ export function renderTrueFalse(data) {
 		<div class="options grid-2">
 			${data.options.map(option => `
 				<button
-					class="option soft-box btnAns"
+					class="option soft-box btnAns p-3"
 					data-status="${option}"
 				>
 					<h2>${option}</h2>
