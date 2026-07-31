@@ -5,7 +5,7 @@ import { mountMemoryGame } from "../components/!DONE/MemoryGame/index.js";
 import { mountPadankan } from "../components/!DONE/Padankan/index.js";
 import { mountTeknikPelengkap10 } from "../components/!DONE/TeknikPelengkap10/index.js";
 import { mountTrueFalse } from "../components/!DONE/TrueFalse/index.js";
-import { renderLearnBaki, renderLearnGabung, renderLearnNeeded, renderLearnPecah, renderLearnPick, renderLearnSum, renderLearnSummery } from "../components/!DONE/TeknikPelengkap10/render.js";
+import { renderLearnBaki, renderLearnGabung, renderLearnInit, renderLearnNeeded, renderLearnPecah, renderLearnPick, renderLearnSum, renderLearnSummery } from "../components/!DONE/TeknikPelengkap10/render.js";
 import { mountLatihanPelengkap10 } from "../components/!DONE/LatihanPelengkap10/index.js";
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/!DONE/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/!DONE/LatihanPelengkap10/logic.js";
@@ -29,6 +29,7 @@ import { mountBarModel } from "../components/BarModel/index.js";
 import { mountAnimationLearnPelengkap10 } from "../components/AnimationLearnPelengkap10/index.js";
 import { mountAnimationLearnMake10 } from "../components/AnimationLearnMake10/index.js";
 import { mountAnimationLearnPecahWhole } from "../components/!DONE/AnimationLearnPecahWhole/index.js";
+import { mountAnimationLearnGabungPart } from "../components/!DONE/AnimationLearnPartPartWhole/index.js";
 
 function componentStyle(fileName) {
 	return new URL(
@@ -38,6 +39,10 @@ function componentStyle(fileName) {
 }
 
 export const widgetRegistry = {
+	LearnInit: {
+		render: renderLearnInit
+	},
+	
 	LearnPick: {
 		render: renderLearnPick
 	},
@@ -267,6 +272,12 @@ export const widgetRegistry = {
 		mount: mountAnimationLearnPecahWhole,
 		style: componentStyle(
 			"AnimationLearnPecahWhole.css"
+		)
+	},
+	AnimationLearnPartPartWhole: {
+		mount: mountAnimationLearnGabungPart,
+		style: componentStyle(
+			"AnimationLearnPartPartWhole.css"
 		)
 	},
 };
