@@ -25,6 +25,7 @@ import { mountPilihAyatTambah } from "../components/!DONE/PilihAyatTambah/index.
 import { mountPartPartWholeVisual } from "../components/!DONE/PartPartWholeVisual/index.js";
 import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
 import { mountPecahWholeKepadaPart } from "../components/!DONE/PecahWholeKepadaPart/index.js";
+import { mountBarModel } from "../components/BarModel/index.js";
 
 function componentStyle(fileName) {
 	return new URL(
@@ -185,42 +186,42 @@ export const widgetRegistry = {
 		mount: mountChoiseQuiz,
 		style: componentStyle("ChoiseQuiz.css")
 	},
-	
+
 	KenaliNombor: {
 		mount: mountKenaliNombor,
 		style: componentStyle("KenaliNombor.css")
 	},
-	
+
 	SusunNombor: {
 		mount: mountSusunNombor,
 		style: componentStyle("SusunNombor.css")
 	},
-	
+
 	NomborHilang: {
 		mount: mountNomborHilang,
 		style: componentStyle("NomborHilang.css")
 	},
-	
+
 	GabungKumpulan: {
 		mount: mountGabungKumpulan,
 		style: componentStyle("GabungKumpulan.css")
 	},
-	
+
 	TolakKumpulan: {
 		mount: mountTolakKumpulan,
 		style: componentStyle("TolakKumpulan.css")
 	},
-	
+
 	TolakPilihLego: {
 		mount: mountTolakPilihLego,
 		style: componentStyle("TolakPilihLego.css")
 	},
-	
+
 	TambahDragLego: {
 		mount: mountTambahDragLego,
 		style: componentStyle("TambahDragLego.css")
 	},
-	
+
 	PilihJumlahLego: {
 		mount: mountPilihJumlahLego,
 		style: componentStyle("PilihJumlahLego.css")
@@ -240,5 +241,9 @@ export const widgetRegistry = {
 	PecahWholeKepadaPart: {
 		mount: mountPecahWholeKepadaPart,
 		style: componentStyle("PecahWholeKepadaPart.css")
-	}
+	},
+	BarModel: {
+		mount: mountBarModel,
+		style: componentStyle("BarModel.css")
+	},
 };

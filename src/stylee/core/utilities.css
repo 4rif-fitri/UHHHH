@@ -193,9 +193,60 @@
 .col-span-full {
 	grid-column: 1 / -1;
 }
-.col-5{
+
+.col-1{
 	display: grid;
-	grid-template-columns: repeat(5,1fr) !important;
+	grid-template-columns: repeat(1,1fr) !important;
+}
+.col-2 {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr) !important;
+}
+.col-3 {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr) !important;
+}
+.col-4 {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr) !important;
+}
+.col-5 {
+	display: grid;
+	grid-template-columns: repeat(5, 1fr) !important;
+}
+.col-6 {
+	display: grid;
+	grid-template-rows: repeat(6, 1fr) !important;
+}
+
+.row-1 {
+	display: grid;
+	grid-template-rows: repeat(1, 1fr) !important;
+}
+
+.row-2 {
+	display: grid;
+	grid-template-rows: repeat(2, 1fr) !important;
+}
+
+.row-3 {
+	display: grid;
+	grid-template-rows: repeat(3, 1fr) !important;
+}
+
+.row-4 {
+	display: grid;
+	grid-template-rows: repeat(4, 1fr) !important;
+}
+
+.row-5 {
+	display: grid;
+	grid-template-rows: repeat(5, 1fr) !important;
+}
+
+.row-6 {
+	display: grid;
+	grid-template-rows: repeat(6, 1fr) !important;
 }
 
 
@@ -250,6 +301,8 @@
 .column-gap-4 {
 	column-gap: 1rem;
 }
+
+
 
 
 /* ========================================

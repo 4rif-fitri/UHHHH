@@ -113,7 +113,7 @@ export function runComponents(data) {
 		const div = document.createElement("div");
 		div.classList.add("output","w-100");
 
-		state.cleanup = component.mount({div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry, handleComponentBack});
+		state.cleanup = component.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry, handleComponentBack, componentIndex: state.index });
 	}
 	main()
 
