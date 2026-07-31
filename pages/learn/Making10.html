@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../src/stylee/lesson-app.css">
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
 	<link rel="stylesheet" href="../../src/stylee/components/Making10.css">
 </head>
 
@@ -62,39 +62,39 @@
 
 	<script type="module">
 
-	export const json = [
-		{
-			text: "Jawab soalan tambah",
-			type: "Making10",
-			content: {
-				nums: [5, ""],
-				operator: "+"
+		export const json = [
+			{
+				text: "Jawab soalan tambah",
+				type: "Making10",
+				content: {
+					nums: [5, ""],
+					operator: "+"
+				},
+				options: [5, 6, 4, 3],
+				answer: 5
 			},
-			options: [5, 6, 4, 3],
-			answer: 5
-		},
-		{
-			text: "Jawab soalan tambah",
-			type: "Making10",
-			content: {
-				nums: [5, ""],
-				operator: "+"
+			{
+				text: "Jawab soalan tambah",
+				type: "Making10",
+				content: {
+					nums: [5, ""],
+					operator: "+"
+				},
+				options: [5, 6, 4, 5],
+				answer: 5
 			},
-			options: [5, 6, 4, 5],
-			answer: 5
-		},
-		{
-			text: "Jawab soalan tambah",
-			type: "Making10",
-			content: {
-				nums: [5, ""],
-				operator: "+"
+			{
+				text: "Jawab soalan tambah",
+				type: "Making10",
+				content: {
+					nums: [5, ""],
+					operator: "+"
+				},
+				options: [5, 6, 4, 6],
+				answer: 5
 			},
-			options: [5, 6, 4, 6],
-			answer: 5
-		},
-	];
-		import { runComponents } from "../../../../src/js/core/componentRunner.js"
+		];
+		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)
 	</script>
 

@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
-	<link rel="stylesheet" href="../../src/stylee/components/PartPartWholeVisual.css">
+	<!-- <link rel="stylesheet" href="../../src/stylee/components/ChoiseQuiz.css"> -->
 </head>
 
 <body>
@@ -52,7 +52,7 @@
 				</div>
 				<div class="btnContainer grid-2">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box">CHECK</button>
+					<button class="btnCheck soft-box ">CHECK</button>
 					<button class="btnBack soft-box hidden">BACK</button>
 					<button class="btnNext soft-box hidden">NEXT</button>
 				</div>
@@ -63,26 +63,7 @@
 	<script type="module">
 
 		export const json = [
-			{
-				id: "part-whole-1",
-				type: "PartPartWholeVisual",
-				text: "Mari belajar bahagian dan keseluruhan.",
 
-				content: {
-					part1: 3,
-					part2: 2
-				}
-			},
-			{
-				id: "part-whole-2",
-				type: "PartPartWholeVisual",
-				text: "Mari lihat satu lagi contoh.",
-
-				content: {
-					part1: 4,
-					part2: 1
-				}
-			}
 		];
 		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)

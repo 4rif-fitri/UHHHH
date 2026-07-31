@@ -5,7 +5,7 @@ import { mountMemoryGame } from "../components/!DONE/MemoryGame/index.js";
 import { mountPadankan } from "../components/!DONE/Padankan/index.js";
 import { mountTeknikPelengkap10 } from "../components/!DONE/TeknikPelengkap10/index.js";
 import { mountTrueFalse } from "../components/!DONE/TrueFalse/index.js";
-import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery} from "../components/!DONE/TeknikPelengkap10/render.js";
+import { renderLearnBaki, renderLearnGabung, renderLearnNeeded, renderLearnPecah, renderLearnPick, renderLearnSum, renderLearnSummery } from "../components/!DONE/TeknikPelengkap10/render.js";
 import { mountLatihanPelengkap10 } from "../components/!DONE/LatihanPelengkap10/index.js";
 import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/!DONE/LatihanPelengkap10/render.js";
 import { setupPick, defaultCheck } from "../components/!DONE/LatihanPelengkap10/logic.js";
@@ -26,35 +26,14 @@ import { mountPartPartWholeVisual } from "../components/!DONE/PartPartWholeVisua
 import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
 import { mountPecahWholeKepadaPart } from "../components/!DONE/PecahWholeKepadaPart/index.js";
 
+function componentStyle(fileName) {
+	return new URL(
+		`../../stylee/components/${fileName}`,
+		import.meta.url
+	).href;
+}
+
 export const widgetRegistry = {
-	Kombinasi: {
-		mount: mountKombinasi
-	},
-
-	Padankan: {
-		mount: mountPadankan
-	},
-
-	KombinasiTerbalik: {
-		mount: mountKombinasiTerbalik
-	},
-
-	TrueFalse: {
-		mount: mountTrueFalse
-	},
-
-	DiagramBox: {
-		mount: mountDiagramBox
-	},
-
-	MemoryGame: {
-		mount: mountMemoryGame
-	},
-
-	TeknikPelengkap10: {
-		mount: mountTeknikPelengkap10
-	},
-
 	LearnPick: {
 		render: renderLearnPick
 	},
@@ -81,10 +60,6 @@ export const widgetRegistry = {
 
 	LearnSummery: {
 		render: renderLearnSummery
-	},
-
-	LatihanPelengkap10: {
-		mount: mountLatihanPelengkap10
 	},
 
 	Pick: {
@@ -154,49 +129,116 @@ export const widgetRegistry = {
 		},
 		check: defaultCheck
 	},
+
+	Kombinasi: {
+		mount: mountKombinasi,
+		style: componentStyle("Kombinasi.css")
+	},
+
+	Padankan: {
+		mount: mountPadankan,
+		style: componentStyle("Padankan.css")
+	},
+
+	KombinasiTerbalik: {
+		mount: mountKombinasiTerbalik,
+		style: componentStyle("KombinasiTerbalik.css")
+	},
+
+	TrueFalse: {
+		mount: mountTrueFalse,
+		style: componentStyle("TrueFalse.css")
+	},
+
+	DiagramBox: {
+		mount: mountDiagramBox,
+		style: componentStyle("DiagramBox.css")
+	},
+
+	MemoryGame: {
+		mount: mountMemoryGame,
+		style: componentStyle("MemoryGame.css")
+	},
+
+	TeknikPelengkap10: {
+		mount: mountTeknikPelengkap10,
+		style: componentStyle("TeknikPelengkap10.css")
+
+	},
+
+	LatihanPelengkap10: {
+		mount: mountLatihanPelengkap10,
+		style: componentStyle("LatihanPelengkap10.css")
+	},
+
 	NumpadQuiz: {
-		mount: mountNumpadQuiz
+		mount: mountNumpadQuiz,
+		style: componentStyle("NumpadQuiz.css")
 	},
-	Making10:{
-		mount: mountMaking10
+
+	Making10: {
+		mount: mountMaking10,
+		style: componentStyle("Making10.css")
 	},
+
 	ChoiseQuiz: {
-		mount: mountChoiseQuiz
+		mount: mountChoiseQuiz,
+		style: componentStyle("ChoiseQuiz.css")
 	},
+	
 	KenaliNombor: {
-		mount: mountKenaliNombor
+		mount: mountKenaliNombor,
+		style: componentStyle("KenaliNombor.css")
 	},
+	
 	SusunNombor: {
-		mount: mountSusunNombor
+		mount: mountSusunNombor,
+		style: componentStyle("SusunNombor.css")
 	},
+	
 	NomborHilang: {
-		mount: mountNomborHilang
+		mount: mountNomborHilang,
+		style: componentStyle("NomborHilang.css")
 	},
+	
 	GabungKumpulan: {
-		mount: mountGabungKumpulan
+		mount: mountGabungKumpulan,
+		style: componentStyle("GabungKumpulan.css")
 	},
+	
 	TolakKumpulan: {
-		mount: mountTolakKumpulan
+		mount: mountTolakKumpulan,
+		style: componentStyle("TolakKumpulan.css")
 	},
+	
 	TolakPilihLego: {
-		mount: mountTolakPilihLego
+		mount: mountTolakPilihLego,
+		style: componentStyle("TolakPilihLego.css")
 	},
+	
 	TambahDragLego: {
-		mount: mountTambahDragLego
+		mount: mountTambahDragLego,
+		style: componentStyle("TambahDragLego.css")
 	},
+	
 	PilihJumlahLego: {
-		mount: mountPilihJumlahLego
+		mount: mountPilihJumlahLego,
+		style: componentStyle("PilihJumlahLego.css")
 	},
 	PilihAyatTambah: {
-		mount: mountPilihAyatTambah
+		mount: mountPilihAyatTambah,
+		style: componentStyle("PilihAyatTambah.css")
 	},
 	PartPartWholeVisual: {
-		mount: mountPartPartWholeVisual
+		mount: mountPartPartWholeVisual,
+		style: componentStyle("PartPartWholeVisual.css")
 	},
 	GabungPartWhole: {
-		mount: mountGabungPartWhole
+		mount: mountGabungPartWhole,
+		style: componentStyle("GabungPartWhole.css")
 	},
 	PecahWholeKepadaPart: {
-		mount: mountPecahWholeKepadaPart
+		mount: mountPecahWholeKepadaPart,
+		style: componentStyle("PecahWholeKepadaPart.css")
 	}
 };

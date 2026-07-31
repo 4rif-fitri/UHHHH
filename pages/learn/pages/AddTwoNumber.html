@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
-	<link rel="stylesheet" href="../../src/stylee/components/PartPartWholeVisual.css">
+	<!-- <link rel="stylesheet" href="/src/stylee/lesson-app.css"> -->
+	<!-- <link rel="stylesheet" href="../../src/stylee/components/ChoiseQuiz.css"> -->
 </head>
 
 <body>
@@ -52,7 +53,7 @@
 				</div>
 				<div class="btnContainer grid-2">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box">CHECK</button>
+					<button class="btnCheck soft-box ">CHECK</button>
 					<button class="btnBack soft-box hidden">BACK</button>
 					<button class="btnNext soft-box hidden">NEXT</button>
 				</div>
@@ -64,27 +65,32 @@
 
 		export const json = [
 			{
-				id: "part-whole-1",
-				type: "PartPartWholeVisual",
-				text: "Mari belajar bahagian dan keseluruhan.",
-
+				text: "Jawab soalan tambah",
+				type: "ChoiseQuiz",
 				content: {
-					part1: 3,
-					part2: 2
-				}
+					nums: [5, ""],
+					operator: "+"
+				},
+				options: [5, 6, 4, 3],
+				answer: 5
+			}, {
+				type: "DiagramBox",
+				text: "Friends of 10 ialah dua nombor yang apabila digabungkan akan menghasilkan jumlah 10",
+				content: {
+					nums: [8],
+					pelengkap: 2,
+					showAnswer: true
+				},
+			}, {
+				text: "Contoh 3, Jumlah 3 dan 3 ialah 6",
+				type: "KombinasiTerbalik",
+				content: {
+					whole: 6,
+					part: [3, 3]
+				},
 			},
-			{
-				id: "part-whole-2",
-				type: "PartPartWholeVisual",
-				text: "Mari lihat satu lagi contoh.",
-
-				content: {
-					part1: 4,
-					part2: 1
-				}
-			}
 		];
-		import { runComponents } from "/src/js/core/componentRunner.js"
+		import { runComponents } from "/src/js/core/componentRunner.js";
 		runComponents(json)
 	</script>
 

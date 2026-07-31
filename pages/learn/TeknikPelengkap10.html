@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../src/stylee/lesson-app.css">
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
 	<link rel="stylesheet" href="../../src/stylee/components/TeknikPelengkap10.css">
 </head>
 
@@ -62,22 +62,22 @@
 
 	<script type="module">
 
-	export const json = [
+		export const json = [
 			{
-			text: "Mari belajar teknik pelengkap 10",
-			type: "TeknikPelengkap10",
+				text: "Mari belajar teknik pelengkap 10",
+				type: "TeknikPelengkap10",
 
-			content: [
-				{
-					options: [8, 5]
-				},
-				{
-					options: [9, 4]
-				},
-			]
-		},
-	];
-		import { runComponents } from "../../../../src/js/core/componentRunner.js"
+				content: [
+					{
+						options: [8, 5]
+					},
+					{
+						options: [9, 4]
+					},
+				]
+			},
+		];
+		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)
 	</script>
 
