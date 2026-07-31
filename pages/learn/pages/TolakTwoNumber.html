@@ -16,7 +16,7 @@
 			<header>
 
 				<div>
-					<a href="./index.html">
+					<a href="../index.html">
 						<p class="x">x</p>
 					</a>
 					<div class="barContainer">
@@ -63,7 +63,61 @@
 	<script type="module">
 
 		export const json = [
-
+			{
+				id: "tolak-1",
+				type: "TolakKumpulan",
+				text: "Mari tolak 2 daripada 7.",
+				content: {
+					total: 3,
+					remove: 2,
+					operator: "-"
+				},
+				answer: 1
+			},
+			{
+				id: "tolak-2",
+				type: "TolakKumpulan",
+				text: "Mari tolak 3 daripada 8.",
+				content: {
+					total: 4,
+					remove: 2,
+					operator: "-"
+				},
+				answer: 2
+			},
+			{
+				id: "tolak-3",
+				type: "TolakKumpulan",
+				text: "Mari tolak 4 daripada 9.",
+				content: {
+					total: 3,
+					remove: 2,
+					operator: "-"
+				},
+				answer: 1
+			},
+			{
+				id: "tolak-4",
+				type: "TolakKumpulan",
+				text: "Mari tolak 3 daripada 10.",
+				content: {
+					total: 4,
+					remove: 1,
+					operator: "-"
+				},
+				answer: 3
+			},
+			{
+				id: "tolak-5",
+				type: "TolakKumpulan",
+				text: "Mari tolak 5 daripada 10.",
+				content: {
+					total: 6,
+					remove: 3,
+					operator: "-"
+				},
+				answer: 3
+			}
 		];
 		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)

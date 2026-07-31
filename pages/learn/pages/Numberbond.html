@@ -16,7 +16,7 @@
 			<header>
 
 				<div>
-					<a href="./index.html">
+					<a href="../index.html">
 						<p class="x">x</p>
 					</a>
 					<div class="barContainer">
@@ -63,7 +63,56 @@
 	<script type="module">
 
 		export const json = [
+			{
+				id: "pecah-whole-1",
+				type: "AnimationLearnPecahWhole",
+				text: "Mari pecahkan Whole kepada dua Part.",
 
+				content: {
+					part1: 3,
+					part2: 3
+				}
+			},
+			{
+				id: "pecah-whole-2",
+				type: "AnimationLearnPecahWhole",
+				text: "Mari lihat contoh seterusnya.",
+
+				content: {
+					part1: 4,
+					part2: 2
+				}
+			},
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 6,
+					part1: 1,
+					part2: 5
+				}
+			},
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 6,
+					part1: 3,
+					part2: 3
+				}
+			},
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 8,
+					part1: 5,
+					part2: 3
+				}
+			}
 		];
 		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)

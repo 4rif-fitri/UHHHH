@@ -28,6 +28,7 @@ import { mountPecahWholeKepadaPart } from "../components/!DONE/PecahWholeKepadaP
 import { mountBarModel } from "../components/BarModel/index.js";
 import { mountAnimationLearnPelengkap10 } from "../components/AnimationLearnPelengkap10/index.js";
 import { mountAnimationLearnMake10 } from "../components/AnimationLearnMake10/index.js";
+import { mountAnimationLearnPecahWhole } from "../components/!DONE/AnimationLearnPecahWhole/index.js";
 
 function componentStyle(fileName) {
 	return new URL(
@@ -260,6 +261,12 @@ export const widgetRegistry = {
 		mount: mountAnimationLearnPelengkap10,
 		style: componentStyle(
 			"AnimationLearnPelengkap10.css"
+		)
+	},
+	AnimationLearnPecahWhole: {
+		mount: mountAnimationLearnPecahWhole,
+		style: componentStyle(
+			"AnimationLearnPecahWhole.css"
 		)
 	},
 };

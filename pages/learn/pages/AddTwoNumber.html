@@ -6,8 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
-	<!-- <link rel="stylesheet" href="/src/stylee/lesson-app.css"> -->
-	<!-- <link rel="stylesheet" href="../../src/stylee/components/ChoiseQuiz.css"> -->
 </head>
 
 <body>
@@ -17,7 +15,7 @@
 			<header>
 
 				<div>
-					<a href="./index.html">
+					<a href="../index.html">
 						<p class="x">x</p>
 					</a>
 					<div class="barContainer">
@@ -65,30 +63,60 @@
 
 		export const json = [
 			{
-				text: "Jawab soalan tambah",
-				type: "ChoiseQuiz",
+				id: "gabung-1",
+				type: "GabungKumpulan",
+				text: "Mari gabungkan dua kumpulan.",
 				content: {
-					nums: [5, ""],
+					group1: 1,
+					group2: 1,
 					operator: "+"
 				},
-				options: [5, 6, 4, 3],
-				answer: 5
-			}, {
-				type: "DiagramBox",
-				text: "Friends of 10 ialah dua nombor yang apabila digabungkan akan menghasilkan jumlah 10",
-				content: {
-					nums: [8],
-					pelengkap: 2,
-					showAnswer: true
-				},
-			}, {
-				text: "Contoh 3, Jumlah 3 dan 3 ialah 6",
-				type: "KombinasiTerbalik",
-				content: {
-					whole: 6,
-					part: [3, 3]
-				},
+				answer: 2
 			},
+			{
+				id: "gabung-2",
+				type: "GabungKumpulan",
+				text: "Mari gabungkan dua kumpulan.",
+				content: {
+					group1: 2,
+					group2: 2,
+					operator: "+"
+				},
+				answer: 4
+			},
+			{
+				id: "gabung-2",
+				type: "GabungKumpulan",
+				text: "Mari gabungkan dua kumpulan.",
+				content: {
+					group1: 2,
+					group2: 3,
+					operator: "+"
+				},
+				answer: 5
+			},
+			{
+				id: "gabung-2",
+				type: "GabungKumpulan",
+				text: "Mari gabungkan dua kumpulan.",
+				content: {
+					group1: 3,
+					group2: 1,
+					operator: "+"
+				},
+				answer: 4
+			},
+			{
+				id: "gabung-2",
+				type: "GabungKumpulan",
+				text: "Mari gabungkan dua kumpulan.",
+				content: {
+					group1: 4,
+					group2: 2,
+					operator: "+"
+				},
+				answer: 6
+			}
 		];
 		import { runComponents } from "/src/js/core/componentRunner.js";
 		runComponents(json)
