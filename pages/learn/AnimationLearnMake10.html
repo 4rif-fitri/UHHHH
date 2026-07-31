@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
-	<link rel="stylesheet" href="../../src/stylee/components/TrueFalse.css">
 </head>
 
 <body>
@@ -64,48 +63,24 @@
 
 		export const json = [
 			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
+				id: "make-10-1",
+				type: "AnimationLearnMake10",
+				text: "Mari lengkapkan nombor menjadi 10.",
+
 				content: {
-					nums: [5, 5, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
-			}, {
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [8, 5, 10]
-				},
-				options: ["True", "False"],
-				answer: "False",
+					firstNumber: 7,
+					target: 10
+				}
 			},
 			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
+				id: "make-10-2",
+				type: "AnimationLearnMake10",
+				text: "Mari lengkapkan nombor menjadi 10.",
+
 				content: {
-					nums: [3, 6, 10]
-				},
-				options: ["True", "False"],
-				answer: "False",
-			},
-			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [3, 7, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
-			},
-			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [2, 8, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
+					firstNumber: 8,
+					target: 10
+				}
 			}
 		];
 		import { runComponents } from "/src/js/core/componentRunner.js"

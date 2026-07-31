@@ -26,6 +26,8 @@ import { mountPartPartWholeVisual } from "../components/!DONE/PartPartWholeVisua
 import { mountGabungPartWhole } from "../components/!DONE/GabungPartWhole/index.js";
 import { mountPecahWholeKepadaPart } from "../components/!DONE/PecahWholeKepadaPart/index.js";
 import { mountBarModel } from "../components/BarModel/index.js";
+import { mountAnimationLearnPelengkap10 } from "../components/AnimationLearnPelengkap10/index.js";
+import { mountAnimationLearnMake10 } from "../components/AnimationLearnMake10/index.js";
 
 function componentStyle(fileName) {
 	return new URL(
@@ -245,5 +247,19 @@ export const widgetRegistry = {
 	BarModel: {
 		mount: mountBarModel,
 		style: componentStyle("BarModel.css")
+	},
+
+	AnimationLearnMake10: {
+		mount: mountAnimationLearnMake10,
+		style: componentStyle(
+			"AnimationLearnMake10.css"
+		)
+	},
+
+	AnimationLearnPelengkap10: {
+		mount: mountAnimationLearnPelengkap10,
+		style: componentStyle(
+			"AnimationLearnPelengkap10.css"
+		)
 	},
 };

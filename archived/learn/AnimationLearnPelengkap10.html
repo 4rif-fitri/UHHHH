@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+
+	<style>
+		.soalan-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.soalan-container h1 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 70px;
+			width: 70px;
+		}
+
+		.soalan-container>div>h1 {
+			border-radius: 14px;
+		}
+
+		.soalan-num1 {
+			border-radius: 14px;
+			background-color: var(--color-primary-light);
+		}
+
+		.soalan-num2 {
+			border-radius: 14px;
+			background-color: var(--color-blue-light);
+		}
+
+		.cubee-container {
+			display: flex;
+			gap: 5rem;
+		}
+
+		.cubee-container-left,
+		.cubee-container-right {
+			padding: 0.5rem;
+			border: 3px dashed black;
+			margin-top: 1rem;
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		.cubee-container-left .cube,
+		.cubee-container-right .cube {
+			width: 40px;
+			height: 40px;
+		}
+
+		.cubee-container-left .cube::before,
+		.cubee-container-right .cube::before {
+			width: 20px;
+			height: 20px;
+		}
+
+		.cubee-container-left .cube::after,
+		.cubee-container-right .cube::after {
+			width: 9px;
+			height: 20px;
+		}
+
+		.cubee-container-left .cube-target,
+		.cubee-container-right .cube-target {
+			width: 40px;
+			height: 40px;
+			border: unset;
+		}
+
+		@media (max-width: 520px) {
+
+			.cubee-container-left,
+			.cubee-container-right {
+				padding: 0.5rem;
+				border: 3px dashed black;
+				margin-top: 1rem;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+			}
+
+			.cubee-container-left .cube,
+			.cubee-container-right .cube {
+				width: 30px;
+				height: 30px;
+			}
+
+			.cubee-container-left .cube::before,
+			.cubee-container-right .cube::before {
+				width: 10px;
+				height: 10px;
+			}
+
+			.cubee-container-left .cube::after,
+			.cubee-container-right .cube::after {
+				width: 9px;
+				height: 20px;
+			}
+
+			.cubee-container {
+				display: flex;
+				gap: 0.5rem;
+			}
+		}
+
+		.cube-target {
+			display: grid;
+			place-items: center;
+
+			transition:
+				background-color 0.3s ease,
+				transform 0.3s ease;
+		}
+
+		.cube-target.active {
+			background-color: #dcfce7;
+			border: 3px dashed #22c55e;
+
+			transform: scale(1.1);
+		}
+
+		.cube-to-move {
+			outline: 4px solid #22c55e;
+			outline-offset: 2px;
+
+			animation: cubePulse 0.7s ease infinite alternate;
+		}
+
+		.flying-cube {
+			position: fixed !important;
+			z-index: 9999;
+
+			margin: 0 !important;
+			pointer-events: none;
+
+			will-change: transform;
+		}
+
+		.cube-arrived {
+			animation: cubeArrived 0.4s ease;
+		}
+
+		.cube-remain {
+			outline: 4px solid #ffc928;
+			outline-offset: 2px;
+		}
+
+		@keyframes cubePulse {
+			from {
+				transform: scale(1);
+			}
+
+			to {
+				transform: scale(1.12);
+			}
+		}
+
+		@keyframes cubeArrived {
+			0% {
+				transform: scale(0.6);
+			}
+
+			70% {
+				transform: scale(1.18);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+					<div class="output">
+
+						<div class="soalan-container">
+							<div class="soalan-num1">
+								<h1>7</h1>
+							</div>
+							<h1>+</h1>
+							<div class="soalan-num2">
+								<h1>5</h1>
+							</div>
+						</div>
+
+						<div class="cubee-container">
+							<div class="cubee-container-left">
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube-target"></div>
+								<div class="cube-target"></div>
+								<div class="cube-target"></div>
+
+							</div>
+
+							<div class="cubee-container-right">
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+							</div>
+						</div>
+
+						<br><br>
+
+						<div class="soalan-container col-5">
+							<div class="soalan-num1">
+								<h1>7</h1>
+							</div>
+							<h1>+</h1>
+							<div class="soalan-num2">
+								<h1>5</h1>
+							</div>
+							<h1>=</h1>
+							<div class="soalan-num2">
+								<h1>10</h1>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+<script type="module">
+	const leftContainer = document.querySelector(
+		".cubee-container-left"
+	);
+
+	const rightContainer = document.querySelector(
+		".cubee-container-right"
+	);
+
+	const btnNext = document.querySelector(".btnNext");
+	const btnBack = document.querySelector(".btnBack");
+	const dialog = document.querySelector(".dialog p");
+
+	const textBar = document.querySelector(".text-bar");
+	const barFill = document.querySelector(".barFill");
+
+	const answerElement = document.querySelector(
+		".soalan-container.col-5 > div:last-child h1"
+	);
+
+	const originalLeftHTML = leftContainer.innerHTML;
+	const originalRightHTML = rightContainer.innerHTML;
+
+	let stepIndex = 0;
+	let isAnimating = false;
+
+	const steps = [
+		{
+			text: "Kita mempunyai 7 Lego dan 5 Lego."
+		},
+		{
+			text: "7 perlukan 3 Lego lagi untuk menjadi 10."
+		},
+		{
+			text: "Gerakkan 3 daripada 5 Lego ke petak kosong."
+		},
+		{
+			text: "Sekarang terdapat 10 Lego dan baki 2 Lego."
+		},
+		{
+			text: "10 tambah 2 sama dengan 12. Jadi, 7 tambah 5 sama dengan 12."
+		}
+	];
+
+	function getElements() {
+		return {
+			targets: [
+				...leftContainer.querySelectorAll(
+					".cube-target"
+				)
+			],
+
+			sourceCubes: [
+				...rightContainer.querySelectorAll(
+					".cube"
+				)
+			]
+		};
+	}
+
+	function getDistance(source, target) {
+		const sourceRect =
+			source.getBoundingClientRect();
+
+		const targetRect =
+			target.getBoundingClientRect();
+
+		return {
+			sourceRect,
+
+			x:
+				targetRect.left +
+				targetRect.width / 2 -
+				(
+					sourceRect.left +
+					sourceRect.width / 2
+				),
+
+			y:
+				targetRect.top +
+				targetRect.height / 2 -
+				(
+					sourceRect.top +
+					sourceRect.height / 2
+				)
+		};
+	}
+
+	function moveCube(source, target, delay = 0) {
+		return new Promise(resolve => {
+			const {
+				sourceRect,
+				x,
+				y
+			} = getDistance(source, target);
+
+			// Clone digunakan untuk animasi
+			const clone = source.cloneNode(true);
+
+			clone.classList.add("flying-cube");
+
+			Object.assign(clone.style, {
+				left: `${sourceRect.left}px`,
+				top: `${sourceRect.top}px`,
+				width: `${sourceRect.width}px`,
+				height: `${sourceRect.height}px`
+			});
+
+			document.body.appendChild(clone);
+
+			source.style.visibility = "hidden";
+
+			target.classList.add("active");
+
+			const animation = clone.animate(
+				[
+					{
+						transform:
+							"translate3d(0, 0, 0) scale(1)"
+					},
+					{
+						transform: `
+							translate3d(
+								${x * 0.5}px,
+								${(y * 0.5) - 40}px,
+								0
+							)
+							scale(1.15)
+						`
+					},
+					{
+						transform: `
+							translate3d(
+								${x}px,
+								${y}px,
+								0
+							)
+							scale(1)
+						`
+					}
+				],
+				{
+					duration: 850,
+					delay,
+					easing:
+						"cubic-bezier(0.22, 1, 0.36, 1)",
+					fill: "forwards"
+				}
+			);
+
+			animation.onfinish = () => {
+				target.classList.remove("active");
+
+				source.classList.remove(
+					"cube-to-move"
+				);
+
+				source.classList.add(
+					"cube-arrived"
+				);
+
+				// Pindahkan Lego sebenar ke target
+				target.appendChild(source);
+
+				source.style.visibility = "";
+
+				clone.remove();
+				resolve();
+			};
+		});
+	}
+
+	function highlightMovement() {
+		const {
+			targets,
+			sourceCubes
+		} = getElements();
+
+		targets.forEach(target => {
+			target.classList.add("active");
+		});
+
+		sourceCubes
+			.slice(0, 3)
+			.forEach(cube => {
+				cube.classList.add("cube-to-move");
+			});
+	}
+
+	async function moveThreeCubes() {
+		isAnimating = true;
+
+		btnNext.disabled = true;
+		btnBack.disabled = true;
+
+		const {
+			targets,
+			sourceCubes
+		} = getElements();
+
+		const cubesToMove =
+			sourceCubes.slice(0, 3);
+
+		/*
+			Gerakkan satu demi satu.
+			await dalam loop menjadikan animasi
+			lebih mudah dilihat oleh murid.
+		*/
+		for (
+			let index = 0;
+			index < cubesToMove.length;
+			index++
+		) {
+			await moveCube(
+				cubesToMove[index],
+				targets[index]
+			);
+		}
+
+		// Dua Lego yang masih tinggal
+		rightContainer
+			.querySelectorAll(".cube")
+			.forEach(cube => {
+				cube.classList.add("cube-remain");
+			});
+
+		isAnimating = false;
+
+		btnNext.disabled = false;
+		btnBack.disabled = false;
+	}
+
+	function updateProgress() {
+		const current = stepIndex + 1;
+		const total = steps.length;
+
+		textBar.textContent =
+			`${current}/${total} Slides`;
+
+		barFill.style.width =
+			`${(current / total) * 100}%`;
+	}
+
+	async function showStep() {
+		const step = steps[stepIndex];
+
+		dialog.textContent = step.text;
+
+		if (stepIndex === 1) {
+			highlightMovement();
+		}
+
+		if (stepIndex === 2) {
+			await moveThreeCubes();
+		}
+
+		if (stepIndex === 3) {
+			const firstNumber = document.querySelector(
+				".soalan-container.col-5 .soalan-num1 h1"
+			);
+
+			const secondNumber = document.querySelector(
+				".soalan-container.col-5 .soalan-num2 h1"
+			);
+
+			firstNumber.textContent = "10";
+			secondNumber.textContent = "2";
+			answerElement.textContent = "?";
+		}
+
+		if (stepIndex === 4) {
+			answerElement.textContent = "12";
+			answerElement.parentElement.classList.add(
+				"matched"
+			);
+		}
+
+		btnBack.disabled =
+			stepIndex === 0;
+
+		btnNext.textContent =
+			stepIndex === steps.length - 1
+				? "FINISH"
+				: "NEXT";
+
+		updateProgress();
+	}
+
+	async function handleNext() {
+		if (isAnimating) return;
+
+		if (stepIndex < steps.length - 1) {
+			stepIndex++;
+			await showStep();
+			return;
+		}
+
+		dialog.textContent =
+			"Syabas! 7 tambah 5 sama dengan 12.";
+	}
+
+	function resetActivity() {
+		if (isAnimating) return;
+
+		document
+			.querySelectorAll(".flying-cube")
+			.forEach(element => element.remove());
+
+		leftContainer.innerHTML =
+			originalLeftHTML;
+
+		rightContainer.innerHTML =
+			originalRightHTML;
+
+		stepIndex = 0;
+
+		// Paparan asal
+		const firstNumber = document.querySelector(
+			".soalan-container.col-5 .soalan-num1 h1"
+		);
+
+		const secondNumber = document.querySelector(
+			".soalan-container.col-5 .soalan-num2 h1"
+		);
+
+		firstNumber.textContent = "7";
+		secondNumber.textContent = "5";
+		answerElement.textContent = "?";
+
+		showStep();
+	}
+
+	function handleBack() {
+		/*
+			Sebab elemen telah berpindah parent,
+			BACK akan reset keseluruhan animasi.
+		*/
+		resetActivity();
+	}
+
+	btnNext.addEventListener("click", handleNext);
+	btnBack.addEventListener("click", handleBack);
+
+	showStep();
+</script>
+</body>
+
+</html>

@@ -6,15 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
-	<link rel="stylesheet" href="../../src/stylee/components/TrueFalse.css">
 </head>
 
 <body>
-
 	<div class="container">
 		<main>
 			<header>
-
 				<div>
 					<a href="./index.html">
 						<p class="x">x</p>
@@ -50,68 +47,45 @@
 					<h2 class="hidden">BETUL</h2>
 					<p class="hidden textFooter"></p>
 				</div>
-				<div class="btnContainer">
+				<div class="btnContainer grid-2">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box">CHECK</button>
-					<button class="btnBack soft-box hidden">BACK</button>
-					<button class="btnNext soft-box hidden">NEXT</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
 				</div>
 			</footer>
 		</main>
 	</div>
 
 	<script type="module">
-
 		export const json = [
 			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
+				id: "pelengkap-10-1",
+				type: "AnimationLearnPelengkap10",
+				text: "Mari belajar teknik pelengkap 10.",
+
 				content: {
-					nums: [5, 5, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
-			}, {
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [8, 5, 10]
-				},
-				options: ["True", "False"],
-				answer: "False",
+					firstNumber: 7,
+					secondNumber: 5,
+					target: 10
+				}
 			},
 			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
+				id: "pelengkap-10-2",
+				type: "AnimationLearnPelengkap10",
+				text: "Mari lihat contoh seterusnya.",
+
 				content: {
-					nums: [3, 6, 10]
-				},
-				options: ["True", "False"],
-				answer: "False",
-			},
-			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [3, 7, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
-			},
-			{
-				text: "Betulkah persamaan ini",
-				type: "TrueFalse",
-				content: {
-					nums: [2, 8, 10]
-				},
-				options: ["True", "False"],
-				answer: "True",
+					firstNumber: 8,
+					secondNumber: 5,
+					target: 10
+				}
 			}
 		];
+
 		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)
 	</script>
-
 </body>
 
 </html>

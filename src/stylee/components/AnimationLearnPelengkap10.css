@@ -1,0 +1,167 @@
+.soalan-container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+}
+
+.soalan-container h1 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70px;
+	width: 70px;
+}
+
+.soalan-container>div>h1 {
+	border-radius: 14px;
+}
+
+.soalan-num1 {
+	border-radius: 14px;
+	background-color: var(--color-primary-light);
+}
+
+.soalan-num2 {
+	border-radius: 14px;
+	background-color: var(--color-blue-light);
+}
+
+.cubee-container {
+	display: flex;
+	gap: 5rem;
+}
+
+.cubee-container-left,
+.cubee-container-right {
+	padding: 0.5rem;
+	border: 3px dashed black;
+	margin-top: 1rem;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+}
+
+.cubee-container-left .cube,
+.cubee-container-right .cube {
+	width: 40px;
+	height: 40px;
+}
+
+.cubee-container-left .cube::before,
+.cubee-container-right .cube::before {
+	width: 20px;
+	height: 20px;
+}
+
+.cubee-container-left .cube::after,
+.cubee-container-right .cube::after {
+	width: 9px;
+	height: 20px;
+}
+
+.cubee-container-left .cube-target,
+.cubee-container-right .cube-target {
+	width: 40px;
+	height: 40px;
+	border: unset;
+}
+
+.cube-target {
+	display: grid;
+	place-items: center;
+
+	transition:
+		background-color 0.3s ease,
+		transform 0.3s ease;
+}
+
+.cube-target.active {
+	background-color: #dcfce7;
+	border: 3px dashed #22c55e;
+
+	transform: scale(1.1);
+}
+
+.cube-to-move {
+	outline: 4px solid #22c55e;
+	outline-offset: 2px;
+
+	animation:
+		cubePulse 0.7s ease infinite alternate;
+}
+
+.flying-cube {
+	position: fixed !important;
+	z-index: 9999;
+
+	margin: 0 !important;
+	pointer-events: none;
+
+	will-change: transform;
+}
+
+.cube-arrived {
+	animation: cubeArrived 0.4s ease;
+}
+
+.cube-remain {
+	outline: 4px solid #ffc928;
+	outline-offset: 2px;
+}
+
+@keyframes cubePulse {
+	from {
+		transform: scale(1);
+	}
+
+	to {
+		transform: scale(1.12);
+	}
+}
+
+@keyframes cubeArrived {
+	0% {
+		transform: scale(0.6);
+	}
+
+	70% {
+		transform: scale(1.18);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+@media (max-width: 520px) {
+
+	.cubee-container-left,
+	.cubee-container-right {
+		padding: 0.5rem;
+		border: 3px dashed black;
+		margin-top: 1rem;
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+	}
+
+	.cubee-container-left .cube,
+	.cubee-container-right .cube {
+		width: 30px;
+		height: 30px;
+	}
+
+	.cubee-container-left .cube::before,
+	.cubee-container-right .cube::before {
+		width: 10px;
+		height: 10px;
+	}
+
+	.cubee-container-left .cube::after,
+	.cubee-container-right .cube::after {
+		width: 9px;
+		height: 20px;
+	}
+
+	.cubee-container {
+		display: flex;
+		gap: 0.5rem;
+	}
+}
