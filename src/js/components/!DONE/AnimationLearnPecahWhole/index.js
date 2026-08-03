@@ -8,15 +8,15 @@ export function mountAnimationLearnPecahWhole({
 	ui,
 	handleComponentComplete
 }) {
-	const {
+	let {
 		part1,
 		part2
 	} = data.content;
 
-	const wholeTotal =
+	let wholeTotal =
 		part1 + part2;
 
-	const steps = [
+	let steps = [
 		{
 			text:
 				`Ini ialah satu Whole yang mempunyai ${wholeTotal} Lego.`
@@ -44,8 +44,8 @@ export function mountAnimationLearnPecahWhole({
 	let isDestroyed = false;
 	let renderVersion = 0;
 
-	const animations = new Set();
-	const flyingCubes = new Set();
+	let animations = new Set();
+	let flyingCubes = new Set();
 
 	ui.btnContainer.classList.add("grid-2");
 
@@ -65,13 +65,13 @@ export function mountAnimationLearnPecahWhole({
 	}
 
 	function getElements() {
-		const wholeRow =
+		let wholeRow =
 			div.querySelector(".whole > div");
 
-		const part1Row =
+		let part1Row =
 			div.querySelector(".part1 > div");
 
-		const part2Row =
+		let part2Row =
 			div.querySelector(".part2 > div");
 
 		return {
@@ -112,28 +112,17 @@ export function mountAnimationLearnPecahWhole({
 	}
 
 	function highlightParts(elements) {
-		elements.wholeCubes.forEach(cube => {
-			cube.classList.add(
-				"part-highlight"
-			);
-		});
+		elements.wholeCubes.forEach(cube => cube.classList.add("part-highlight"));
 
-		[
-			...elements.part1Targets,
-			...elements.part2Targets
-		].forEach(targetElement => {
-			targetElement.classList.add(
-				"target-active"
+		[...elements.part1Targets, ...elements.part2Targets]
+			.forEach(targetElement => targetElement.classList.add("target-active")
 			);
-		});
 	}
 
 	function getDistance(source, targetElement) {
-		const sourceRect =
-			source.getBoundingClientRect();
+		let sourceRect = source.getBoundingClientRect();
 
-		const targetRect =
-			targetElement.getBoundingClientRect();
+		let targetRect = targetElement.getBoundingClientRect();
 
 		return {
 			sourceRect,
@@ -156,39 +145,19 @@ export function mountAnimationLearnPecahWhole({
 		};
 	}
 
-	function moveCube(
-		source,
-		targetElement,
-		version
-	) {
+	function moveCube(source, targetElement, version) {
 		return new Promise(resolve => {
-			if (
-				isDestroyed ||
-				version !== renderVersion
-			) {
+			if (isDestroyed || version !== renderVersion) {
 				resolve();
 				return;
 			}
 
-			const {
-				sourceRect,
-				x,
-				y
-			} = getDistance(
-				source,
-				targetElement
-			);
+			let { sourceRect, x, y } = getDistance(source, targetElement);
 
-			const clone =
-				source.cloneNode(true);
+			let clone = source.cloneNode(true);
 
-			clone.classList.remove(
-				"part-highlight"
-			);
-
-			clone.classList.add(
-				"flying-part-cube"
-			);
+			clone.classList.remove("part-highlight");
+			clone.classList.add("flying-part-cube");
 
 			Object.assign(clone.style, {
 				left: `${sourceRect.left}px`,
@@ -203,11 +172,9 @@ export function mountAnimationLearnPecahWhole({
 
 			source.style.visibility = "hidden";
 
-			targetElement.classList.add(
-				"target-active"
-			);
+			targetElement.classList.add("target-active");
 
-			const animation = clone.animate(
+			let animation = clone.animate(
 				[
 					{
 						transform:
@@ -248,26 +215,12 @@ export function mountAnimationLearnPecahWhole({
 				animations.delete(animation);
 				flyingCubes.delete(clone);
 
-				if (
-					!isDestroyed &&
-					version === renderVersion &&
-					source.isConnected &&
-					targetElement.isConnected
-				) {
-					targetElement.classList.remove(
-						"target-active"
-					);
+				if (!isDestroyed && version === renderVersion && source.isConnected && targetElement.isConnected) {
 
-					source.classList.remove(
-						"part-highlight"
-					);
-
-					source.classList.add(
-						"part-arrived"
-					);
-
+					targetElement.classList.remove("target-active");
+					source.classList.remove("part-highlight");
+					source.classList.add("part-arrived");
 					targetElement.appendChild(source);
-
 					source.style.visibility = "";
 				}
 
@@ -275,8 +228,7 @@ export function mountAnimationLearnPecahWhole({
 				resolve();
 			}
 
-			animation.onfinish =
-				finishAnimation;
+			animation.onfinish = finishAnimation;
 
 			animation.oncancel = () => {
 				flyingCubes.delete(clone);
@@ -292,154 +244,86 @@ export function mountAnimationLearnPecahWhole({
 		ui.btnNext.disabled = true;
 		ui.btnBack.disabled = true;
 
-		const version = renderVersion;
+		let version = renderVersion;
 
-		const part1Cubes =
-			elements.wholeCubes.slice(
-				0,
-				part1
-			);
+		let part1Cubes = elements.wholeCubes.slice(0, part1);
+		let part2Cubes = elements.wholeCubes.slice(part1);
 
-		const part2Cubes =
-			elements.wholeCubes.slice(
-				part1
-			);
+		for (let index = 0; index < part1Cubes.length; index++) {
 
-		for (
-			let index = 0;
-			index < part1Cubes.length;
-			index++
-		) {
-			if (
-				isDestroyed ||
-				version !== renderVersion
-			) {
-				return;
-			}
+			if (isDestroyed || version !== renderVersion) return
 
-			await moveCube(
-				part1Cubes[index],
-				elements.part1Targets[index],
-				version
-			);
+			await moveCube(part1Cubes[index],elements.part1Targets[index],version);
 		}
 
-		for (
-			let index = 0;
-			index < part2Cubes.length;
-			index++
-		) {
-			if (
-				isDestroyed ||
-				version !== renderVersion
-			) {
-				return;
-			}
+		for (let index = 0;index < part2Cubes.length;index++) {
+			
+			if (isDestroyed || version !== renderVersion) return
 
-			await moveCube(
-				part2Cubes[index],
-				elements.part2Targets[index],
-				version
-			);
+			await moveCube(part2Cubes[index],elements.part2Targets[index],version);
 		}
 
-		if (
-			isDestroyed ||
-			version !== renderVersion
-		) {
-			return;
-		}
+		if (isDestroyed || version !== renderVersion) return
 
 		isAnimating = false;
 
 		ui.btnNext.disabled = false;
-		ui.btnBack.disabled =
-			stepIndex === 0;
+		ui.btnBack.disabled = stepIndex === 0;
 	}
 
 	function placeCubesInstantly(elements) {
-		const part1Cubes =
-			elements.wholeCubes.slice(
-				0,
-				part1
-			);
-
-		const part2Cubes =
-			elements.wholeCubes.slice(
-				part1
-			);
+		let part1Cubes = elements.wholeCubes.slice(0,part1);
+		let part2Cubes = elements.wholeCubes.slice(part1);
 
 		part1Cubes.forEach((cube, index) => {
-			cube.classList.add(
-				"part-one-cube"
-			);
-
-			elements.part1Targets[index]
-				.appendChild(cube);
+			cube.classList.add("part-one-cube");
+			elements.part1Targets[index].appendChild(cube);
 		});
 
 		part2Cubes.forEach((cube, index) => {
-			cube.classList.add(
-				"part-two-cube"
-			);
-
-			elements.part2Targets[index]
-				.appendChild(cube);
+			cube.classList.add("part-two-cube");
+			elements.part2Targets[index].appendChild(cube);
 		});
 	}
 
 	function cancelAnimations() {
-		animations.forEach(animation => {
-			animation.cancel();
-		});
+		animations.forEach(animation => animation.cancel());
 
 		animations.clear();
 
-		flyingCubes.forEach(element => {
-			element.remove();
-		});
+		flyingCubes.forEach(element => element.remove());
 
 		flyingCubes.clear();
 		isAnimating = false;
 	}
 
-	function updateProgress() {
-		const current = stepIndex + 1;
-		const total = steps.length;
+	// function updateProgress() {
+	// 	let current = stepIndex + 1;
+	// 	let total = steps.length;
 
-		ui.textBar.textContent =
-			`${current}/${total} Slides`;
+	// 	ui.textBar.textContent =
+	// 		`${current}/${total} Slides`;
 
-		ui.barFill.style.width =
-			`${(current / total) * 100}%`;
-	}
+	// 	ui.barFill.style.width =
+	// 		`${(current / total) * 100}%`;
+	// }
 
 	function updateButtons() {
-		ui.btnBack.disabled =
-			stepIndex === 0;
-
-		ui.btnNext.textContent =
-			stepIndex === steps.length - 1
-				? "FINISH"
-				: "NEXT";
+		ui.btnBack.disabled = stepIndex === 0;
+		ui.btnNext.textContent = stepIndex === steps.length - 1 ? "FINISH" : "NEXT";
 	}
 
-	async function showStep({
-		playAnimation = false
-	} = {}) {
+	async function showStep({playAnimation = false} = {}) {
 		cancelAnimations();
 		renderLayout();
 
-		const elements = getElements();
+		let elements = getElements();
 
 		addColours(elements);
 
-		ui.dialog.textContent =
-			steps[stepIndex].text;
+		ui.dialog.textContent = steps[stepIndex].text;
 
-		if (stepIndex === 1) {
-			highlightParts(elements);
-		}
+		if (stepIndex === 1) highlightParts(elements);
 
 		if (stepIndex >= 2) {
 			if (playAnimation) {
@@ -450,7 +334,7 @@ export function mountAnimationLearnPecahWhole({
 			}
 		}
 
-		updateProgress();
+		// updateProgress();
 		updateButtons();
 	}
 
@@ -460,10 +344,7 @@ export function mountAnimationLearnPecahWhole({
 		if (stepIndex < steps.length - 1) {
 			stepIndex++;
 
-			await showStep({
-				playAnimation:
-					stepIndex === 2
-			});
+			await showStep({ playAnimation: stepIndex === 2 });
 
 			return;
 		}
@@ -472,26 +353,14 @@ export function mountAnimationLearnPecahWhole({
 	}
 
 	function handleBack() {
-		if (
-			isAnimating ||
-			stepIndex === 0
-		) {
-			return;
-		}
+		if (isAnimating || stepIndex === 0) return
 
 		stepIndex--;
 		showStep();
 	}
 
-	ui.btnNext.addEventListener(
-		"click",
-		handleNext
-	);
-
-	ui.btnBack.addEventListener(
-		"click",
-		handleBack
-	);
+	ui.btnNext.addEventListener("click", handleNext);
+	ui.btnBack.addEventListener("click", handleBack);
 
 	showStep();
 
@@ -501,14 +370,7 @@ export function mountAnimationLearnPecahWhole({
 
 		cancelAnimations();
 
-		ui.btnNext.removeEventListener(
-			"click",
-			handleNext
-		);
-
-		ui.btnBack.removeEventListener(
-			"click",
-			handleBack
-		);
+		ui.btnNext.removeEventListener("click", handleNext);
+		ui.btnBack.removeEventListener("click", handleBack);
 	};
 }

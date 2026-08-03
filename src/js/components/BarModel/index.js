@@ -2,37 +2,22 @@ import {
 	renderBarModel
 } from "./render.js";
 
-export function mountBarModel({div,data,ui,handleComponentComplete,handleComponentBack, componentIndex = 0
-}) {
+export function mountBarModel({ div, data, ui, handleComponentComplete, handleComponentBack, componentIndex = 0 }) {
 	let stepIndex = 0;
 
-	const {
-		total,
-		part1,
-		part2
-	} = data.content;
+	let { total, part1, part2 } = data.content;
 
 	if (part1 + part2 !== total) {
-		console.error(
-			`BarModel salah: ${part1} + ${part2} bukan ${total}`
-		);
-
+		console.error(`BarModel salah: ${part1} + ${part2} bukan ${total}`);
 		return;
 	}
 
-	if (
-		total <= 0 ||
-		part1 <= 0 ||
-		part2 <= 0
-	) {
-		console.error(
-			"BarModel memerlukan nombor lebih daripada 0."
-		);
-
+	if (total <= 0 || part1 <= 0 || part2 <= 0) {
+		console.error("BarModel memerlukan nombor lebih daripada 0.");
 		return;
 	}
 
-	const steps = [
+	let steps = [
 		{
 			text:
 				`Ini ialah satu Whole yang mempunyai ${total} Lego.`,
@@ -86,18 +71,10 @@ export function mountBarModel({div,data,ui,handleComponentComplete,handleCompone
 
 	ui.contentContainer.replaceChildren(div);
 
-	const model =
-		div.querySelector(".bar-model");
-
-	const barRow =
-		div.querySelector(".bar-row");
-
-	const divider =
-		div.querySelector(".bar-divider");
-
-	const cubes = [
-		...div.querySelectorAll(".bar-cube")
-	];
+	let model = div.querySelector(".bar-model");
+	let barRow = div.querySelector(".bar-row");
+	let divider = div.querySelector(".bar-divider");
+	let cubes = [...div.querySelectorAll(".bar-cube")];
 
 	ui.btnContainer.classList.add("grid-2");
 
@@ -108,100 +85,67 @@ export function mountBarModel({div,data,ui,handleComponentComplete,handleCompone
 	ui.btnNext.classList.remove("hidden");
 
 	function positionDivider() {
-		const lastPartOne =
-			cubes[part1 - 1];
+		let lastPartOne = cubes[part1 - 1];
 
-		const firstPartTwo =
-			cubes[part1];
+		let firstPartTwo = cubes[part1];
 
-		if (
-			!lastPartOne ||
-			!firstPartTwo
-		) {
-			return;
-		}
+		if (!lastPartOne || !firstPartTwo) return
 
-		const rowRect =
-			barRow.getBoundingClientRect();
+		let rowRect = barRow.getBoundingClientRect();
+		let leftRect = lastPartOne.getBoundingClientRect();
+		let rightRect = firstPartTwo.getBoundingClientRect();
 
-		const leftRect =
-			lastPartOne.getBoundingClientRect();
+		let position = (leftRect.right + rightRect.left) / 2 - rowRect.left;
 
-		const rightRect =
-			firstPartTwo.getBoundingClientRect();
-
-		const position =
-			(
-				leftRect.right +
-				rightRect.left
-			) / 2 - rowRect.left;
-
-		divider.style.left =
-			`${position}px`;
+		divider.style.left = `${position}px`;
 	}
 
 	function replayCountAnimation() {
-		cubes.forEach(cube => {
-			cube.style.animation = "none";
-		});
+		cubes.forEach(cube =>  cube.style.animation = "none")
 
 		void model.offsetWidth;
 
 		cubes.forEach((cube, index) => {
 			cube.style.animation = "";
 
-			cube.style.animationDelay =
-				`${index * 0.15}s`;
+			cube.style.animationDelay = `${index * 0.15}s`;
 		});
 	}
 
-	function updateProgress() {
-		const current = stepIndex + 1;
-		const totalSteps = steps.length;
+	// function updateProgress() {
+	// 	let current = stepIndex + 1;
+	// 	let totalSteps = steps.length;
 
-		ui.textBar.textContent =
-			`${current}/${totalSteps} Slides`;
+	// 	ui.textBar.textContent =
+	// 		`${current}/${totalSteps} Slides`;
 
-		ui.barFill.style.width =
-			`${(current / totalSteps) * 100}%`;
-	}
+	// 	ui.barFill.style.width =
+	// 		`${(current / totalSteps) * 100}%`;
+	// }
 
 	function updateButtons() {
-		const firstSlide =
-			componentIndex === 0 &&
-			stepIndex === 0;
-
-		const lastSlide =
-			stepIndex === steps.length - 1;
+		let firstSlide = componentIndex === 0 && stepIndex === 0;
+		let lastSlide = stepIndex === steps.length - 1;
 
 		ui.btnBack.disabled = firstSlide;
 
-		ui.btnNext.textContent =
-			lastSlide
-				? "FINISH"
-				: "NEXT";
+		ui.btnNext.textContent = lastSlide ? "FINISH" : "NEXT";
 	}
 
 	function showStep() {
-		const step = steps[stepIndex];
+		let step = steps[stepIndex];
 
 		model.className = "bar-model";
 
-		step.classes.forEach(className => {
-			model.classList.add(className);
-		});
+		step.classes.forEach(className => model.classList.add(className));
 
-		if (
-			step.classes.includes(
-				"count-cubes"
-			)
-		) {
+		if (step.classes.includes("count-cubes")){
 			replayCountAnimation();
 		}
 
 		ui.dialog.textContent = step.text;
 
-		updateProgress();
+		// updateProgress();
 		updateButtons();
 	}
 
@@ -229,40 +173,17 @@ export function mountBarModel({div,data,ui,handleComponentComplete,handleCompone
 		positionDivider();
 	}
 
-	ui.btnNext.addEventListener(
-		"click",
-		handleNext
-	);
-
-	ui.btnBack.addEventListener(
-		"click",
-		handleBack
-	);
-
-	window.addEventListener(
-		"resize",
-		handleResize
-	);
-
+	ui.btnNext.addEventListener("click",handleNext);
+	ui.btnBack.addEventListener("click",handleBack);
+	window.addEventListener("resize",handleResize);
+	
 	requestAnimationFrame(() => {
 		positionDivider();
 		showStep();
 	});
 
 	return function cleanup() {
-		ui.btnNext.removeEventListener(
-			"click",
-			handleNext
-		);
-
-		ui.btnBack.removeEventListener(
-			"click",
-			handleBack
-		);
-
-		window.removeEventListener(
-			"resize",
-			handleResize
-		);
-	};
+		ui.btnNext.removeEventListener("click",handleNext);
+		ui.btnBack.removeEventListener("click",handleBack);
+		window.removeEventListener("resize",handleResize);};
 }

@@ -335,16 +335,16 @@ export function mountAnimationLearnMake10({
 			stepIndex === 0;
 	}
 
-	function updateProgress() {
-		const current = stepIndex + 1;
-		const total = steps.length;
+	// function updateProgress() {
+	// 	const current = stepIndex + 1;
+	// 	const total = steps.length;
 
-		ui.textBar.textContent =
-			`${current}/${total} Slides`;
+	// 	ui.textBar.textContent =
+	// 		`${current}/${total} Slides`;
 
-		ui.barFill.style.width =
-			`${(current / total) * 100}%`;
-	}
+	// 	ui.barFill.style.width =
+	// 		`${(current / total) * 100}%`;
+	// }
 
 	function updateButtons() {
 		ui.btnBack.disabled =
@@ -390,7 +390,7 @@ export function mountAnimationLearnMake10({
 			);
 		}
 
-		updateProgress();
+		// updateProgress();
 		updateButtons();
 	}
 

@@ -5,33 +5,33 @@ export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete,
 
 	ui.btnContainer.classList.add("grid-2")
 
-	function updateProgress() {
-		const totalSteps =
-			data.content.length * steps.length;
+	// function updateProgress() {
+	// 	let totalSteps =
+	// 		data.content.length * steps.length;
 
-		const currentStep =
-			(questionIndex * steps.length) +
-			stepIndex +
-			1;
+	// 	let currentStep =
+	// 		(questionIndex * steps.length) +
+	// 		stepIndex +
+	// 		1;
 
-		const percentage =
-			(currentStep / totalSteps) * 100;
+	// 	let percentage =
+	// 		(currentStep / totalSteps) * 100;
 
-		ui.textBar.textContent =
-			`${currentStep}/${totalSteps} Slides`;
+	// 	ui.textBar.textContent =
+	// 		`${currentStep}/${totalSteps} Slides`;
 
-		ui.barFill.style.width =
-			`${percentage}%`;
-	}
+	// 	ui.barFill.style.width =
+	// 		`${percentage}%`;
+	// }
 
 	function generateSteps(question) {
-		const [a, b] = question.options;
-		const besar = Math.max(a, b);
-		const kecil = Math.min(a, b);
-		const pelengkap = 10 - besar;
-		const baki = kecil - pelengkap;
-		const jumlah = besar + kecil;
-		const content = {
+		let [a, b] = question.options;
+		let besar = Math.max(a, b);
+		let kecil = Math.min(a, b);
+		let pelengkap = 10 - besar;
+		let baki = kecil - pelengkap;
+		let jumlah = besar + kecil;
+		let content = {
 			nums: [besar, kecil],
 			pelengkap,
 			baki,
@@ -90,8 +90,8 @@ export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete,
 	}
 
 	function renderStep() {
-		const step = steps[stepIndex];
-		const widget = registry[step.type];
+		let step = steps[stepIndex];
+		let widget = registry[step.type];
 
 		if (!widget?.render) {
 			console.error(
@@ -105,16 +105,16 @@ export function mountTeknikPelengkap10({ div, data, ui, handleComponentComplete,
 		ui.dialog.textContent = step.text;
 		ui.contentContainer.replaceChildren(div);
 
-		updateProgress();
+		// updateProgress();
 		updateButtons();
 	}
 
 	function updateButtons() {
-		const first =
+		let first =
 			questionIndex === 0 &&
 			stepIndex === 0;
 
-		const last =
+		let last =
 			questionIndex ===
 			data.content.length - 1 &&
 			stepIndex ===
