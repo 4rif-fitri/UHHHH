@@ -62,6 +62,9 @@ export function runComponents(data) {
 
 		if (state.index >= data.length) {
 			console.log("Semua selesai");
+
+			location.href = "../index.html"
+
 			return;
 		}
 

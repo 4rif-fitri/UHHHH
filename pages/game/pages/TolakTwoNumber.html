@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="../index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box ">CHECK</button>
+					<button class="btnBack soft-box hidden">BACK</button>
+					<button class="btnNext soft-box hidden">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+
+		export const json = [
+			{
+				id: "tolak-pilih-1",
+				type: "TolakPilihLego",
+				text: "Klik dua Lego untuk dibuang.",
+
+				content: {
+					total: 5,
+					remove: 2,
+					operator: "-"
+				},
+
+				options: [5, 3],
+				answer: 3
+			},
+			{
+				id: "tolak-pilih-2",
+				type: "TolakPilihLego",
+				text: "Klik tiga Lego untuk dibuang.",
+
+				content: {
+					total: 7,
+					remove: 3,
+					operator: "-"
+				},
+
+				options: [3, 4, 5],
+				answer: 4
+			},
+			{
+				text: "Padankan soalan dengan jawapan yang betul.",
+				type: "Padankan",
+
+				content: [
+					{
+						matchId: "double-1",
+						question: "1 - 1",
+						answer: 0,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-2",
+						question: "2 - 1",
+						answer: 1,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-3",
+						question: "3 - 1",
+						answer: 2,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-4",
+						question: "4 - 1",
+						answer: 3,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-5",
+						question: "5 - 1",
+						answer: 4,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					}
+				]
+			},
+			{
+				id: "tolak-pilih-1",
+				type: "TolakPilihLego",
+				text: "Klik dua Lego untuk dibuang.",
+
+				content: {
+					total: 3,
+					remove: 2,
+					operator: "-"
+				},
+
+				options: [1, 1],
+				answer: 1
+			},
+			{
+				id: "tolak-pilih-2",
+				type: "TolakPilihLego",
+				text: "Klik tiga Lego untuk dibuang.",
+
+				content: {
+					total: 4,
+					remove: 2,
+					operator: "-"
+				},
+
+				options: [2, 1, 3],
+				answer: 2
+			},
+			{
+				text: "Padankan soalan dengan jawapan yang betul.",
+				type: "Padankan",
+
+				content: [
+					{
+						matchId: "double-1",
+						question: "1 - 1",
+						answer: 0,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-2",
+						question: "2 - 1",
+						answer: 1,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-3",
+						question: "3 - 1",
+						answer: 2,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-4",
+						question: "4 - 1",
+						answer: 3,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-5",
+						question: "5 - 1",
+						answer: 4,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					}
+				]
+			},
+		];
+		import { runComponents } from "/src/js/core/componentRunner.js";
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>

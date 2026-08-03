@@ -103,21 +103,21 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 		];
 	}
 
-	function updateProgress() {
-		const total =
-			data.content.length * steps.length;
+	// function updateProgress() {
+	// 	const total =
+	// 		data.content.length * steps.length;
 
-		const current =
-			(questionIndex * steps.length) +
-			stepIndex +
-			1;
+	// 	const current =
+	// 		(questionIndex * steps.length) +
+	// 		stepIndex +
+	// 		1;
 
-		ui.textBar.textContent =
-			`${current}/${total} Questions`;
+	// 	ui.textBar.textContent =
+	// 		`${current}/${total} Questions`;
 
-		ui.barFill.style.width =
-			`${(current / total) * 100}%`;
-	}
+	// 	ui.barFill.style.width =
+	// 		`${(current / total) * 100}%`;
+	// }
 
 	function renderStep() {
 		const currentData = steps[stepIndex];
@@ -157,7 +157,7 @@ export function mountLatihanPelengkap10({ div, data, ui, handleComponentComplete
 			div
 		);
 
-		updateProgress();
+		// updateProgress();
 	}
 
 	function loadQuestion() {

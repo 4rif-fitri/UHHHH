@@ -1,15 +1,10 @@
 function shuffle(data) {
 	const result = [...data];
 
-	for (
-		let index = result.length - 1;
-		index > 0;
-		index--
-	) {
-		const randomIndex =
-			Math.floor(
-				Math.random() * (index + 1)
-			);
+	for (let index = result.length - 1; index > 0; index--) {
+		const randomIndex = Math.floor(
+			Math.random() * (index + 1)
+		);
 
 		[
 			result[index],
@@ -35,21 +30,24 @@ function renderCubes(total) {
 	).join("");
 }
 
-function renderQuestion(item) {
-	const display =
-		item.questionDisplay ??
-		(
-			item.type === "object"
-				? "cubes"
-				: "text"
-		);
+function getMatchId(item) {
+	return item.matchId ?? item.key;
+}
 
-	if (display === "cubes") {
+
+function renderQuestion(item) {
+	const matchId = getMatchId(item);
+
+	const questionType =
+		item.questionDisplay ??
+		(item.type === "object" ? "cubes" : "text");
+
+	if (questionType === "cubes") {
 		return `
 			<button
 				type="button"
 				class="padankan-cube-container boxSoalan soft-box flex-wrap"
-				data-match-id="${item.matchId}"
+				data-match-id="${matchId}"
 			>
 				${renderCubes(item.question)}
 			</button>
@@ -60,7 +58,7 @@ function renderQuestion(item) {
 		<button
 			type="button"
 			class="boxSoalan soft-box"
-			data-match-id="${item.matchId}"
+			data-match-id="${matchId}"
 		>
 			<h1>${item.question}</h1>
 		</button>
@@ -68,15 +66,17 @@ function renderQuestion(item) {
 }
 
 function renderAnswer(item) {
-	const display =
+	const matchId = getMatchId(item);
+
+	const answerType =
 		item.answerDisplay ?? "text";
 
-	if (display === "cubes") {
+	if (answerType === "cubes") {
 		return `
 			<button
 				type="button"
 				class="padankan-cube-container boxJawapan soft-box flex-wrap"
-				data-match-id="${item.matchId}"
+				data-match-id="${matchId}"
 			>
 				${renderCubes(item.answer)}
 			</button>
@@ -87,7 +87,7 @@ function renderAnswer(item) {
 		<button
 			type="button"
 			class="boxJawapan soft-box"
-			data-match-id="${item.matchId}"
+			data-match-id="${matchId}"
 		>
 			<h1>${item.answer}</h1>
 		</button>
@@ -95,8 +95,7 @@ function renderAnswer(item) {
 }
 
 export function renderPadankan(data) {
-	const answers =
-		shuffle(data.content);
+	const answers = shuffle(data.content);
 
 	return `
 		<div class="grid-2 w-100 p-2 gap-3 padankan">
