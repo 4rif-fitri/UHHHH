@@ -1,60 +1,48 @@
-import { mountDiagramBox } from "../components/DiagramBox/index.js";
-import { mountKombinasi } from "../components/Kombinasi/index.js";
-import { mountKombinasiTerbalik } from "../components/KombinasiTerbalik/index.js";
-import { mountMemoryGame } from "../components/MemoryGame/index.js";
-import { mountPadankan } from "../components/Padankan/index.js";
-import { mountTeknikPelengkap10 } from "../components/TeknikPelengkap10/index.js";
-import { mountTrueFalse } from "../components/TrueFalse/index.js";
-import { 	renderLearnBaki,renderLearnGabung,renderLearnNeeded,renderLearnPecah,renderLearnPick,renderLearnSum,renderLearnSummery} from "../components/TeknikPelengkap10/render.js";
-import { mountLatihanPelengkap10 } from "../components/LatihanPelengkap10/index.js";
-import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/LatihanPelengkap10/render.js";
-import { setupPick, defaultCheck } from "../components/LatihanPelengkap10/logic.js";
+import { mountDiagramBox } from "../components/learning/DiagramBox/index.js";
+import { mountKombinasi } from "../components/learning/Kombinasi/index.js";
+import { mountKombinasiTerbalik } from "../components/learning/KombinasiTerbalik/index.js";
+import { mountMemoryGame } from "../components/permainan/MemoryGame/index.js";
+import { mountPadankan } from "../components/permainan/Padankan/index.js";
+import { mountTeknikPelengkap10 } from "../components/learning/TeknikPelengkap10/index.js";
+import { mountTrueFalse } from "../components/permainan/TrueFalse/index.js";
+import { renderLearnBaki, renderLearnGabung, renderLearnInit, renderLearnNeeded, renderLearnPecah, renderLearnPick, renderLearnSum, renderLearnSummery } from "../components/learning/TeknikPelengkap10/render.js";
+import { mountLatihanPelengkap10 } from "../components/permainan/LatihanPelengkap10/index.js";
+import { renderBaki, renderGabung, renderNeeded, renderPecah, renderPick, renderSum, renderSummery } from "../components/permainan/LatihanPelengkap10/render.js";
+import { setupPick, defaultCheck } from "../components/permainan/LatihanPelengkap10/logic.js";
 import { updateContent } from "./helper.js";
-import { mountNumpadQuiz } from "../components/NumpadQuiz/index.js";
-import { mountMaking10 } from "../components/Making10/index.js";
-import { mountChoiseQuiz } from "../components/ChoiseQuiz/index.js";
-import { mountKenaliNombor } from "../components/KenaliNombor/index.js";
-import { mountSusunNombor } from "../components/SusunNombor/index.js";
-import { mountNomborHilang } from "../components/NomborHilang/index.js";
-import { mountGabungKumpulan } from "../components/GabungKumpulan/index.js";
-import { mountTolakKumpulan } from "../components/TolakKumpulan/index.js";
-import { mountTolakPilihLego } from "../components/TolakPilihLego/index.js";
-import { mountTambahDragLego } from "../components/TambahPilihLego/index.js";
-import { mountPilihJumlahLego } from "../components/PilihJumlahLego/index.js";
-import { mountPilihAyatTambah } from "../components/PilihAyatTambah/index.js";
-import { mountPartPartWholeVisual } from "../components/PartPartWholeVisual/index.js";
-import { mountGabungPartWhole } from "../components/GabungPartWhole/index.js";
-import { mountPecahWholeKepadaPart } from "../components/PecahWholeKepadaPart/index.js";
+import { mountNumpadQuiz } from "../components/permainan/NumpadQuiz/index.js";
+import { mountMaking10 } from "../components/learning/Making10/index.js";
+import { mountChoiseQuiz } from "../components/permainan/ChoiseQuiz/index.js";
+import { mountKenaliNombor } from "../components/learning/KenaliNombor/index.js";
+import { mountSusunNombor } from "../components/permainan/SusunNombor/index.js";
+import { mountNomborHilang } from "../components/permainan/NomborHilang/index.js";
+import { mountGabungKumpulan } from "../components/learning/GabungKumpulan/index.js";
+import { mountTolakKumpulan } from "../components/learning/TolakKumpulan/index.js";
+import { mountTolakPilihLego } from "../components/permainan/TolakPilihLego/index.js";
+import { mountTambahDragLego } from "../components/permainan/TambahPilihLego/index.js";
+import { mountPilihJumlahLego } from "../components/permainan/PilihJumlahLego/index.js";
+import { mountPilihAyatTambah } from "../components/permainan/PilihAyatTambah/index.js";
+import { mountPartPartWholeVisual } from "../components/learning/PartPartWholeVisual/index.js";
+import { mountGabungPartWhole } from "../components/learning/GabungPartWhole/index.js";
+import { mountPecahWholeKepadaPart } from "../components/learning/PecahWholeKepadaPart/index.js";
+import { mountBarModel } from "../components/learning/BarModel/index.js";
+import { mountAnimationLearnPelengkap10 } from "../components/learning/AnimationLearnPelengkap10/index.js";
+import { mountAnimationLearnMake10 } from "../components/learning/AnimationLearnMake10/index.js";
+import { mountAnimationLearnPecahWhole } from "../components/learning/AnimationLearnPecahWhole/index.js";
+import { mountAnimationLearnGabungPart } from "../components/learning/AnimationLearnPartPartWhole/index.js";
+
+function componentStyle(fileName) {
+	return new URL(
+		`../../stylee/components/${fileName}`,
+		import.meta.url
+	).href;
+}
 
 export const widgetRegistry = {
-	Kombinasi: {
-		mount: mountKombinasi
+	LearnInit: {
+		render: renderLearnInit
 	},
-
-	Padankan: {
-		mount: mountPadankan
-	},
-
-	KombinasiTerbalik: {
-		mount: mountKombinasiTerbalik
-	},
-
-	TrueFalse: {
-		mount: mountTrueFalse
-	},
-
-	DiagramBox: {
-		mount: mountDiagramBox
-	},
-
-	MemoryGame: {
-		mount: mountMemoryGame
-	},
-
-	TeknikPelengkap10: {
-		mount: mountTeknikPelengkap10
-	},
-
+	
 	LearnPick: {
 		render: renderLearnPick
 	},
@@ -81,10 +69,6 @@ export const widgetRegistry = {
 
 	LearnSummery: {
 		render: renderLearnSummery
-	},
-
-	LatihanPelengkap10: {
-		mount: mountLatihanPelengkap10
 	},
 
 	Pick: {
@@ -154,49 +138,146 @@ export const widgetRegistry = {
 		},
 		check: defaultCheck
 	},
+
+	Kombinasi: {
+		mount: mountKombinasi,
+		style: componentStyle("Kombinasi.css")
+	},
+
+	Padankan: {
+		mount: mountPadankan,
+		style: componentStyle("Padankan.css")
+	},
+
+	KombinasiTerbalik: {
+		mount: mountKombinasiTerbalik,
+		style: componentStyle("KombinasiTerbalik.css")
+	},
+
+	TrueFalse: {
+		mount: mountTrueFalse,
+		style: componentStyle("TrueFalse.css")
+	},
+
+	DiagramBox: {
+		mount: mountDiagramBox,
+		style: componentStyle("DiagramBox.css")
+	},
+
+	MemoryGame: {
+		mount: mountMemoryGame,
+		style: componentStyle("MemoryGame.css")
+	},
+
+	TeknikPelengkap10: {
+		mount: mountTeknikPelengkap10,
+		style: componentStyle("TeknikPelengkap10.css")
+
+	},
+
+	LatihanPelengkap10: {
+		mount: mountLatihanPelengkap10,
+		style: componentStyle("LatihanPelengkap10.css")
+	},
+
 	NumpadQuiz: {
-		mount: mountNumpadQuiz
+		mount: mountNumpadQuiz,
+		style: componentStyle("NumpadQuiz.css")
 	},
-	Making10:{
-		mount: mountMaking10
+
+	Making10: {
+		mount: mountMaking10,
+		style: componentStyle("Making10.css")
 	},
+
 	ChoiseQuiz: {
-		mount: mountChoiseQuiz
+		mount: mountChoiseQuiz,
+		style: componentStyle("ChoiseQuiz.css")
 	},
+
 	KenaliNombor: {
-		mount: mountKenaliNombor
+		mount: mountKenaliNombor,
+		style: componentStyle("KenaliNombor.css")
 	},
+
 	SusunNombor: {
-		mount: mountSusunNombor
+		mount: mountSusunNombor,
+		style: componentStyle("SusunNombor.css")
 	},
+
 	NomborHilang: {
-		mount: mountNomborHilang
+		mount: mountNomborHilang,
+		style: componentStyle("NomborHilang.css")
 	},
+
 	GabungKumpulan: {
-		mount: mountGabungKumpulan
+		mount: mountGabungKumpulan,
+		style: componentStyle("GabungKumpulan.css")
 	},
+
 	TolakKumpulan: {
-		mount: mountTolakKumpulan
+		mount: mountTolakKumpulan,
+		style: componentStyle("TolakKumpulan.css")
 	},
+
 	TolakPilihLego: {
-		mount: mountTolakPilihLego
+		mount: mountTolakPilihLego,
+		style: componentStyle("TolakPilihLego.css")
 	},
+
 	TambahDragLego: {
-		mount: mountTambahDragLego
+		mount: mountTambahDragLego,
+		style: componentStyle("TambahDragLego.css")
 	},
+
 	PilihJumlahLego: {
-		mount: mountPilihJumlahLego
+		mount: mountPilihJumlahLego,
+		style: componentStyle("PilihJumlahLego.css")
 	},
 	PilihAyatTambah: {
-		mount: mountPilihAyatTambah
+		mount: mountPilihAyatTambah,
+		style: componentStyle("PilihAyatTambah.css")
 	},
 	PartPartWholeVisual: {
-		mount: mountPartPartWholeVisual
+		mount: mountPartPartWholeVisual,
+		style: componentStyle("PartPartWholeVisual.css")
 	},
 	GabungPartWhole: {
-		mount: mountGabungPartWhole
+		mount: mountGabungPartWhole,
+		style: componentStyle("GabungPartWhole.css")
 	},
 	PecahWholeKepadaPart: {
-		mount: mountPecahWholeKepadaPart
-	}
+		mount: mountPecahWholeKepadaPart,
+		style: componentStyle("PecahWholeKepadaPart.css")
+	},
+	BarModel: {
+		mount: mountBarModel,
+		style: componentStyle("BarModel.css")
+	},
+
+	AnimationLearnMake10: {
+		mount: mountAnimationLearnMake10,
+		style: componentStyle(
+			"AnimationLearnMake10.css"
+		)
+	},
+
+	AnimationLearnPelengkap10: {
+		mount: mountAnimationLearnPelengkap10,
+		style: componentStyle(
+			"AnimationLearnPelengkap10.css"
+		)
+	},
+	AnimationLearnPecahWhole: {
+		mount: mountAnimationLearnPecahWhole,
+		style: componentStyle(
+			"AnimationLearnPecahWhole.css"
+		)
+	},
+	AnimationLearnPartPartWhole: {
+		mount: mountAnimationLearnGabungPart,
+		style: componentStyle(
+			"AnimationLearnPartPartWhole.css"
+		)
+	},
 };

@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+	<style>
+		.tambah-drag-lego {
+			width: 100%;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.5rem;
+		}
+
+		.drag-instruction {
+			margin: 0;
+
+			color: #16803b;
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.addition-frame {
+			min-width: 350px;
+			min-height: 90px;
+
+			padding: 1rem;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+
+
+
+			background: #f8fafc;
+			border: 3px solid #e5e7eb;
+			border-radius: 14px;
+		}
+
+		.addition-slot {
+			width: 65px;
+			height: 65px;
+
+			display: grid;
+			place-items: center;
+
+			border: 3px dashed transparent;
+			border-radius: 9px;
+
+			transition: 0.25s ease;
+		}
+
+		.add-target {
+			background: #f0fdf4;
+			border-color: #22c55e;
+		}
+
+		.add-target.drop-active {
+			background: #dcfce7;
+			border-color: #16a34a;
+
+			transform: scale(1.12);
+		}
+
+		.start-cube {
+			width: 100%;
+			height: 100%;
+
+			background: #55a8f5;
+			border: 4px solid #327ed6;
+			border-radius: 10px;
+
+			box-shadow:
+				0 5px 0 #2563a7,
+				inset 0 3px 0 rgba(255, 255, 255, 0.25);
+		}
+
+		.extra-area {
+			text-align: center;
+		}
+
+		.extra-cubes {
+			min-height: 75px;
+
+			display: flex;
+			justify-content: center;
+			gap: 0.75rem;
+		}
+
+		.extra-cube,
+		.added-cube,
+		.dragging-cube {
+			width: 65px;
+			height: 65px;
+
+			background: #72ce3b;
+			border: 4px solid #45a61c;
+			border-radius: 10px;
+
+			box-shadow:
+				0 5px 0 #378716,
+				inset 0 3px 0 rgba(255, 255, 255, 0.25);
+		}
+
+		.extra-cube {
+			cursor: grab;
+
+			touch-action: none;
+			user-select: none;
+		}
+
+		.extra-cube:active {
+			cursor: grabbing;
+		}
+
+		.dragging-cube {
+			opacity: 0.9;
+
+			transform: scale(1.08);
+			will-change: left, top;
+		}
+
+		.addition-equation {
+			display: grid;
+
+			grid-template-columns:
+				75px 40px 75px 40px 75px;
+
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+		.addition-equation>h1 {
+			text-align: center;
+		}
+
+		.number-box {
+			width: 75px;
+			height: 75px;
+
+			display: grid;
+			place-items: center;
+
+			border: 4px solid;
+			border-radius: 10px;
+
+			font-size: 2rem;
+			font-weight: bold;
+		}
+
+		.start-box {
+			color: #166534;
+			background: #dcfce7;
+			border-color: #22c55e;
+		}
+
+		.add-box {
+			color: #b91c1c;
+			background: #fee2e2;
+			border-color: #ef4444;
+		}
+
+		.answer-box {
+			color: #173b72;
+			background: #f8fafc;
+			border-color: #64748b;
+		}
+
+		.answer-section {
+			width: 100%;
+			text-align: center;
+		}
+
+		.answer-section .options {
+			width: 100%;
+
+			display: grid;
+			grid-template-columns:
+				repeat(auto-fit,
+					minmax(100px, 1fr));
+
+			gap: 1rem;
+		}
+
+		.btnAns.selected {
+			color: #0b2f68;
+			background: #dbeafe;
+			border-color: #3b82f6;
+		}
+
+		.btnAns.wrong {
+			color: #991b1b;
+			background: #fee2e2;
+			border-color: #ef4444;
+		}
+
+		.btnAns.matched {
+			color: #166534;
+			background: #dcfce7;
+			border-color: #22c55e;
+		}
+
+		@media (max-width: 520px) {
+			.addition-frame {
+				min-width: max-content;
+			}
+
+			.addition-slot,
+			.extra-cube,
+			.added-cube,
+			.dragging-cube {
+				width: 48px;
+				height: 48px;
+			}
+
+
+			.number-box {
+				width: 52px;
+				height: 52px;
+			}
+		}
+
+		.label-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			gap: 5rem;
+		}
+
+		.bar-model {
+			width: min(600px, 95%);
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			gap: 1.5rem;
+		}
+
+		.whole-label {
+			opacity: 0;
+			transform: translateY(-15px);
+
+			transition:
+				opacity 0.4s ease,
+				transform 0.4s ease;
+		}
+
+		.bar-row {
+			position: relative;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			padding: 1rem;
+
+			background: #f8fafc;
+			border: 3px solid #e5e7eb;
+			border-radius: 14px;
+		}
+
+		.bar-cube {
+			position: relative;
+
+			width: 65px;
+			height: 65px;
+
+			flex-shrink: 0;
+
+			transition:
+				transform 0.6s ease,
+				margin 0.6s ease,
+				background-color 0.6s ease,
+				border-color 0.6s ease;
+		}
+
+		.bar-cube span {
+			position: absolute;
+			inset: 0;
+
+			display: grid;
+			place-items: center;
+
+			color: white;
+			font-size: 1.25rem;
+			font-weight: bold;
+
+			opacity: 0;
+			transform: scale(0.5);
+
+			transition:
+				opacity 0.3s ease,
+				transform 0.3s ease;
+		}
+
+		.bar-divider {
+			position: absolute;
+
+			top: 8px;
+			bottom: 8px;
+			left: 50%;
+
+			width: 10px;
+
+			background: #ff566d;
+			border-radius: 999px;
+
+			opacity: 0;
+			transform: translateX(-50%) scaleY(0);
+
+			transition:
+				opacity 0.4s ease,
+				transform 0.5s ease;
+		}
+
+		.part-labels {
+			width: 100%;
+
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+
+			gap: 2rem;
+		}
+
+		.part-label {
+			padding: 0.75rem;
+
+			text-align: center;
+
+			border-radius: 12px;
+
+			opacity: 0;
+			transform: translateY(-15px);
+
+			transition:
+				opacity 0.5s ease,
+				transform 0.5s ease;
+		}
+
+		.part-one {
+			color: #1257b7;
+			background: #eaf6ff;
+			border: 3px solid #2f8df5;
+		}
+
+		.part-two {
+			color: #9c6100;
+			background: #fff9dc;
+			border: 3px solid #ffc928;
+		}
+
+		.bar-equation {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			gap: 1rem;
+
+			font-size: 2rem;
+			font-weight: bold;
+
+			opacity: 0;
+			transform: translateY(15px);
+
+			transition:
+				opacity 0.5s ease,
+				transform 0.5s ease;
+		}
+
+		.part-number,
+		.whole-number {
+			width: 65px;
+			height: 65px;
+
+			display: grid;
+			place-items: center;
+
+			border: 4px solid;
+			border-radius: 12px;
+		}
+
+		.blue-number {
+			color: #1257b7;
+			background: #eaf6ff;
+			border-color: #2f8df5;
+		}
+
+		.yellow-number {
+			color: #9c6100;
+			background: #fff9dc;
+			border-color: #ffc928;
+		}
+
+		.whole-number {
+			color: #187500;
+			background: #ecffe3;
+			border-color: #46c900;
+		}
+
+
+		/* STEP 1: Tunjukkan whole */
+
+		.bar-model.show-whole .whole-label {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+
+		/* STEP 2: Kira Lego */
+
+		.bar-model.count-cubes .bar-cube {
+			animation: countCube 0.45s ease;
+		}
+
+		.bar-model.count-cubes .bar-cube span {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(1) {
+			animation-delay: 0s;
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(2) {
+			animation-delay: 0.15s;
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(3) {
+			animation-delay: 0.30s;
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(4) {
+			animation-delay: 0.45s;
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(5) {
+			animation-delay: 0.60s;
+		}
+
+		.bar-model.count-cubes .bar-cube:nth-child(6) {
+			animation-delay: 0.75s;
+		}
+
+
+		/* Kekalkan nombor selepas step kira */
+
+		.bar-model.show-divider .bar-cube span,
+		.bar-model.show-parts .bar-cube span,
+		.bar-model.show-equation .bar-cube span {
+			opacity: 1;
+			transform: scale(1);
+		}
+
+
+		/* STEP 3: Garisan pemisah */
+
+		.bar-model.show-divider .bar-divider {
+			opacity: 1;
+			z-index: 9999;
+			transform: translateX(-50%) scaleY(1);
+		}
+
+
+		/* STEP 4: Asingkan dua part */
+
+		.bar-model.show-parts .part-two-start {
+			margin-left: 30px;
+		}
+
+		.bar-model.show-parts .part-two-cube {
+			background-color: #ffc928;
+			border-color: #e3a300;
+		}
+
+		.bar-model.show-parts .part-label {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+
+		/* STEP 5: Ayat matematik */
+
+		.bar-model.show-equation .bar-equation {
+			opacity: 1;
+			transform: translateY(0);
+		}
+
+
+		@keyframes countCube {
+
+			0%,
+			100% {
+				transform: scale(1);
+			}
+
+			50% {
+				transform: scale(1.22) translateY(-10px);
+			}
+		}
+
+		@media (max-width: 520px) {
+			.bar-cube {
+				width: 45px;
+				height: 45px;
+			}
+
+			.bar-model.show-parts .part-two-start {
+				margin-left: 15px;
+			}
+
+			.part-labels {
+				gap: 0.75rem;
+			}
+
+			.bar-equation {
+				font-size: 1.5rem;
+			}
+
+			.part-number,
+			.whole-number {
+				width: 50px;
+				height: 50px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+					<div class="output">
+						<div class="bar-model">
+
+							<h2 class="whole-label">
+								Whole: 6
+							</h2>
+
+							<div class="bar-row">
+								<div class="cube bar-cube">
+									<span>1</span>
+								</div>
+
+								<div class="cube bar-cube">
+									<span>2</span>
+								</div>
+
+								<div class="cube bar-cube">
+									<span>3</span>
+								</div>
+
+								<div class="cube bar-cube">
+									<span>4</span>
+								</div>
+
+								<div class="cube bar-cube">
+									<span>5</span>
+								</div>
+
+								<div class="cube bar-cube">
+									<span>6</span>
+								</div>
+
+								<div class="bar-divider"></div>
+							</div>
+
+							<div class="part-labels">
+								<div class="part-label part-one">
+									<h2>Part</h2>
+									<p>3 Lego</p>
+								</div>
+
+								<div class="part-label part-two">
+									<h2>Part</h2>
+									<p>3 Lego</p>
+								</div>
+							</div>
+
+							<div class="bar-equation">
+								<span class="part-number blue-number">3</span>
+								<span>+</span>
+								<span class="part-number yellow-number">3</span>
+								<span>=</span>
+								<span class="whole-number">6</span>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer col-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+	<script type="module">
+		const json = [
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 6,
+					part1: 1,
+					part2: 5
+				}
+			},
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 6,
+					part1: 3,
+					part2: 3
+				}
+			},
+			{
+				type: "BarModel",
+				text: "Mari belajar Bar Model.",
+
+				content: {
+					total: 8,
+					part1: 5,
+					part2: 3
+				}
+			}
+		];
+
+		const contentContainer =
+			document.querySelector(
+				".contentContainer"
+			);
+
+		const dialog =
+			document.querySelector(".dialog p");
+
+		const btnBack =
+			document.querySelector(".btnBack");
+
+		const btnNext =
+			document.querySelector(".btnNext");
+
+		const textBar =
+			document.querySelector(".text-bar");
+
+		const barFill =
+			document.querySelector(".barFill");
+
+		const STEPS_PER_QUESTION = 5;
+
+		let questionIndex = 0;
+		let stepIndex = 0;
+
+		let data = null;
+		let total = 0;
+		let part1 = 0;
+		let part2 = 0;
+
+		let model = null;
+		let cubes = [];
+		let steps = [];
+
+		function validateData() {
+			if (part1 + part2 !== total) {
+				throw new Error(
+					`Data salah: ${part1} + ${part2} bukan ${total}`
+				);
+			}
+
+			if (
+				total <= 0 ||
+				part1 <= 0 ||
+				part2 <= 0
+			) {
+				throw new Error(
+					"Total, part1 dan part2 mesti lebih daripada 0."
+				);
+			}
+		}
+
+		function createCubes() {
+			return Array.from(
+				{ length: total },
+				(_, index) => {
+					const isPartOne =
+						index < part1;
+
+					const groupClass = isPartOne
+						? "part-one-cube"
+						: "part-two-cube";
+
+					const startClass =
+						index === part1
+							? "part-two-start"
+							: "";
+
+					return `
+					<div
+						class="
+							cube
+							bar-cube
+							${groupClass}
+							${startClass}
+						"
+						data-number="${index + 1}"
+						style="
+							animation-delay:
+							${index * 0.15}s;
+						"
+					>
+						<span>${index + 1}</span>
+					</div>
+				`;
+				}
+			).join("");
+		}
+
+		function renderBarModel() {
+			return `
+			<div class="output">
+				<div class="bar-model">
+
+					<h2 class="whole-label">
+						Whole: ${total}
+					</h2>
+
+					<div class="bar-row">
+						${createCubes()}
+
+						<div class="bar-divider"></div>
+					</div>
+
+					<div
+						class="part-labels"
+						style="
+							grid-template-columns:
+							${part1}fr ${part2}fr;
+						"
+					>
+						<div class="part-label part-one">
+							<h2>Part</h2>
+							<p>${part1} Lego</p>
+						</div>
+
+						<div class="part-label part-two">
+							<h2>Part</h2>
+							<p>${part2} Lego</p>
+						</div>
+					</div>
+
+					<div class="bar-equation">
+						<span
+							class="
+								part-number
+								blue-number
+							"
+						>
+							${part1}
+						</span>
+
+						<span>+</span>
+
+						<span
+							class="
+								part-number
+								yellow-number
+							"
+						>
+							${part2}
+						</span>
+
+						<span>=</span>
+
+						<span class="whole-number">
+							${total}
+						</span>
+					</div>
+
+				</div>
+			</div>
+		`;
+		}
+
+		function createSteps() {
+			return [
+				{
+					text:
+						`Ini ialah satu Whole yang mempunyai ${total} Lego.`,
+
+					classes: [
+						"show-whole"
+					]
+				},
+				{
+					text:
+						`Mari kira semua Lego. Semuanya ada ${total} Lego.`,
+
+					classes: [
+						"show-whole",
+						"count-cubes"
+					]
+				},
+				{
+					text:
+						`Kita tandakan garisan selepas ${part1} Lego.`,
+
+					classes: [
+						"show-whole",
+						"show-divider"
+					]
+				},
+				{
+					text:
+						`Whole ${total} boleh dipecahkan kepada Part ${part1} dan Part ${part2}.`,
+
+					classes: [
+						"show-whole",
+						"show-divider",
+						"show-parts"
+					]
+				},
+				{
+					text:
+						`${part1} tambah ${part2} sama dengan ${total}.`,
+
+					classes: [
+						"show-whole",
+						"show-divider",
+						"show-parts",
+						"show-equation"
+					]
+				}
+			];
+		}
+
+		function positionDivider() {
+			const barRow =
+				model.querySelector(".bar-row");
+
+			const divider =
+				model.querySelector(".bar-divider");
+
+			const lastPartOne =
+				cubes[part1 - 1];
+
+			const firstPartTwo =
+				cubes[part1];
+
+			if (
+				!lastPartOne ||
+				!firstPartTwo
+			) {
+				return;
+			}
+
+			const rowRect =
+				barRow.getBoundingClientRect();
+
+			const leftRect =
+				lastPartOne.getBoundingClientRect();
+
+			const rightRect =
+				firstPartTwo.getBoundingClientRect();
+
+			const boundary =
+				(
+					leftRect.right +
+					rightRect.left
+				) / 2 - rowRect.left;
+
+			divider.style.left =
+				`${boundary}px`;
+		}
+
+		function replayCountAnimation() {
+			cubes.forEach(cube => {
+				cube.style.animation = "none";
+			});
+
+			void model.offsetWidth;
+
+			cubes.forEach((cube, index) => {
+				cube.style.animation = "";
+				cube.style.animationDelay =
+					`${index * 0.15}s`;
+			});
+		}
+
+		function updateProgress() {
+			const totalSlides =
+				json.length *
+				STEPS_PER_QUESTION;
+
+			const currentSlide =
+				(
+					questionIndex *
+					STEPS_PER_QUESTION
+				) +
+				stepIndex +
+				1;
+
+			textBar.textContent =
+				`${currentSlide}/${totalSlides} Slides`;
+
+			barFill.style.width =
+				`${(
+					currentSlide /
+					totalSlides
+				) * 100}%`;
+		}
+
+		function updateButtons() {
+			const firstSlide =
+				questionIndex === 0 &&
+				stepIndex === 0;
+
+			const lastSlide =
+				questionIndex ===
+				json.length - 1 &&
+				stepIndex ===
+				STEPS_PER_QUESTION - 1;
+
+			btnBack.disabled = firstSlide;
+
+			btnNext.textContent =
+				lastSlide
+					? "FINISH"
+					: "NEXT";
+		}
+
+		function showStep() {
+			const step = steps[stepIndex];
+
+			model.className = "bar-model";
+
+			step.classes.forEach(className => {
+				model.classList.add(className);
+			});
+
+			if (
+				step.classes.includes(
+					"count-cubes"
+				)
+			) {
+				replayCountAnimation();
+			}
+
+			dialog.textContent = step.text;
+
+			updateProgress();
+			updateButtons();
+		}
+
+		function loadQuestion() {
+			data = json[questionIndex];
+
+			({
+				total,
+				part1,
+				part2
+			} = data.content);
+
+			validateData();
+
+			contentContainer.innerHTML =
+				renderBarModel();
+
+			model =
+				contentContainer.querySelector(
+					".bar-model"
+				);
+
+			cubes = [
+				...model.querySelectorAll(
+					".bar-cube"
+				)
+			];
+
+			steps = createSteps();
+
+			requestAnimationFrame(() => {
+				positionDivider();
+				showStep();
+			});
+		}
+
+		function handleNext() {
+			if (
+				stepIndex <
+				STEPS_PER_QUESTION - 1
+			) {
+				stepIndex++;
+				showStep();
+				return;
+			}
+
+			if (
+				questionIndex <
+				json.length - 1
+			) {
+				questionIndex++;
+				stepIndex = 0;
+
+				loadQuestion();
+				return;
+			}
+
+			dialog.textContent =
+				"Syabas! Semua pembelajaran Bar Model telah selesai.";
+
+			btnNext.disabled = true;
+		}
+
+		function handleBack() {
+			if (stepIndex > 0) {
+				stepIndex--;
+				showStep();
+				return;
+			}
+
+			if (questionIndex > 0) {
+				questionIndex--;
+				stepIndex =
+					STEPS_PER_QUESTION - 1;
+
+				loadQuestion();
+			}
+		}
+
+		function handleResize() {
+			positionDivider();
+		}
+
+		btnNext.addEventListener(
+			"click",
+			handleNext
+		);
+
+		btnBack.addEventListener(
+			"click",
+			handleBack
+		);
+
+		window.addEventListener(
+			"resize",
+			handleResize
+		);
+
+		loadQuestion();
+
+	</script>
+
+</body>
+
+</html>

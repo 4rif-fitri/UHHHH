@@ -1,0 +1,123 @@
+.option>* {
+	pointer-events: none;
+	padding: 0.5rem;
+}
+
+.pecah {
+	margin: 3rem 0;
+	border-radius: 50%;
+	aspect-ratio: 1 /1;
+	border: 2px solid black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.line-svg-qwe {
+	position: absolute;
+	top: 124px;
+	left: 40px;
+	width: 100%;
+	height: 100px;
+}
+
+.line-svg-qwe line {
+	stroke: #000;
+	stroke-width: 4;
+}
+
+.garisPecah1,
+.garisPecah2,
+.garisPecah2Terbalik {
+	position: relative;
+}
+
+.garisPecah1::before {
+	content: "";
+	position: absolute;
+	top: 125%;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+
+	width: 75px;
+	height: 75px;
+	border-left: 5px solid black;
+	font-size: var(--font-size-md);
+}
+
+.garisPecah2::after {
+	content: "";
+	position: absolute;
+	top: 125%;
+	left: 50%;
+	transform: translateX(-50%) rotate(45deg);
+
+	width: 75px;
+	height: 75px;
+	border-top: 5px solid black;
+	border-left: 5px solid black;
+}
+
+.garisPecah2Terbalik::after {
+	content: "";
+	position: absolute;
+	top: -130%;
+	left: 50%;
+	transform: translateX(-50%) rotate(225deg);
+
+	width: 75px;
+	height: 75px;
+	border-top: 5px solid black;
+	border-left: 5px solid black;
+}
+
+.right {
+	top: 300px;
+	left: 350px;
+}
+
+.redLine {
+	position: relative;
+}
+
+.redLine::before {
+	content: "";
+	position: absolute;
+	top: 80%;
+	left: -70%;
+	rotate: 60deg;
+	width: 230px;
+	height: 75px;
+	border: 2px solid var(--forest-flower-pink);
+	border-radius: 14px;
+}
+
+.arraowDorn {
+	position: relative;
+}
+
+.arraowDorn::after {
+	content: "\2193";
+	position: absolute;
+	top: -10%;
+	left: -225%;
+	width: 230px;
+	height: 75px;
+}
+
+.arraowDownRight {
+	position: relative;
+}
+
+.arraowDownRight::after {
+	content: "\2193";
+	position: absolute;
+	top: 50%;
+	left: -110%;
+	width: 230px;
+	height: 75px;
+}
+
+.col-span-2 {
+	grid-column: span 2;
+}

@@ -1,0 +1,376 @@
+import {
+	renderAnimationLearnPecahWhole
+} from "./render.js";
+
+export function mountAnimationLearnPecahWhole({
+	div,
+	data,
+	ui,
+	handleComponentComplete
+}) {
+	let {
+		part1,
+		part2
+	} = data.content;
+
+	let wholeTotal =
+		part1 + part2;
+
+	let steps = [
+		{
+			text:
+				`Ini ialah satu Whole yang mempunyai ${wholeTotal} Lego.`
+		},
+		{
+			text:
+				`Whole ini mempunyai ${part1} Lego biru dan ${part2} Lego oren.`
+		},
+		{
+			text:
+				"Mari pecahkan Whole kepada dua Part."
+		},
+		{
+			text:
+				`${wholeTotal} telah dipecahkan kepada Part ${part1} dan Part ${part2}.`
+		},
+		{
+			text:
+				`${wholeTotal} sama dengan ${part1} tambah ${part2}.`
+		}
+	];
+
+	let stepIndex = 0;
+	let isAnimating = false;
+	let isDestroyed = false;
+	let renderVersion = 0;
+
+	let animations = new Set();
+	let flyingCubes = new Set();
+
+	ui.btnContainer.classList.add("grid-2");
+
+	ui.btnCheck?.classList.add("hidden");
+	ui.btnContinue?.classList.add("hidden");
+
+	ui.btnBack.classList.remove("hidden");
+	ui.btnNext.classList.remove("hidden");
+
+	function renderLayout() {
+		renderVersion++;
+
+		div.innerHTML =
+			renderAnimationLearnPecahWhole(data);
+
+		ui.contentContainer.replaceChildren(div);
+	}
+
+	function getElements() {
+		let wholeRow =
+			div.querySelector(".whole > div");
+
+		let part1Row =
+			div.querySelector(".part1 > div");
+
+		let part2Row =
+			div.querySelector(".part2 > div");
+
+		return {
+			wholeRow,
+			part1Row,
+			part2Row,
+
+			wholeCubes: [
+				...wholeRow.querySelectorAll(
+					".cube"
+				)
+			],
+
+			part1Targets: [
+				...part1Row.querySelectorAll(
+					".cube-target"
+				)
+			],
+
+			part2Targets: [
+				...part2Row.querySelectorAll(
+					".cube-target"
+				)
+			]
+		};
+	}
+
+	function addColours(elements) {
+		elements.wholeCubes.forEach(
+			(cube, index) => {
+				cube.classList.add(
+					index < part1
+						? "part-one-cube"
+						: "part-two-cube"
+				);
+			}
+		);
+	}
+
+	function highlightParts(elements) {
+		elements.wholeCubes.forEach(cube => cube.classList.add("part-highlight"));
+
+		[...elements.part1Targets, ...elements.part2Targets]
+			.forEach(targetElement => targetElement.classList.add("target-active")
+			);
+	}
+
+	function getDistance(source, targetElement) {
+		let sourceRect = source.getBoundingClientRect();
+
+		let targetRect = targetElement.getBoundingClientRect();
+
+		return {
+			sourceRect,
+
+			x:
+				targetRect.left +
+				targetRect.width / 2 -
+				(
+					sourceRect.left +
+					sourceRect.width / 2
+				),
+
+			y:
+				targetRect.top +
+				targetRect.height / 2 -
+				(
+					sourceRect.top +
+					sourceRect.height / 2
+				)
+		};
+	}
+
+	function moveCube(source, targetElement, version) {
+		return new Promise(resolve => {
+			if (isDestroyed || version !== renderVersion) {
+				resolve();
+				return;
+			}
+
+			let { sourceRect, x, y } = getDistance(source, targetElement);
+
+			let clone = source.cloneNode(true);
+
+			clone.classList.remove("part-highlight");
+			clone.classList.add("flying-part-cube");
+
+			Object.assign(clone.style, {
+				left: `${sourceRect.left}px`,
+				top: `${sourceRect.top}px`,
+				width: `${sourceRect.width}px`,
+				height: `${sourceRect.height}px`
+			});
+
+			document.body.appendChild(clone);
+
+			flyingCubes.add(clone);
+
+			source.style.visibility = "hidden";
+
+			targetElement.classList.add("target-active");
+
+			let animation = clone.animate(
+				[
+					{
+						transform:
+							"translate3d(0, 0, 0) scale(1)"
+					},
+					{
+						transform: `
+							translate3d(
+								${x * 0.5}px,
+								${(y * 0.5) - 35}px,
+								0
+							)
+							scale(1.12)
+						`
+					},
+					{
+						transform: `
+							translate3d(
+								${x}px,
+								${y}px,
+								0
+							)
+							scale(1)
+						`
+					}
+				],
+				{
+					duration: 800,
+					easing:
+						"cubic-bezier(0.22, 1, 0.36, 1)",
+					fill: "forwards"
+				}
+			);
+
+			animations.add(animation);
+
+			function finishAnimation() {
+				animations.delete(animation);
+				flyingCubes.delete(clone);
+
+				if (!isDestroyed && version === renderVersion && source.isConnected && targetElement.isConnected) {
+
+					targetElement.classList.remove("target-active");
+					source.classList.remove("part-highlight");
+					source.classList.add("part-arrived");
+					targetElement.appendChild(source);
+					source.style.visibility = "";
+				}
+
+				clone.remove();
+				resolve();
+			}
+
+			animation.onfinish = finishAnimation;
+
+			animation.oncancel = () => {
+				flyingCubes.delete(clone);
+				clone.remove();
+				resolve();
+			};
+		});
+	}
+
+	async function animateSplit(elements) {
+		isAnimating = true;
+
+		ui.btnNext.disabled = true;
+		ui.btnBack.disabled = true;
+
+		let version = renderVersion;
+
+		let part1Cubes = elements.wholeCubes.slice(0, part1);
+		let part2Cubes = elements.wholeCubes.slice(part1);
+
+		for (let index = 0; index < part1Cubes.length; index++) {
+
+			if (isDestroyed || version !== renderVersion) return
+
+			await moveCube(part1Cubes[index],elements.part1Targets[index],version);
+		}
+
+		for (let index = 0;index < part2Cubes.length;index++) {
+			
+			if (isDestroyed || version !== renderVersion) return
+
+			await moveCube(part2Cubes[index],elements.part2Targets[index],version);
+		}
+
+		if (isDestroyed || version !== renderVersion) return
+
+		isAnimating = false;
+
+		ui.btnNext.disabled = false;
+		ui.btnBack.disabled = stepIndex === 0;
+	}
+
+	function placeCubesInstantly(elements) {
+		let part1Cubes = elements.wholeCubes.slice(0,part1);
+		let part2Cubes = elements.wholeCubes.slice(part1);
+
+		part1Cubes.forEach((cube, index) => {
+			cube.classList.add("part-one-cube");
+			elements.part1Targets[index].appendChild(cube);
+		});
+
+		part2Cubes.forEach((cube, index) => {
+			cube.classList.add("part-two-cube");
+			elements.part2Targets[index].appendChild(cube);
+		});
+	}
+
+	function cancelAnimations() {
+		animations.forEach(animation => animation.cancel());
+
+		animations.clear();
+
+		flyingCubes.forEach(element => element.remove());
+
+		flyingCubes.clear();
+		isAnimating = false;
+	}
+
+	// function updateProgress() {
+	// 	let current = stepIndex + 1;
+	// 	let total = steps.length;
+
+	// 	ui.textBar.textContent =
+	// 		`${current}/${total} Slides`;
+
+	// 	ui.barFill.style.width =
+	// 		`${(current / total) * 100}%`;
+	// }
+
+	function updateButtons() {
+		ui.btnBack.disabled = stepIndex === 0;
+		ui.btnNext.textContent = stepIndex === steps.length - 1 ? "FINISH" : "NEXT";
+	}
+
+	async function showStep({playAnimation = false} = {}) {
+		cancelAnimations();
+		renderLayout();
+
+		let elements = getElements();
+
+		addColours(elements);
+
+		ui.dialog.textContent = steps[stepIndex].text;
+
+		if (stepIndex === 1) highlightParts(elements);
+
+		if (stepIndex >= 2) {
+			if (playAnimation) {
+				highlightParts(elements);
+				await animateSplit(elements);
+			} else {
+				placeCubesInstantly(elements);
+			}
+		}
+
+		// updateProgress();
+		updateButtons();
+	}
+
+	async function handleNext() {
+		if (isAnimating) return;
+
+		if (stepIndex < steps.length - 1) {
+			stepIndex++;
+
+			await showStep({ playAnimation: stepIndex === 2 });
+
+			return;
+		}
+
+		handleComponentComplete();
+	}
+
+	function handleBack() {
+		if (isAnimating || stepIndex === 0) return
+
+		stepIndex--;
+		showStep();
+	}
+
+	ui.btnNext.addEventListener("click", handleNext);
+	ui.btnBack.addEventListener("click", handleBack);
+
+	showStep();
+
+	return function cleanup() {
+		isDestroyed = true;
+		renderVersion++;
+
+		cancelAnimations();
+
+		ui.btnNext.removeEventListener("click", handleNext);
+		ui.btnBack.removeEventListener("click", handleBack);
+	};
+}

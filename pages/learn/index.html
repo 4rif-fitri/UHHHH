@@ -4,45 +4,711 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<link rel="stylesheet" href="../../src/style/index.css">
-	<style>
 
+	<title>Permainan</title>
+
+	<link rel="stylesheet" href="/src/style/index.css">
+	<!-- <link rel="stylesheet" href="/src/stylee/root.css"> -->
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-image: url("../../src/images/background.png");
+			background-position: center;
+			background-size: cover;
+			font-family: Fredoka;
+			position: relative;
+		}
+
+		.game-menu-page {
+			min-height: 100vh;
+			height: auto;
+
+			margin: 0;
+			padding: 2rem;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		/* Override .container lama */
+
+		.activity-menu {
+			width: min(1450px, 96%);
+			max-width: 1450px;
+
+
+			height: auto;
+
+			padding: 1.5rem 3rem 2.5rem;
+
+			background:
+				linear-gradient(145deg,
+					rgba(255, 255, 255, 0.97),
+					rgba(248, 252, 255, 0.94));
+
+			border: 4px solid #ffffff;
+			outline: 3px solid #58cc02;
+			outline-offset: -8px;
+
+			border-radius: 32px;
+
+			box-shadow:
+				0 18px 35px rgba(23, 59, 114, 0.22);
+
+			overflow: hidden;
+		}
+
+		/* ==================================================
+   HEADER
+================================================== */
+
+		.activity-menu .activity-header {
+			width: 100%;
+			height: auto;
+			min-height: 170px;
+
+			position: relative;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			padding: 1rem 0 1.5rem;
+		}
+
+		.activity-menu .btnContainer {
+			width: auto;
+			height: auto;
+
+			position: absolute;
+			top: 1.5rem;
+			left: 0;
+		}
+
+		.back-link {
+			min-width: 145px;
+			min-height: 58px;
+
+			padding: 0.75rem 1.25rem;
+
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			gap: 0.5rem;
+
+			color: #102f68;
+			background: #ffffff;
+
+			border: 3px solid #2563eb;
+			border-radius: 999px;
+
+			font-size: var(--font-size-md);
+			font-weight: 700;
+			text-decoration: none;
+
+			box-shadow:
+				0 6px 0 #d1d5db,
+				0 10px 18px rgba(23, 59, 114, 0.15);
+
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease;
+		}
+
+		.back-link span {
+			font-size: 1.6rem;
+			line-height: 1;
+		}
+
+		.back-link:hover {
+			transform: translateY(-3px);
+
+			box-shadow:
+				0 9px 0 #d1d5db,
+				0 13px 20px rgba(23, 59, 114, 0.17);
+		}
+
+		.back-link:active {
+			transform: translateY(4px);
+
+			box-shadow:
+				0 2px 0 #d1d5db;
+		}
+
+		.activity-menu .activity-heading {
+			flex: initial;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			text-align: center;
+		}
+
+		.activity-menu .activity-heading h1 {
+			margin: 0;
+
+			color: #071e55;
+
+			font-size: clamp(3rem, 6vw, 5.5rem);
+			line-height: 1;
+			font-weight: 800;
+		}
+
+		.activity-menu .activity-heading h4 {
+			margin: 0.75rem 0 0;
+
+			color: #102f68;
+
+			font-size: clamp(1rem, 2vw, 1.5rem);
+			font-weight: 700;
+		}
+
+
+		.activity-menu .activity-grid {
+			width: 100%;
+			flex: 1;
+
+			padding: 1rem;
+
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			grid-template-rows: repeat(2, minmax(230px, 1fr));
+
+			gap: 2rem;
+
+			overflow-y: auto;
+			overflow-x: auto;
+		}
+
+		.activity-link {
+			min-width: 0;
+
+			color: inherit;
+			text-decoration: none;
+
+			--activity-color: #2196f3;
+			--activity-soft: #dbeeff;
+		}
+
+		/* ==================================================
+   CARD
+================================================== */
+
+		.activity-link .activity-card {
+			width: 100%;
+			height: 100%;
+			min-height: 230px;
+
+			position: relative;
+
+			padding: 1.5rem 1.75rem;
+
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			justify-content: flex-start;
+
+			gap: 0;
+
+			background: #ffffff;
+
+			border: 2px solid #e2e8f0;
+			border-left: 11px solid var(--activity-color);
+			border-radius: 18px;
+
+			box-shadow:
+				0 8px 0 #cbd5e1,
+				0 12px 20px rgba(15, 35, 75, 0.12);
+
+			overflow: hidden;
+
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease,
+				border-color 0.2s ease;
+		}
+
+		.activity-link:hover .activity-card {
+			transform: translateY(-7px);
+
+			border-color: var(--activity-color);
+
+			box-shadow:
+				0 15px 0 #cbd5e1,
+				0 20px 28px rgba(15, 35, 75, 0.15);
+		}
+
+		.activity-link:active .activity-card {
+			transform: translateY(4px);
+
+			box-shadow:
+				0 4px 0 #cbd5e1;
+		}
+
+		.activity-card-top {
+			width: 100%;
+
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+
+			gap: 1rem;
+		}
+
+		.activity-number {
+			color: var(--activity-color);
+
+			font-size: clamp(3.2rem, 5vw, 5rem);
+			font-weight: 800;
+			line-height: 0.9;
+		}
+
+		.activity-category {
+			max-width: 55%;
+
+			padding: 0.45rem 1.2rem;
+
+			color: #0b2256;
+			background: var(--activity-soft);
+
+			border-radius: 999px;
+
+			font-size: clamp(0.7rem, 1vw, 1rem);
+			font-weight: 800;
+
+			text-align: center;
+			white-space: nowrap;
+		}
+
+		.activity-link .activity-card article {
+			width: 100%;
+			height: auto;
+			flex: 1;
+
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+
+			text-align: left;
+		}
+
+		.activity-link .activity-card h3 {
+			margin: 1rem 0 0.35rem;
+
+			color: #071e55;
+
+			font-size: clamp(1.45rem, 2vw, 2rem);
+			line-height: 1.05;
+			font-weight: 800;
+		}
+
+		.activity-link .activity-card p {
+			margin: 0 0 1.25rem;
+
+			color: #253858;
+
+			font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+			line-height: 1.35;
+			font-weight: 500;
+		}
+
+		.activity-start {
+			min-width: 145px;
+			min-height: 46px;
+
+			margin-top: auto;
+			padding: 0.55rem 1.1rem;
+
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+
+			color: var(--activity-color);
+			background: #ffffff;
+
+			border: 3px solid var(--activity-color);
+			border-radius: 10px;
+
+			font-size: 1.1rem;
+			font-weight: 800;
+
+			transition:
+				color 0.2s ease,
+				background-color 0.2s ease;
+		}
+
+		.activity-link:hover .activity-start {
+			color: #ffffff;
+			background: var(--activity-color);
+		}
+
+		/* ==================================================
+   CARD COLORS
+================================================== */
+
+		.activity-blue {
+			--activity-color: #2196f3;
+			--activity-soft: #dbeeff;
+		}
+
+		.activity-green {
+			--activity-color: #36bd43;
+			--activity-soft: #dcf8dc;
+		}
+
+		.activity-yellow {
+			--activity-color: #ffb700;
+			--activity-soft: #fff1b8;
+		}
+
+		.activity-purple {
+			--activity-color: #7c3aed;
+			--activity-soft: #e9ddff;
+		}
+
+		.activity-orange {
+			--activity-color: #ff7300;
+			--activity-soft: #ffe1c4;
+		}
+
+		.activity-pink {
+			--activity-color: #f43f75;
+			--activity-soft: #ffdce7;
+		}
+
+		/* ==================================================
+   SCROLLBAR
+================================================== */
+
+		.activity-grid::-webkit-scrollbar {
+			width: 9px;
+		}
+
+		.activity-grid::-webkit-scrollbar-track {
+			background: #e8f4ff;
+			border-radius: 999px;
+		}
+
+		.activity-grid::-webkit-scrollbar-thumb {
+			background: #62bff4;
+			border-radius: 999px;
+		}
+
+		/* ==================================================
+   TABLET
+================================================== */
+
+		@media screen and (max-width: 1000px) {
+			.game-menu-page {
+				padding: 1rem;
+				align-items: flex-start;
+			}
+
+			.activity-menu {
+				width: 100%;
+				min-height: calc(100vh - 2rem);
+				max-height: none;
+
+				padding: 1.25rem;
+			}
+
+			.activity-menu .activity-header {
+				min-height: 160px;
+			}
+
+			.activity-menu .activity-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				grid-template-rows: auto;
+
+				gap: 1.5rem;
+			}
+
+			.activity-link .activity-card {
+				min-height: 240px;
+			}
+		}
+
+		/* ==================================================
+   MOBILE
+================================================== */
+
+		@media screen and (max-width: 600px) {
+			.game-menu-page {
+				padding: 0;
+			}
+
+			.activity-menu {
+				min-height: 100vh;
+
+				padding: 1rem;
+
+				border-radius: 0;
+				border: 0;
+				outline: 0;
+			}
+
+			.activity-menu .activity-header {
+				min-height: 175px;
+
+				padding-top: 4.5rem;
+			}
+
+			.activity-menu .btnContainer {
+				top: 0;
+				left: 0;
+			}
+
+			.back-link {
+				min-width: auto;
+				min-height: 45px;
+
+				padding: 0.5rem 0.85rem;
+
+				font-size: 0.85rem;
+			}
+
+			.activity-menu .activity-heading h1 {
+				font-size: 2.6rem;
+			}
+
+			.activity-menu .activity-heading h4 {
+				font-size: 0.95rem;
+			}
+
+			.activity-menu .activity-grid {
+				padding: 0.5rem;
+
+				grid-template-columns: 1fr;
+				gap: 1.25rem;
+			}
+
+			.activity-link .activity-card {
+				min-height: 225px;
+
+				padding: 1.25rem;
+			}
+
+			.activity-number {
+				font-size: 3.8rem;
+			}
+
+			.activity-category {
+				padding: 0.4rem 0.8rem;
+				font-size: 0.7rem;
+			}
+
+			.activity-link .activity-card h3 {
+				font-size: 1.5rem;
+			}
+
+			.activity-start {
+				min-width: 125px;
+				min-height: 42px;
+
+				font-size: 1rem;
+			}
+		}
 	</style>
 </head>
 
-<body>
+<body class="game-menu-page">
 
-	<div class="container">
+	<div class="container activity-menu">
 
-		<header>
+		<header class="activity-header">
+
 			<div class="btnContainer">
-				<a href="../../index.html">
-					<button class="btnBack">
-						<img src="../../../arrow-left.svg" alt="">
-						Back
-					</button>
+				<a href="../../index.html" class="back-link">
+					Kembali
 				</a>
 			</div>
 
-			<article>
+			<article class="activity-heading">
 				<h1>Learning</h1>
+
 				<h4>Pilih topik untuk mula belajar</h4>
 			</article>
 
-
 		</header>
 
-		<div class="cards-game">
+		<div class="cards-game activity-grid">
 
-			<a href="./pages/KenaliNombor.html">
-				<div class="card-game">
+			<a href="./pages/KenaliNombor.html" class="activity-link activity-blue">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							01
+						</span>
+
+						<span class="activity-category">
+							NOMBOR
+						</span>
+					</div>
+
 					<article>
 						<h3>Kenali Nombor</h3>
+
+						<p>
+							Kenal nombor dan bilangan objek
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
 					</article>
+
 				</div>
 			</a>
 
+			<a href="./pages/AddTwoNumber.html" class="activity-link activity-green">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							02
+						</span>
+
+						<span class="activity-category">
+							TAMBAH
+						</span>
+					</div>
+
+					<article>
+						<h3>Add Two Number</h3>
+
+						<p>
+							Tambah dua nombor dan kira jumlah
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
+					</article>
+
+				</div>
+			</a>
+
+			<a href="./pages/TolakTwoNumber.html" class="activity-link activity-yellow">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							03
+						</span>
+
+						<span class="activity-category">
+							TOLAK
+						</span>
+					</div>
+
+					<article>
+						<h3>Tolak Two Number</h3>
+
+						<p>
+							Tolak dua nombor dan kira baki
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
+					</article>
+
+				</div>
+			</a>
+
+			<a href="./pages/Numberbond.html" class="activity-link activity-purple">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							04
+						</span>
+
+						<span class="activity-category">
+							NUMBER BOND
+						</span>
+					</div>
+
+					<article>
+						<h3>Number Bond</h3>
+
+						<p>
+							Pecahkan nombor kepada dua bahagian
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
+					</article>
+
+				</div>
+			</a>
+
+			<a href="./pages/Frinedof10.html" class="activity-link activity-orange">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							05
+						</span>
+
+						<span class="activity-category">
+							FRIENDS OF 10
+						</span>
+					</div>
+
+					<article>
+						<h3>Friends of 10</h3>
+
+						<p>
+							Cari pasangan nombor yang menjadi 10
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
+					</article>
+
+				</div>
+			</a>
+
+			<a href="./pages/Pelengkap10.html" class="activity-link activity-pink">
+				<div class="card-game activity-card">
+
+					<div class="activity-card-top">
+						<span class="activity-number">
+							06
+						</span>
+
+						<span class="activity-category">
+							PELENGKAP 10
+						</span>
+					</div>
+
+					<article>
+						<h3>Pelengkap 10</h3>
+
+						<p>
+							Lengkapkan nombor untuk membina 10
+						</p>
+
+						<span class="activity-start">
+							MULA
+						</span>
+					</article>
+
+				</div>
+			</a>
 		</div>
 
 	</div>

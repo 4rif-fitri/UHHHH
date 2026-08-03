@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+	<link rel="stylesheet" href="../../src/stylee/components/Padankan.css">
+</head>
+
+<body>
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box">CHECK</button>
+					<button class="btnBack soft-box hidden">BACK</button>
+					<button class="btnNext soft-box hidden">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+
+		export const json = [
+						{
+				text: "Padankan soalan dengan jawapan yang betul.",
+				type: "Padankan",
+
+				content: [
+					{
+						matchId: "double-1",
+						question: "1 + 1",
+						answer: 2,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-2",
+						question: "2 + 2",
+						answer: 4,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-3",
+						question: "3 + 3",
+						answer: 6,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-4",
+						question: "4 + 4",
+						answer: 8,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					},
+					{
+						matchId: "double-5",
+						question: "5 + 5",
+						answer: 10,
+						questionDisplay: "text",
+						answerDisplay: "number"
+					}
+				]
+			},
+			{
+				text:
+					"Padankan bilangan Lego dengan nombor yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: 1,
+						answer: 1,
+						matchId: "number-1",
+						questionDisplay: "cubes",
+						answerDisplay: "number"
+					},
+					{
+						question: 2,
+						answer: 2,
+						matchId: "number-2",
+						questionDisplay: "cubes",
+						answerDisplay: "number"
+					},
+					{
+						question: 3,
+						answer: 3,
+						matchId: "number-3",
+						questionDisplay: "cubes",
+						answerDisplay: "number"
+					},
+					{
+						question: 4,
+						answer: 4,
+						matchId: "number-4",
+						questionDisplay: "cubes",
+						answerDisplay: "number"
+					},
+					{
+						question: 5,
+						answer: 5,
+						matchId: "number-5",
+						questionDisplay: "cubes",
+						answerDisplay: "number"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan nombor dengan nama nombor yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: 1,
+						answer: "SATU",
+						matchId: "number-1"
+					},
+					{
+						question: 2,
+						answer: "DUA",
+						matchId: "number-2"
+					},
+					{
+						question: 3,
+						answer: "TIGA",
+						matchId: "number-3"
+					},
+					{
+						question: 4,
+						answer: "EMPAT",
+						matchId: "number-4"
+					},
+					{
+						question: 5,
+						answer: "LIMA",
+						matchId: "number-5"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan bilangan Lego dengan nombor yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: 6,
+						answer: 6,
+						matchId: "number-6",
+						questionDisplay: "cubes"
+					},
+					{
+						question: 7,
+						answer: 7,
+						matchId: "number-7",
+						questionDisplay: "cubes"
+					},
+					{
+						question: 8,
+						answer: 8,
+						matchId: "number-8",
+						questionDisplay: "cubes"
+					},
+					{
+						question: 9,
+						answer: 9,
+						matchId: "number-9",
+						questionDisplay: "cubes"
+					},
+					{
+						question: 10,
+						answer: 10,
+						matchId: "number-10",
+						questionDisplay: "cubes"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan nombor dengan nama nombor yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: 6,
+						answer: "ENAM",
+						matchId: "number-6"
+					},
+					{
+						question: 7,
+						answer: "TUJUH",
+						matchId: "number-7"
+					},
+					{
+						question: 8,
+						answer: "LAPAN",
+						matchId: "number-8"
+					},
+					{
+						question: 9,
+						answer: "SEMBILAN",
+						matchId: "number-9"
+					},
+					{
+						question: 10,
+						answer: "SEPULUH",
+						matchId: "number-10"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan operasi dengan jawapan yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: "5 + 5",
+						answer: 10,
+						matchId: "answer-10"
+					},
+					{
+						question: "4 + 6",
+						answer: 10,
+						matchId: "answer-10"
+					},
+					{
+						question: "3 + 7",
+						answer: 10,
+						matchId: "answer-10"
+					},
+					{
+						question: "8 + 2",
+						answer: 10,
+						matchId: "answer-10"
+					},
+					{
+						question: "9 + 1",
+						answer: 10,
+						matchId: "answer-10"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan nombor dengan operasi yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: 5,
+						answer: "1 + 4",
+						matchId: "answer-5"
+					},
+					{
+						question: 5,
+						answer: "2 + 3",
+						matchId: "answer-5"
+					},
+					{
+						question: 6,
+						answer: "5 + 1",
+						matchId: "answer-6"
+					},
+					{
+						question: 6,
+						answer: "3 + 3",
+						matchId: "answer-6"
+					}
+				]
+			},
+
+			{
+				text:
+					"Padankan operasi dengan jawapan yang betul.",
+
+				type: "Padankan",
+
+				content: [
+					{
+						question: "1 + 4",
+						answer: 5,
+						matchId: "answer-5"
+					},
+					{
+						question: "2 + 3",
+						answer: 5,
+						matchId: "answer-5"
+					},
+					{
+						question: "5 + 1",
+						answer: 6,
+						matchId: "answer-6"
+					},
+					{
+						question: "3 + 3",
+						answer: 6,
+						matchId: "answer-6"
+					}
+				]
+			}
+		];
+		import { runComponents } from "/src/js/core/componentRunner.js"
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>

@@ -29,17 +29,58 @@ export function runComponents(data) {
 
 	};
 
+	function loadComponentStyle(component) {
+		if (!component.style) {
+			return Promise.resolve();
+		}
+
+		const oldStyle = document.querySelector(
+			`link[data-component-style="${component.style}"]`
+		);
+
+		if (oldStyle) {
+			return Promise.resolve();
+		}
+
+		return new Promise((resolve, reject) => {
+			const link = document.createElement("link");
+
+			link.rel = "stylesheet";
+			link.href = component.style;
+			link.dataset.componentStyle =
+				component.style;
+
+			link.onload = resolve;
+			link.onerror = reject;
+
+			document.head.appendChild(link);
+		});
+	}
+
 	function handleComponentComplete() {
 		state.index++;
 
-		
 		if (state.index >= data.length) {
 			console.log("Semua selesai");
+
+			location.href = "../index.html"
+
 			return;
 		}
-		
+
 		state.cleanup?.();
 		state.cleanup = null;
+		main();
+	}
+
+	function handleComponentBack() {
+		if (state.index <= 0) return;
+
+		state.index--;
+
+		state.cleanup?.();
+		state.cleanup = null;
+
 		main();
 	}
 
@@ -51,36 +92,31 @@ export function runComponents(data) {
 		ui.textBar.textContent = `${current}/` + `${total} Slides`;
 		ui.barFill.style.width = `${persentage}%`;
 	}
-	
-	function main() {
-		
+
+	async function main() {
 		state.currentData = data[state.index];
-		state.totalSlide = data.length
+		state.totalSlide = data.length;
 
+		if (!state.currentData) return;
 
-		updateProgress()
+		updateProgress();
 
 		state.cleanup?.();
 		state.cleanup = null;
 
-		if (!state.currentData) {
-			// finishAllComponents();
-			return
-		}
+		const component = widgetRegistry[state.currentData.type];
 
-		let component = widgetRegistry[state.currentData.type]
 		if (!component?.mount) {
-			console.error(
-				`Component "${state.currentData.type}" tidak dijumpai`
-			);
-
+			console.error(`Component "${state.currentData.type}" tidak dijumpai`);
 			return;
 		}
 
-		let div = document.createElement("div")
-		div.classList.add("output", "w-100")
+		await loadComponentStyle(component);
 
-		state.cleanup = component?.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry })
+		const div = document.createElement("div");
+		div.classList.add("output","w-100");
+
+		state.cleanup = component.mount({ div, data: state.currentData, ui, handleComponentComplete, registry: widgetRegistry, handleComponentBack, componentIndex: state.index });
 	}
 	main()
 

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="../../../src/style/game.css">
+	<link rel="stylesheet" href="../../../src/style/lesson.css">
+	<link rel="stylesheet" href="../../../src/style/quiz.css">
+	<link rel="stylesheet" href="../../../src/style/layoutContent.css">
+	<link rel="stylesheet" href="../../../src/style/cube.css">
+
+	<style>
+		.cubes-container {
+			justify-content: center;
+			display: grid;
+			gap: 2rem;
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		.cubes-container .cube {
+			rotate: -90deg;
+			scale: 1.25;
+		}
+
+		.textHuruf {
+			border-top: 5px dashed black;
+			border-bottom: 5px dashed black;
+			margin-top: 2rem;
+			display: flex;
+			width: 50%;
+			justify-content: center;
+			align-items: center;
+			gap: 1.5rem;
+		}
+
+		.textHuruf>h1 {
+			font-size: 10rem;
+		}
+
+		.textHuruf article {
+			display: flex;
+			flex-direction: column;
+			gap: 1rem;
+		}
+
+		.textHuruf article h2 {
+			font-size: 2.5rem;
+		}
+
+		.count {
+			rotate: 90deg;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			background-color: #fff;
+			width: 30px;
+			height: 30px;
+			transform: translate(-50%, 50%);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			pointer-events: none;
+		}
+
+		.cube:hover {
+			cursor: unset;
+		}
+
+		@media (max-width: 520px) {
+			.cubes-container {
+				grid-template-columns: repeat(3, 1fr);
+			}
+
+			.cubes-container {
+				gap: 1rem;
+			}
+
+			.cubes-container .cube {
+				rotate: -90deg;
+				scale: 1;
+			}
+
+			.textHuruf>h1 {
+				font-size: 6rem;
+			}
+
+			.textHuruf article h2 {
+				font-size: 1.5rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="container">
+		<main>
+			<header>
+
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box">CHECK</button>
+					<button class="btnBack soft-box hidden">BACK</button>
+					<button class="btnNext soft-box hidden">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+
+		import { json } from "../../../src/js/data/lessonDataKenaliNombor.js"
+		import { runComponents } from "/src/js/core/componentRunner.js"
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>

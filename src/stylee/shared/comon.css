@@ -1,0 +1,179 @@
+/* ============ coman =============== */
+.boxSoalan,
+.boxJawapan {
+	width: 100%;
+	cursor: pointer;
+	transition:
+		transform 0.2s,
+		background-color 0.2s,
+		border-color 0.2s;
+}
+
+.boxSoalan:hover,
+.boxJawapan:hover {
+	transform: translateY(-3px);
+}
+
+/* ============ coman =============== */
+
+/* ============ selected =============== */
+
+.boxSoalan.selected,
+.boxJawapan.selected,
+.btnAns.selected {
+	background: var(--color-blue);
+	border: 4px solid var(--color-blue-dark);
+	box-shadow: 0 6px 0 var(--color-blue-dark), inset 0 1px 0 var(--color-blue-dark);
+	color: var(--color-blue-soft);
+}
+
+.boxSoalan.selected:hover,
+.boxJawapan.selected:hover,
+.btnAns.selected:hover {
+	box-shadow: 0 5px 0 var(--color-blue-dark);
+}
+
+.boxSoalan.selected:active,
+.boxJawapan.selected:active,
+.btnAns.selected:active {
+	box-shadow: 0 1px 0 var(--color-blue-dark);
+}
+
+/* ============ selected =============== */
+
+/* ============ wrong =============== */
+
+.boxSoalan.wrong,
+.boxJawapan.wrong,
+.btnAns.wrong {
+	background: var(--color-red);
+	border: 4px solid var(--color-red-dark);
+	box-shadow: 0 6px 0 var(--color-red-dark), inset 0 1px 0 var(--color-red-dark);
+	color: var(--color-red-soft);
+}
+
+.boxSoalan.wrong:hover,
+.boxJawapan.wrong:hover,
+.btnAns.wrong:hover {
+	box-shadow: 0 5px 0 var(--color-red-dark);
+}
+
+.boxSoalan.wrong:active,
+.boxJawapan.wrong:active,
+.btnAns.wrong:active {
+	box-shadow: 0 1px 0 var(--color-red-dark);
+}
+
+/* ============ wrong =============== */
+
+/* ============ matched =============== */
+
+.boxSoalan.matched,
+.boxJawapan.matched,
+.btnAns.matched {
+	background: var(--color-primary);
+	border: 4px solid var(--color-primary-dark);
+	box-shadow: 0 6px 0 var(--color-primary-dark), inset 0 1px 0 var(--color-primary-dark);
+	color: var(--color-primary-soft);
+}
+
+.boxSoalan.matched:hover,
+.boxJawapan.matched:hover,
+.btnAns.matched:hover {
+	box-shadow: 0 5px 0 var(--color-primary-dark);
+}
+
+.boxSoalan.matched:active,
+.boxJawapan.matched:active,
+.btnAns.matched:active {
+	box-shadow: 0 1px 0 var(--color-primary-dark);
+}
+
+/* ============ matched =============== */
+
+.betul {
+	background-color: #58CC02;
+	border: 4px solid #58CC02;
+	box-shadow: 0 6px 0 #58CC02, inset 0 1px 0 #58CC02;
+}
+
+.salah {
+	background-color: #FF4B4B !important;
+	border: 4px solid #FF4B4B !important;
+	box-shadow: 0 6px 0 #FF4B4B, inset 0 1px 0 #FF4B4B !important;
+}
+
+.textBetul {
+	color: #58CC02;
+}
+
+.textSalah {
+	color: #FF4B4B;
+}
+
+.soft-salah {
+	background-color: rgba(255, 152, 152, 0.396);
+}
+
+.soft-betul {
+	background-color: #befa91;
+}
+
+
+
+.salah:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #FF4B4B !important;
+}
+
+.salah:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #FF4B4B !important;
+}
+
+.betul:hover {
+	transform: translateY(1px);
+	box-shadow: 0 5px 0 #58CC02;
+}
+
+.betul:active {
+	transform: translateY(5px);
+	box-shadow: 0 1px 0 #58CC02;
+}
+
+.pop {
+	visibility: 0;
+	background-color: rgb(255, 211, 130);
+	border: 2px solid orange;
+}
+
+
+.primary {
+	background-color: var(--color-primary-light);
+}
+
+.secondary {
+	background-color: var(--color-secondary-light);
+}
+
+
+.blue {
+	background-color: var(--color-blue-light);
+}
+
+.red {
+	background-color: var(--color-red-light);
+}
+
+.orange {
+	background-color: var(--color-orange-light);
+}
+
+.yellow {
+	background-color: var(--color-yellow-light);
+}
+
+.bulat {
+	border-radius: 50%;
+	border: 2px solid black;
+}

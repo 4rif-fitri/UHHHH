@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+
+	<style>
+		.whole-container {
+			width: 100%;
+			height: 150px;
+			display: flex;
+			justify-content: center;
+			position: relative;
+			margin-bottom: 5rem;
+		}
+
+		.whole {
+			padding: 1rem;
+			max-width: 100%;
+			width: auto;
+			height: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			border-radius: 4px;
+			border: 3px dashed black;
+			background-color: var(--color-primary-light);
+		}
+
+
+		.double-arrow::before {
+			content: "";
+			position: absolute;
+			width: 125px;
+			rotate: 45deg;
+			height: 125px;
+			top: 175px;
+			border-top: 5px solid black;
+			border-left: 5px solid black;
+		}
+
+		.part-container {
+			min-width: 100%;
+			width: 100%;
+			height: 150px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 2rem;
+		}
+
+		.part-container>div:nth-child(1) {
+			background-color: var(--color-blue-light);
+		}
+
+		.part-container>div:nth-child(2) {
+			background-color: var(--color-orange-light);
+
+		}
+
+		.part1,
+		.part2 {
+			border: 3px dashed black;
+			background-color: lightgoldenrodyellow;
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+			flex-direction: column;
+			padding: 1rem;
+			border-radius: 4px;
+		}
+
+		.part1>div,
+		.part2>div,
+		.whole>div {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+		}
+
+		@media (max-width: 520px) {
+			.s {
+				background-color: lightblue;
+				scale: 0.9;
+			}
+
+			.part-container {
+				gap: 0.5rem;
+			}
+
+		}
+
+		/* Warna kumpulan dalam Whole dan Part */
+
+		.cube.part-one-cube {
+			background-color: #55a8f5;
+			border-color: #327ed6;
+		}
+
+		.cube.part-two-cube {
+			background-color: #ffc45c;
+			border-color: #e59a16;
+		}
+
+		/* Highlight sebelum bergerak */
+
+		.cube.part-highlight {
+			outline: 4px solid #22c55e;
+			outline-offset: 3px;
+
+			animation:
+				partPulse 0.7s ease infinite alternate;
+		}
+
+		.cube-target.target-active {
+			background-color: rgba(255, 255, 255, 0.7);
+			border: 3px dashed #22c55e;
+
+			transform: scale(1.08);
+		}
+
+		/* Clone yang bergerak */
+
+		.flying-part-cube {
+			position: fixed !important;
+			z-index: 9999;
+
+			margin: 0 !important;
+			pointer-events: none;
+
+			will-change: transform;
+		}
+
+		/* Animasi selepas sampai */
+
+		.cube.part-arrived {
+			animation: partArrived 0.4s ease;
+		}
+
+		@keyframes partPulse {
+			from {
+				transform: scale(1);
+			}
+
+			to {
+				transform: scale(1.12);
+			}
+		}
+
+		@keyframes partArrived {
+			0% {
+				transform: scale(0.6);
+			}
+
+			70% {
+				transform: scale(1.18);
+			}
+
+			100% {
+				transform: scale(1);
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+					<div class="output">
+
+						<div class="whole-container">
+
+							<div class="whole double-arrow">
+								<h2>Whole</h2>
+								<div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+									<div class="cube-target s">
+										<div class="cube s"></div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="part-container">
+
+							<div class="part1">
+								<div>
+									<div class="cube-target s"></div>
+									<div class="cube-target s"></div>
+									<div class="cube-target s"></div>
+								</div>
+								<h2>Part</h2>
+							</div>
+
+							<div class="part2">
+								<div>
+									<div class="cube-target s"></div>
+									<div class="cube-target s"></div>
+									<div class="cube-target s"></div>
+								</div>
+								<h2>Part</h2>
+							</div>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		// import { json } from "../../src/js/data/lessonDataGabungPartWhole.js"
+		// import { runComponents } from "../../src/js/core/componentRunner.js"
+		// runComponents(json)
+
+
+	</script>
+
+	<script type="module">
+		const whole =
+			document.querySelector(".whole");
+
+		const part1 =
+			document.querySelector(".part1");
+
+		const part2 =
+			document.querySelector(".part2");
+
+		const part1Row =
+			part1.querySelector("div");
+
+		const part2Row =
+			part2.querySelector("div");
+
+		const btnNext =
+			document.querySelector(".btnNext");
+
+		const btnBack =
+			document.querySelector(".btnBack");
+
+		const dialog =
+			document.querySelector(".dialog p");
+
+		const textBar =
+			document.querySelector(".text-bar");
+
+		const barFill =
+			document.querySelector(".barFill");
+
+		const originalWholeHTML =
+			whole.innerHTML;
+
+		const originalPart1HTML =
+			part1Row.innerHTML;
+
+		const originalPart2HTML =
+			part2Row.innerHTML;
+
+		const part1Total = 3;
+		const part2Total = 3;
+		const wholeTotal =
+			part1Total + part2Total;
+
+		let stepIndex = 0;
+		let isAnimating = false;
+
+		const activeAnimations = new Set();
+		const flyingCubes = new Set();
+
+		const steps = [
+			{
+				text:
+					`Ini ialah satu Whole yang mempunyai ${wholeTotal} Lego.`
+			},
+			{
+				text:
+					`Whole ini mempunyai ${part1Total} Lego biru dan ${part2Total} Lego oren.`
+			},
+			{
+				text:
+					`Mari pecahkan Whole kepada dua bahagian.`
+			},
+			{
+				text:
+					`${wholeTotal} telah dipecahkan kepada Part ${part1Total} dan Part ${part2Total}.`
+			}
+		];
+
+		function getElements() {
+			const wholeRow =
+				whole.querySelector("div");
+
+			return {
+				wholeRow,
+
+				wholeCubes: [
+					...wholeRow.querySelectorAll(
+						".cube"
+					)
+				],
+
+				part1Targets: [
+					...part1Row.querySelectorAll(
+						".cube-target"
+					)
+				],
+
+				part2Targets: [
+					...part2Row.querySelectorAll(
+						".cube-target"
+					)
+				]
+			};
+		}
+
+		function addCubeColours(elements) {
+			elements.wholeCubes.forEach(
+				(cube, index) => {
+					if (index < part1Total) {
+						cube.classList.add(
+							"part-one-cube"
+						);
+					} else {
+						cube.classList.add(
+							"part-two-cube"
+						);
+					}
+				}
+			);
+		}
+
+		function highlightParts(elements) {
+			elements.wholeCubes.forEach(cube => {
+				cube.classList.add(
+					"part-highlight"
+				);
+			});
+
+			[
+				...elements.part1Targets,
+				...elements.part2Targets
+			].forEach(target => {
+				target.classList.add(
+					"target-active"
+				);
+			});
+		}
+
+		function getDistance(source, target) {
+			const sourceRect =
+				source.getBoundingClientRect();
+
+			const targetRect =
+				target.getBoundingClientRect();
+
+			return {
+				sourceRect,
+
+				x:
+					targetRect.left +
+					targetRect.width / 2 -
+					(
+						sourceRect.left +
+						sourceRect.width / 2
+					),
+
+				y:
+					targetRect.top +
+					targetRect.height / 2 -
+					(
+						sourceRect.top +
+						sourceRect.height / 2
+					)
+			};
+		}
+
+		function moveCube(
+			source,
+			target,
+			delay = 0
+		) {
+			return new Promise(resolve => {
+				const {
+					sourceRect,
+					x,
+					y
+				} = getDistance(
+					source,
+					target
+				);
+
+				const clone =
+					source.cloneNode(true);
+
+				clone.classList.remove(
+					"part-highlight"
+				);
+
+				clone.classList.add(
+					"flying-part-cube"
+				);
+
+				Object.assign(clone.style, {
+					left: `${sourceRect.left}px`,
+					top: `${sourceRect.top}px`,
+					width: `${sourceRect.width}px`,
+					height: `${sourceRect.height}px`
+				});
+
+				document.body.appendChild(clone);
+
+				flyingCubes.add(clone);
+
+				source.style.visibility = "hidden";
+
+				target.classList.add(
+					"target-active"
+				);
+
+				const animation = clone.animate(
+					[
+						{
+							transform:
+								"translate3d(0, 0, 0) scale(1)"
+						},
+						{
+							transform: `
+								translate3d(
+									${x * 0.5}px,
+									${(y * 0.5) - 35}px,
+									0
+								)
+								scale(1.12)
+							`
+						},
+						{
+							transform: `
+								translate3d(
+									${x}px,
+									${y}px,
+									0
+								)
+								scale(1)
+							`
+						}
+					],
+					{
+						duration: 800,
+						delay,
+						easing:
+							"cubic-bezier(0.22, 1, 0.36, 1)",
+						fill: "forwards"
+					}
+				);
+
+				activeAnimations.add(animation);
+
+				function finishAnimation() {
+					activeAnimations.delete(animation);
+					flyingCubes.delete(clone);
+
+					target.classList.remove(
+						"target-active"
+					);
+
+					source.classList.remove(
+						"part-highlight"
+					);
+
+					source.classList.add(
+						"part-arrived"
+					);
+
+					target.appendChild(source);
+
+					source.style.visibility = "";
+
+					clone.remove();
+					resolve();
+				}
+
+				animation.onfinish =
+					finishAnimation;
+
+				animation.oncancel = () => {
+					flyingCubes.delete(clone);
+					clone.remove();
+					resolve();
+				};
+			});
+		}
+
+		async function splitWhole() {
+			isAnimating = true;
+
+			btnNext.disabled = true;
+			btnBack.disabled = true;
+
+			const elements = getElements();
+
+			const part1Cubes =
+				elements.wholeCubes.slice(
+					0,
+					part1Total
+				);
+
+			const part2Cubes =
+				elements.wholeCubes.slice(
+					part1Total
+				);
+
+			/*
+				Biru bergerak ke Part 1.
+			*/
+
+			for (
+				let index = 0;
+				index < part1Cubes.length;
+				index++
+			) {
+				await moveCube(
+					part1Cubes[index],
+					elements.part1Targets[index]
+				);
+			}
+
+			/*
+				Oren bergerak ke Part 2.
+			*/
+
+			for (
+				let index = 0;
+				index < part2Cubes.length;
+				index++
+			) {
+				await moveCube(
+					part2Cubes[index],
+					elements.part2Targets[index]
+				);
+			}
+
+			isAnimating = false;
+
+			btnNext.disabled = false;
+			btnBack.disabled = false;
+		}
+
+		function placeCubesInstantly() {
+			const elements = getElements();
+
+			const part1Cubes =
+				elements.wholeCubes.slice(
+					0,
+					part1Total
+				);
+
+			const part2Cubes =
+				elements.wholeCubes.slice(
+					part1Total
+				);
+
+			part1Cubes.forEach((cube, index) => {
+				cube.classList.add(
+					"part-one-cube"
+				);
+
+				elements.part1Targets[index]
+					.appendChild(cube);
+			});
+
+			part2Cubes.forEach((cube, index) => {
+				cube.classList.add(
+					"part-two-cube"
+				);
+
+				elements.part2Targets[index]
+					.appendChild(cube);
+			});
+		}
+
+		function resetLayout() {
+			activeAnimations.forEach(animation => {
+				animation.cancel();
+			});
+
+			activeAnimations.clear();
+
+			flyingCubes.forEach(cube => {
+				cube.remove();
+			});
+
+			flyingCubes.clear();
+
+			whole.innerHTML =
+				originalWholeHTML;
+
+			part1Row.innerHTML =
+				originalPart1HTML;
+
+			part2Row.innerHTML =
+				originalPart2HTML;
+
+			isAnimating = false;
+		}
+
+		function updateProgress() {
+			const current = stepIndex + 1;
+			const total = steps.length;
+
+			textBar.textContent =
+				`${current}/${total} Slides`;
+
+			barFill.style.width =
+				`${(current / total) * 100}%`;
+		}
+
+		function updateButtons() {
+			btnBack.disabled =
+				stepIndex === 0;
+
+			btnNext.textContent =
+				stepIndex === steps.length - 1
+					? "FINISH"
+					: "NEXT";
+		}
+
+		async function showStep({
+			playAnimation = false
+		} = {}) {
+			resetLayout();
+
+			const elements = getElements();
+
+			addCubeColours(elements);
+
+			dialog.textContent =
+				steps[stepIndex].text;
+
+			if (stepIndex === 1) {
+				highlightParts(elements);
+			}
+
+			if (stepIndex >= 2) {
+				if (playAnimation) {
+					highlightParts(elements);
+					await splitWhole();
+				} else {
+					placeCubesInstantly();
+				}
+			}
+
+			updateProgress();
+			updateButtons();
+		}
+
+		async function handleNext() {
+			if (isAnimating) return;
+
+			if (stepIndex < steps.length - 1) {
+				stepIndex++;
+
+				await showStep({
+					playAnimation:
+						stepIndex === 2
+				});
+
+				return;
+			}
+
+			dialog.textContent =
+				"Syabas! Whole telah berjaya dipecahkan.";
+		}
+
+		function handleBack() {
+			if (
+				isAnimating ||
+				stepIndex === 0
+			) {
+				return;
+			}
+
+			stepIndex--;
+			showStep();
+		}
+
+		btnNext.addEventListener(
+			"click",
+			handleNext
+		);
+
+		btnBack.addEventListener(
+			"click",
+			handleBack
+		);
+
+		showStep();
+	</script>
+
+</body>
+
+</html>

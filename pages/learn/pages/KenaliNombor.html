@@ -5,93 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
-	<link rel="stylesheet" href="../../../src/style/game.css">
-	<link rel="stylesheet" href="../../../src/style/lesson.css">
-	<link rel="stylesheet" href="../../../src/style/quiz.css">
-	<link rel="stylesheet" href="../../../src/style/layoutContent.css">
-	<link rel="stylesheet" href="../../../src/style/cube.css">
-
-	<style>
-		.cubes-container {
-			justify-content: center;
-			display: grid;
-			gap: 2rem;
-			grid-template-columns: repeat(5, 1fr);
-		}
-
-		.cubes-container .cube {
-			rotate: -90deg;
-			scale: 1.25;
-		}
-
-		.textHuruf {
-			border-top: 5px dashed black;
-			border-bottom: 5px dashed black;
-			margin-top: 2rem;
-			display: flex;
-			width: 50%;
-			justify-content: center;
-			align-items: center;
-			gap: 1.5rem;
-		}
-
-		.textHuruf>h1 {
-			font-size: 10rem;
-		}
-
-		.textHuruf article {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-		}
-
-		.textHuruf article h2 {
-			font-size: 2.5rem;
-		}
-
-		.count {
-			rotate: 90deg;
-			position: absolute;
-			top: 50%;
-			left: 50%;
-			background-color: #fff;
-			width: 30px;
-			height: 30px;
-			transform: translate(-50%, 50%);
-			border-radius: 50%;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			pointer-events: none;
-		}
-
-		.cube:hover {
-			cursor: unset;
-		}
-
-		@media (max-width: 520px) {
-			.cubes-container {
-				grid-template-columns: repeat(3, 1fr);
-			}
-
-			.cubes-container {
-				gap: 1rem;
-			}
-
-			.cubes-container .cube {
-				rotate: -90deg;
-				scale: 1;
-			}
-
-			.textHuruf>h1 {
-				font-size: 6rem;
-			}
-
-			.textHuruf article h2 {
-				font-size: 1.5rem;
-			}
-		}
-	</style>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+	<!-- <link rel="stylesheet" href="../../src/stylee/components/ChoiseQuiz.css"> -->
 </head>
 
 <body>
@@ -101,7 +16,7 @@
 			<header>
 
 				<div>
-					<a href="./index.html">
+					<a href="../index.html">
 						<p class="x">x</p>
 					</a>
 					<div class="barContainer">
@@ -135,9 +50,9 @@
 					<h2 class="hidden">BETUL</h2>
 					<p class="hidden textFooter"></p>
 				</div>
-				<div class="btnContainer">
+				<div class="btnContainer grid-2">
 					<button class="btnContinue soft-box hidden">CONTINUE</button>
-					<button class="btnCheck soft-box">CHECK</button>
+					<button class="btnCheck soft-box ">CHECK</button>
 					<button class="btnBack soft-box hidden">BACK</button>
 					<button class="btnNext soft-box hidden">NEXT</button>
 				</div>
@@ -146,9 +61,149 @@
 	</div>
 
 	<script type="module">
+		export const json = [
+			{
+				text: "Ini ialah nombor Satu",
+				type: "KenaliNombor",
 
-		import { json } from "../../../src/js/data/lessonDataKenaliNombor.js"
-		import { runComponents } from "../../../../src/js/core/componentRunner.js"
+				content: {
+					number: 1,
+
+					numberName: {
+						malay: "SATU",
+						english: "ONE"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Dua",
+				type: "KenaliNombor",
+
+				content: {
+					number: 2,
+
+					numberName: {
+						malay: "DUA",
+						english: "TWO"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Tiga",
+				type: "KenaliNombor",
+
+				content: {
+					number: 3,
+
+					numberName: {
+						malay: "TIGA",
+						english: "THREE"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Empat",
+				type: "KenaliNombor",
+
+				content: {
+					number: 4,
+
+					numberName: {
+						malay: "EMPAT",
+						english: "FOUR"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Lima",
+				type: "KenaliNombor",
+
+				content: {
+					number: 5,
+
+					numberName: {
+						malay: "LIMA",
+						english: "FIVE"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Enam",
+				type: "KenaliNombor",
+
+				content: {
+					number: 6,
+
+					numberName: {
+						malay: "ENAM",
+						english: "SIX"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Tujuh",
+				type: "KenaliNombor",
+
+				content: {
+					number: 7,
+
+					numberName: {
+						malay: "TUJUH",
+						english: "SEVEN"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Lapan",
+				type: "KenaliNombor",
+
+				content: {
+					number: 8,
+
+					numberName: {
+						malay: "LAPAN",
+						english: "EIGHT "
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Sembilan",
+				type: "KenaliNombor",
+
+				content: {
+					number: 9,
+
+					numberName: {
+						malay: "SEMBILAN",
+						english: "NINE"
+					},
+
+				}
+			},
+			{
+				text: "Ini ialah nombor Sepuluh",
+				type: "KenaliNombor",
+
+				content: {
+					number: 10,
+
+					numberName: {
+						malay: "SEPULUH",
+						english: "TEN"
+					},
+
+				}
+			}
+		];
+		import { runComponents } from "/src/js/core/componentRunner.js"
 		runComponents(json)
 	</script>
 

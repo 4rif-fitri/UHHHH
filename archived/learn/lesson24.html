@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+
+	<!-- <link rel="stylesheet" href="../../src/style/game.css">
+	<link rel="stylesheet" href="../../src/style/lesson.css">
+	<link rel="stylesheet" href="../../src/style/cube.css">
+	<link rel="stylesheet" href="../../src/style/layoutContent.css"> -->
+	<style>
+		.tambah-drag-lego {
+			width: 100%;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1.5rem;
+		}
+
+		.drag-instruction {
+			margin: 0;
+
+			color: #16803b;
+			font-size: 1.1rem;
+			font-weight: bold;
+		}
+
+		.addition-frame {
+			min-width: 350px;
+			min-height: 90px;
+
+			padding: 1rem;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-wrap: wrap;
+
+
+
+			background: #f8fafc;
+			border: 3px solid #e5e7eb;
+			border-radius: 14px;
+		}
+
+		.addition-slot {
+			width: 65px;
+			height: 65px;
+
+			display: grid;
+			place-items: center;
+
+			border: 3px dashed transparent;
+			border-radius: 9px;
+
+			transition: 0.25s ease;
+		}
+
+		.add-target {
+			background: #f0fdf4;
+			border-color: #22c55e;
+		}
+
+		.add-target.drop-active {
+			background: #dcfce7;
+			border-color: #16a34a;
+
+			transform: scale(1.12);
+		}
+
+		.start-cube {
+			width: 100%;
+			height: 100%;
+
+			background: #55a8f5;
+			border: 4px solid #327ed6;
+			border-radius: 10px;
+
+			box-shadow:
+				0 5px 0 #2563a7,
+				inset 0 3px 0 rgba(255, 255, 255, 0.25);
+		}
+
+		.extra-area {
+			text-align: center;
+		}
+
+		.extra-cubes {
+			min-height: 75px;
+
+			display: flex;
+			justify-content: center;
+			gap: 0.75rem;
+		}
+
+		.extra-cube,
+		.added-cube,
+		.dragging-cube {
+			width: 65px;
+			height: 65px;
+
+			background: #72ce3b;
+			border: 4px solid #45a61c;
+			border-radius: 10px;
+
+			box-shadow:
+				0 5px 0 #378716,
+				inset 0 3px 0 rgba(255, 255, 255, 0.25);
+		}
+
+		.extra-cube {
+			cursor: grab;
+
+			touch-action: none;
+			user-select: none;
+		}
+
+		.extra-cube:active {
+			cursor: grabbing;
+		}
+
+		.dragging-cube {
+			opacity: 0.9;
+
+			transform: scale(1.08);
+			will-change: left, top;
+		}
+
+		.addition-equation {
+			display: grid;
+
+			grid-template-columns:
+				75px 40px 75px 40px 75px;
+
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+		.addition-equation>h1 {
+			text-align: center;
+		}
+
+		.number-box {
+			width: 75px;
+			height: 75px;
+
+			display: grid;
+			place-items: center;
+
+			border: 4px solid;
+			border-radius: 10px;
+
+			font-size: 2rem;
+			font-weight: bold;
+		}
+
+		.start-box {
+			color: #166534;
+			background: #dcfce7;
+			border-color: #22c55e;
+		}
+
+		.add-box {
+			color: #b91c1c;
+			background: #fee2e2;
+			border-color: #ef4444;
+		}
+
+		.answer-box {
+			color: #173b72;
+			background: #f8fafc;
+			border-color: #64748b;
+		}
+
+		.answer-section {
+			width: 100%;
+			text-align: center;
+		}
+
+		.answer-section .options {
+			width: 100%;
+
+			display: grid;
+			grid-template-columns:
+				repeat(auto-fit,
+					minmax(100px, 1fr));
+
+			gap: 1rem;
+		}
+
+		.btnAns.selected {
+			color: #0b2f68;
+			background: #dbeafe;
+			border-color: #3b82f6;
+		}
+
+		.btnAns.wrong {
+			color: #991b1b;
+			background: #fee2e2;
+			border-color: #ef4444;
+		}
+
+		.btnAns.matched {
+			color: #166534;
+			background: #dcfce7;
+			border-color: #22c55e;
+		}
+
+		@media (max-width: 520px) {
+			.addition-frame {
+				min-width: max-content;
+			}
+
+			.addition-slot,
+			.extra-cube,
+			.added-cube,
+			.dragging-cube {
+				width: 48px;
+				height: 48px;
+			}
+
+
+			.number-box {
+				width: 52px;
+				height: 52px;
+			}
+		}
+
+		.label-container {
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			gap: 5rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+					<div class="output">
+
+						<div class="tambah-drag-lego">
+
+							<div class="label-container">
+								<h2>Whole: 6</h2>
+							</div>
+
+							<div class="addition-frame flex">
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+							</div>
+
+							<div class="label-container">
+								<h2>Part: 3</h2>
+								<h2>Part: 3</h2>
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		// import { json } from "../../src/js/data/lessonDataGabungPartWhole.js"
+		// import { runComponents } from "../../src/js/core/componentRunner.js"
+		// runComponents(json)
+
+
+	</script>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+.box {
+	height: 50px;
+	aspect-ratio: 1 / 1;
+	border: 2px solid blue;
+	background-color: lightskyblue;
+	border-radius: 4px;
+}
+
+.pop {
+	visibility: 0;
+	background-color: rgb(255, 211, 130);
+	border: 2px solid orange;
+}
+
+
+.primary {
+	background-color: var(--color-primary-light);
+}
+
+.secondary {
+	background-color: var(--color-secondary-light);
+}
+
+
+.blue {
+	background-color: var(--color-blue-light);
+}
+
+.red {
+	background-color: var(--color-red-light);
+}
+
+.orange {
+	background-color: var(--color-orange-light);
+}
+
+.yellow {
+	background-color: var(--color-yellow-light);
+}
+
+.bulat {
+	border-radius: 50%;
+	border: 2px solid black;
+}

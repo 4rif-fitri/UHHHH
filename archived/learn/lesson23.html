@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+
+	<style>
+		.soalan-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		.soalan-container h1 {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 70px;
+			width: 70px;
+		}
+
+		.soalan-container>div>h1 {
+			border-radius: 14px;
+		}
+
+		.soalan-num1 {
+			border-radius: 14px;
+			background-color: var(--color-primary-light);
+		}
+
+		.soalan-num2 {
+			border-radius: 14px;
+			background-color: var(--color-blue-light);
+		}
+
+		.cubee-container {
+			display: flex;
+			gap: 5rem;
+		}
+
+		.cubee-container-left,
+		.cubee-container-right {
+			padding: 0.5rem;
+			border: 3px dashed black;
+			margin-top: 1rem;
+			display: grid;
+			grid-template-columns: repeat(5, 1fr);
+		}
+
+		.cubee-container-left .cube,
+		.cubee-container-right .cube {
+			width: 40px;
+			height: 40px;
+		}
+
+		.cubee-container-left .cube::before,
+		.cubee-container-right .cube::before {
+			width: 20px;
+			height: 20px;
+		}
+
+		.cubee-container-left .cube::after,
+		.cubee-container-right .cube::after {
+			width: 9px;
+			height: 20px;
+		}
+
+		.cubee-container-left .cube-target,
+		.cubee-container-right .cube-target {
+			width: 40px;
+			height: 40px;
+			border: unset;
+		}
+
+		@media (max-width: 520px) {
+
+			.cubee-container-left,
+			.cubee-container-right {
+				padding: 0.5rem;
+				border: 3px dashed black;
+				margin-top: 1rem;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+			}
+
+			.cubee-container-left .cube,
+			.cubee-container-right .cube {
+				width: 30px;
+				height: 30px;
+			}
+
+			.cubee-container-left .cube::before,
+			.cubee-container-right .cube::before {
+				width: 10px;
+				height: 10px;
+			}
+
+			.cubee-container-left .cube::after,
+			.cubee-container-right .cube::after {
+				width: 9px;
+				height: 20px;
+			}
+
+			.cubee-container {
+				display: flex;
+				gap: 0.5rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+					<div class="output">
+
+						<div class="soalan-container">
+							<div class="soalan-num1">
+								<h1>7</h1>
+							</div>
+							<h1>+</h1>
+							<div class="soalan-num2">
+								<h1>5</h1>
+							</div>
+						</div>
+
+						<div class="cubee-container">
+							<div class="cubee-container-left">
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube-target"></div>
+								<div class="cube-target"></div>
+								<div class="cube-target"></div>
+
+							</div>
+
+							<div class="cubee-container-right">
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+								<div class="cube"></div>
+							</div>
+						</div>
+
+						<br><br>
+
+						<div class="soalan-container col-5">
+							<div class="soalan-num1">
+								<h1>7</h1>
+							</div>
+							<h1>+</h1>
+							<div class="soalan-num2">
+								<h1>5</h1>
+							</div>
+							<h1>=</h1>
+							<div class="soalan-num2">
+								<h1>10</h1>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		// import { json } from "../../src/js/data/lessonDataGabungPartWhole.js"
+		// import { runComponents } from "../../src/js/core/componentRunner.js"
+		// runComponents(json)
+
+
+	</script>
+
+</body>
+
+</html>

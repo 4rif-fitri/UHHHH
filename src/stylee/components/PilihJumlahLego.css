@@ -1,0 +1,116 @@
+.pilih-jumlah-lego {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+}
+
+.visual-equation {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 3fr 1fr 3fr 1fr 1fr ;
+	align-items: end;
+	gap: 1rem;
+	place-items: center;
+}
+
+.visual-group {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+}
+
+.lego-row {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.pilih-cube {
+	width: 60px;
+	height: 60px;
+	position: relative;
+
+	background: #ce55e3;
+	border: 3px solid #b53bcc;
+	border-radius: 8px;
+
+	box-shadow:
+		inset 0 -6px 0 rgb(0 0 0 / 10%);
+}
+
+.pilih-cube::before {
+	content: "";
+
+	width: 28px;
+	height: 28px;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+
+	transform: translate(-50%, -50%);
+
+	background: #b946d0;
+	border-radius: 50%;
+
+	box-shadow:
+		inset 0 4px 3px rgb(0 0 0 / 12%);
+}
+
+.number-card {
+	width: 75px;
+	height: 75px;
+
+	display: grid;
+	place-items: center;
+
+	border: 4px solid #e53935;
+	border-radius: 8px;
+
+	background: #ffd6d6;
+
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.answer-box {
+	background: white;
+	border-color: #333;
+}
+
+.options {
+	width: min(500px, 100%);
+}
+
+@media (max-width: 600px) {
+	.visual-equation {
+		grid-template-columns:
+			minmax(80px, 1fr) auto minmax(80px, 1fr);
+
+		align-items: center;
+	}
+
+	.visual-equation>h1:nth-of-type(2),
+	.answer-box {
+		margin-top: 1rem;
+	}
+
+	.pilih-cube {
+		width: 42px;
+		height: 42px;
+	}
+
+	.pilih-cube::before {
+		width: 20px;
+		height: 20px;
+	}
+
+	.number-card {
+		width: 60px;
+		height: 60px;
+		font-size: 1.5rem;
+	}
+}

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="/src/stylee/lesson-app.css">
+
+	<style>
+		.ppw-wrapper {
+			--arrow-color: #249b46;
+
+			width: min(750px, 100%);
+			margin: auto;
+
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.ppw-whole,
+		.ppw-parts section {
+			text-align: center;
+		}
+
+		.ppw-whole h2,
+		.ppw-parts h2 {
+			margin: 0.5rem;
+			color: #0876cb;
+		}
+
+		.ppw-box {
+			min-width: 230px;
+			min-height: 120px;
+			padding: 1.5rem;
+
+			display: grid;
+			place-items: center;
+
+			background: #a8d8f7;
+			border: 3px solid #249b46;
+		}
+
+		.whole-box {
+			min-width: 430px;
+		}
+
+		.cube-row {
+			display: flex;
+			justify-content: center;
+			gap: 0.35rem;
+		}
+
+		.ppw-cube {
+			width: 62px;
+			height: 62px;
+			position: relative;
+
+			display: grid;
+			place-items: center;
+
+			border: 3px solid;
+			border-radius: 10px;
+			box-shadow: inset 0 -6px 0 rgb(0 0 0 / 10%);
+		}
+
+		.blue-cube {
+			background: #59b4f2;
+			border-color: #0876cb;
+		}
+
+		.red-cube {
+			background: #ffd0d0;
+			border-color: #ff3030;
+		}
+
+		.cube-circle {
+			width: 32px;
+			height: 32px;
+
+			border-radius: 50%;
+			background: rgb(0 0 0 / 7%);
+
+			box-shadow: inset 0 3px 3px rgb(0 0 0 / 12%);
+		}
+
+		/* Kawasan untuk dua anak panah */
+		.ppw-arrows {
+			width: 420px;
+			height: 170px;
+			position: relative;
+		}
+
+		/* Anak panah kiri */
+		.ppw-arrows::before {
+			content: "";
+
+			width: 185px;
+			height: 3px;
+
+			position: absolute;
+			top: 70px;
+			left: 35px;
+
+			background: var(--arrow-color);
+
+			transform: rotate(128deg);
+			transform-origin: right center;
+
+			clip-path: polygon(0 0,
+					88% 0,
+					88% -7px,
+					100% 50%,
+					88% calc(100% + 7px),
+					88% 100%,
+					0 100%);
+		}
+
+		/* Anak panah kanan */
+		.ppw-arrows::after {
+			content: "";
+
+			width: 185px;
+			height: 3px;
+
+			position: absolute;
+			top: 70px;
+			right: 35px;
+
+			background: var(--arrow-color);
+
+			transform: rotate(52deg);
+			transform-origin: left center;
+
+			clip-path: polygon(0 0,
+					88% 0,
+					88% -7px,
+					100% 50%,
+					88% calc(100% + 7px),
+					88% 100%,
+					0 100%);
+		}
+
+		.ppw-parts {
+			width: 100%;
+
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			gap: 3.5rem;
+		}
+
+		@media (max-width: 520px) {
+			.whole-box {
+				min-width: 290px;
+			}
+
+			.ppw-box {
+				min-width: 135px;
+				min-height: 90px;
+				padding: 0.75rem;
+			}
+
+			.ppw-cube {
+				width: 42px;
+				height: 42px;
+			}
+
+			.cube-circle {
+				width: 22px;
+				height: 22px;
+			}
+
+			.ppw-arrows {
+				width: 290px;
+				height: 120px;
+			}
+
+			.ppw-arrows::before,
+			.ppw-arrows::after {
+				width: 130px;
+				top: 50px;
+			}
+
+			.ppw-arrows::before {
+				left: 20px;
+			}
+
+			.ppw-arrows::after {
+				right: 20px;
+			}
+
+			.ppw-parts {
+				gap: 1rem;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<main>
+			<header>
+				<div>
+					<a href="./index.html">
+						<p class="x">x</p>
+					</a>
+					<div class="barContainer">
+						<p class="text-bar">1/10 Questions</p>
+						<div class="bar">
+							<div class="barFill"></div>
+						</div>
+					</div>
+				</div>
+
+			</header>
+
+			<section id="main">
+
+				<div class="dialogContainer">
+					<div class="icon"></div>
+					<div class="dialog">
+						<p></p>
+					</div>
+				</div>
+
+				<div class="contentContainer">
+
+
+				</div>
+
+			</section>
+
+			<footer>
+				<div class="textContainer textBetul">
+					<h2 class="hidden">BETUL</h2>
+					<p class="hidden textFooter"></p>
+				</div>
+				<div class="btnContainer grid-2">
+					<button class="btnContinue soft-box hidden">CONTINUE</button>
+					<button class="btnCheck soft-box hidden">CHECK</button>
+					<button class="btnBack soft-box">BACK</button>
+					<button class="btnNext soft-box">NEXT</button>
+				</div>
+			</footer>
+		</main>
+	</div>
+
+	<script type="module">
+		import { json } from "../../src/js/data/lessonDataPartPartWholeVisual.js"
+		import { runComponents } from "../../src/js/core/componentRunner.js"
+		runComponents(json)
+	</script>
+
+</body>
+
+</html>
